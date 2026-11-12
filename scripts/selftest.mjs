@@ -22,6 +22,11 @@ try {
   // size guard: the core skill must stay small (heavy engines and upstream docs are fetched on demand, never bundled)
   let total = 0, biggest = { n: '', s: 0 }; (function walk(d) { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const p = path.join(d, e.name); if (e.isDirectory()) walk(p); else { const s = fs.statSync(p).size; total += s; if (s > biggest.s) biggest = { n: path.relative(root, p), s }; } } })(root);
   ok('size: core skill stays small (< 4 MB total, no file > 1 MB)', total < 4 * 1048576 && biggest.s < 1048576, `${(total / 1048576).toFixed(2)} MB, largest ${biggest.n} ${(biggest.s / 1024) | 0} KB`);
+  // style chooser: tables are sane (ids exist, first pick ready, >=2 ready per situation) and sample topics get the expected suggestion
+  r = sh('node', [script('styles.mjs'), 'validate']); ok('styles: situation table valid, ready styles first', r.status === 0, r.stdout.trim().split(String.fromCharCode(10)).pop());
+  const topics = JSON.parse(fs.readFileSync(path.join(root, 'examples/recommend-topics.json'), 'utf8')); const miss = [];
+  for (const t of topics) { const o = JSON.parse(sh('node', [script('styles.mjs'), 'recommend', t.topic, '--json']).stdout || '{}'); if (o.pick !== t.pick || (t.alt && o.alternative !== t.alt)) miss.push(t.topic + ' -> ' + o.pick + '/' + o.alternative); }
+  ok('styles: sample topics get the expected suggestion', !miss.length, miss.length ? miss.join('; ') : topics.length + ' topics');
   // footage editor on a synthetic clip: tone bursts with silences, plain test pattern video
   r = sh('ffmpeg', ['-y', '-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i', 'testsrc2=s=1280x720:r=30:d=14', '-f', 'lavfi', '-i', "aevalsrc='sin(2*PI*330*t)*(lt(mod(t,4.5),2.6))':s=44100:d=14", '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-shortest', 'clip.mp4']);
   r = sh('node', [script('edit.mjs'), 'plan', 'talking', 'clip.mp4', '--noise', '-40dB']); const e = fs.existsSync(path.join(tmp, 'edit/edit.json')) ? JSON.parse(fs.readFileSync(path.join(tmp, 'edit/edit.json'), 'utf8')) : null;

@@ -16,7 +16,7 @@ Before first use in a new environment run `node scripts/selftest.mjs` (offline, 
 
 ## STEP 0 - Offer styles first (always, unless the user already named one)
 When asked to make a reel, do this BEFORE planning, scripting or coding:
-1. **Match the situation.** Read `references/style-menu.md` (20 situations, each with 4 picks and why). Pick the closest 1-2 situations to the topic.
+1. **Match the situation.** Run `node scripts/styles.mjs recommend "<topic>"` for a first suggestion (best READY style + one alternative from the runner-up situation; keyword rules, you still judge), and read `references/style-menu.md` (20 situations; every pick is marked [ready] or [recipe] and has a tone). Offer READY styles first; a [recipe] only as a clearly labelled stretch. If the top two differ in tone (serious/playful/calm/dramatic) ask that in the same question. If two choices are close, offer `node scripts/styles.mjs preview <id> <id>` (one still of the user's real script in each style, side by side) before they commit.
 2. **Ask once** (use the question tool if available, else one chat message): "For this reel I'd suggest:" the recommended style first (mark it), then 2-3 alternatives,
    each as `name - why it fits - effort/caveat`. Always add two escape options: "show me more situations" and "browse all 271" (`node scripts/styles.mjs list|search <kw>`).
    Keep it to ONE question; do not also ask about voice, length or music yet.

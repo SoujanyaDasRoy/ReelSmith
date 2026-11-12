@@ -16,7 +16,7 @@ Works with **Claude Code**, **Antigravity**, **Codex**, **Cursor**, and any agen
 |---|---|
 | **Voice-over** | Hindi (Hinglish captions) or English (US, UK, Australian, Indian accents). 14+ English presets plus Hindi presets, via free Edge TTS. A picker lets you hear and choose. |
 | **271 visual styles** | Clean UI cards, hand-drawn looks, art-history looks, cinematic film looks (paper lantern, ink wash, shadow puppets, spy titles, ASCII/CRT, art deco, engraving...), explainer collages, math animation. 52 are ready to render today. The rest are recipes the agent builds. |
-| **Style offer first** | Before anything is built, the agent shows styles that fit your topic and asks you to pick. You can also ask it to render a contact sheet of many styles. |
+| **Style recommender** | Before anything is built, the agent suggests a style that fits your topic and tone (ready-to-render styles first, labelled), offers one alternative, and can show a one-frame preview of your own script in each option side by side. |
 | **Music composer** | Writes original music in 8 moods (curious tech, deadpan comedy, warm devotional, festive, tense, calm lo-fi, epic build, sad reflective). Beats line up with scene cuts. No stock-music licensing. |
 | **Real sound effects** | Searches open-licence sounds (CC0 / public domain by default) and places them at cue points. It asks before any download and keeps a credits file. |
 | **Audio mix** | Voice ducks the music. Loudness is set to about -14 LUFS with a safe true-peak. |
@@ -89,7 +89,7 @@ Then tell the agent:
 ```bash
 node reelsmith/scripts/selftest.mjs
 ```
-All 17 checks should pass (exit code 0). If one fails, the problem is the install or ffmpeg, not your reel. Use your real folder path if you cloned somewhere else.
+All 19 checks should pass (exit code 0). If one fails, the problem is the install or ffmpeg, not your reel. Use your real folder path if you cloned somewhere else.
 
 ### Update
 ```bash
@@ -124,6 +124,8 @@ Preview a few frames of a style: `INDEX=<style file> node render.mjs stills 2,10
 | Command | Purpose |
 |---|---|
 | `node scripts/styles.mjs menu` | Styles grouped by situation |
+| `node scripts/styles.mjs recommend "your topic"` | Best ready style plus one alternative |
+| `node scripts/styles.mjs preview own/system-diagram lemo/spy-titles` | Side-by-side still of your script in each style (run inside a project) |
 | `node scripts/styles.mjs search blueprint` | Find a style by keyword |
 | `node scripts/voices.mjs list` | List voice presets |
 | `node scripts/voices.mjs sample all` | Write audio samples to listen to |

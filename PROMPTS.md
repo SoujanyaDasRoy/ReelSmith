@@ -64,4 +64,4 @@ Use reelsmith's sound-effects workflow (references/sound-effects.md) on the reel
 ## Tips
 - Pick language and style once, then keep them for the series.
 - If the agent skips a gate, reply: "Stop. Go back to Gate N; do not continue until I answer."
-- The first run in a new workspace: `node reelsmith/scripts/selftest.mjs` (must say 17/17).
+- The first run in a new workspace: `node reelsmith/scripts/selftest.mjs` (must say 19/19).

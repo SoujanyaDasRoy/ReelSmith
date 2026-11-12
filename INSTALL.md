@@ -16,7 +16,7 @@ The folder is a plain `SKILL.md` skill (frontmatter + markdown) with scripts, so
 ```
 node reelsmith/scripts/selftest.mjs
 ```
-17 checks (voice timings, data build, music, mix loudness, QA gate, footage editor, logo placement, sound-effect guard and placement) must pass; exit code 0. If it fails, the install or ffmpeg is the problem, not your reel. `node reelsmith/scripts/engines.mjs doctor` lists what else (Python, uv, Chrome) the optional engines need.
+19 checks (voice timings, data build, music, mix loudness, QA gate, footage editor, logo placement, sound-effect guard and placement) must pass; exit code 0. If it fails, the install or ffmpeg is the problem, not your reel. `node reelsmith/scripts/engines.mjs doctor` lists what else (Python, uv, Chrome) the optional engines need.
 
 ## Start a project
 ```

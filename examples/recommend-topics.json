@@ -1,0 +1,35 @@
+[
+ {
+  "topic": "system design mystery of an app",
+  "pick": "own/system-diagram",
+  "alt": "lemo/spy-titles"
+ },
+ {
+  "topic": "how UPI avoids double payment",
+  "pick": "own/system-diagram"
+ },
+ {
+  "topic": "Diwali story of Rama",
+  "pick": "lemo/paper-lantern"
+ },
+ {
+  "topic": "online scam on WhatsApp",
+  "pick": "lemo/spy-titles"
+ },
+ {
+  "topic": "funny cartoon for kids",
+  "pick": "own/clay-toy"
+ },
+ {
+  "topic": "how to use git tutorial",
+  "pick": "ui-cards/clean-ui"
+ },
+ {
+  "topic": "stock market crash explained",
+  "pick": "lemo/dataviz"
+ },
+ {
+  "topic": "museum painting heritage",
+  "pick": "lemo/ukiyoe"
+ }
+]
