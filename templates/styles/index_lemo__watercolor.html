@@ -1,0 +1,79 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Watercolor</title>
+<style>
+@font-face{font-family:CG;font-style:italic;font-weight:600;src:url(node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-600-italic.woff2)}
+@font-face{font-family:CG;font-style:normal;font-weight:600;src:url(node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-600-normal.woff2)}
+@font-face{font-family:CV;font-weight:600;src:url(node_modules/@fontsource/caveat/files/caveat-latin-600-normal.woff2)}
+@font-face{font-family:WM;font-weight:500;src:url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2)}
+:root{--ink:#3a2a1c;--paper:#F3E9D2}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--paper);font-family:CV,cursive;font-weight:600;color:var(--ink)}
+#paper{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 60%,rgba(120,90,50,.16))}
+#fibre{position:absolute;inset:0;mix-blend-mode:multiply;opacity:.55;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.018 .03' numOctaves='4' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .6 0 0 0 0 .5 0 0 0 0 .36 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E")}
+#grain{position:absolute;inset:0;mix-blend-mode:multiply;opacity:.32;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .44 0 0 0 0 .3 0 0 0 .8 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+.scene{position:absolute;inset:0;display:none}
+.blob{position:absolute;mix-blend-mode:multiply;filter:url(#wc)}
+.h0{position:absolute;left:70px;top:206px;font-family:WM;font-weight:500;font-size:22px;letter-spacing:.2em;text-transform:uppercase;color:#7b6a52}
+.h1{position:absolute;left:66px;top:244px;font-family:CG;font-style:italic;font-weight:600;font-size:126px;line-height:1;white-space:nowrap}
+.notes{position:absolute;left:70px;width:940px;top:520px;display:flex;flex-direction:column;gap:14px}
+.note{position:relative;align-self:flex-start;max-width:940px;padding:6px 30px 6px 62px;font-size:48px;line-height:1.05}
+.note:before{content:"";position:absolute;left:0;top:50%;width:46px;height:46px;margin-top:-23px;border-radius:52% 48% 55% 45% / 48% 56% 44% 52%;background:var(--sw,#cfc3a5);opacity:.9;mix-blend-mode:multiply;filter:url(#wc2)}
+.note.dim{opacity:.5}.note.strike .tx{text-decoration:line-through}
+.mt{display:flex;align-items:center;gap:16px;font-size:44px}.mt .bar{position:relative;width:400px;height:34px}.mt .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:18px 10px 16px 12px / 14px 18px 10px 18px;background:var(--sw,#9fb4c4);mix-blend-mode:multiply;filter:url(#wc2)}.mt .bar u{position:absolute;inset:0;border-bottom:2px solid rgba(58,42,28,.55);}
+.big{font-family:CG;font-style:italic;font-weight:600;font-size:150px;line-height:1}
+.lab{font-family:WM;font-weight:500;font-size:20px;letter-spacing:.18em;text-transform:uppercase;color:#7b6a52}
+#cap{position:absolute;left:60px;right:60px;top:1296px;text-align:center;font-size:58px;line-height:1.02}
+#cap em{font-style:normal;color:#C8442A;border-bottom:4px solid rgba(200,68,42,.55)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><filter id="wc" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".012" numOctaves="3" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="46" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2"/></filter><filter id="wc2" x="-20%" y="-30%" width="140%" height="160%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<div id="paper"></div><div id="stage"></div><div id="fibre"></div><div id="grain"></div><div id="cap"></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),capEl=document.getElementById('cap');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const rnd=i=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x);};
+const SETS=[['#d98c5f','#e9c87a','#9fb4c4'],['#8fb3a6','#c9d9a5','#e6c4a0'],['#9fb4c4','#c6a3b8','#e7d7a0'],['#d9a441','#a8b98a','#c8756a'],['#8aa6c8','#e0b69b','#b7c8a0'],['#c98a8a','#e6d09a','#9db8a8'],['#8fb08a','#d9b879','#a9bcd0'],['#b49ac6','#e3c58b','#98b8bd'],['#d99a6a','#a7b5c9','#cfc08f']];
+const SW={alert:'#C8442A',ok:'#8fa876',accent:'#d9a441',dim:'#9fb4c4',normal:'#cfc3a5'};
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+function build(sc,idx){
+ const s=SD[sc.id],root=mk('scene'),hues=SETS[idx%9];const blobs=[];
+ // washes: each blob is three passes at a third of the opacity, with jittered shapes, so edges pool darker where passes disagree
+ [[40,120,520,420,0],[520,170,560,380,1],[100,900,700,400,2],[560,820,520,420,0],[-60,520,420,360,1]].forEach(([x,y,w,h,c],k)=>{for(let pass=0;pass<3;pass++){const j=(a)=>(rnd(idx*31+k*7+pass*3+a)-.5);const b=mk('blob','',`left:${x+j(1)*60}px;top:${y+j(2)*50}px;width:${w+j(3)*70}px;height:${h+j(4)*60}px;border-radius:${50+j(5)*30}% ${50+j(6)*30}% ${50+j(7)*30}% ${50+j(8)*30}% / ${50+j(9)*30}% ${50+j(1)*30}% ${50+j(2)*30}% ${50+j(3)*30}%;background:radial-gradient(ellipse at ${40+j(4)*40}% ${40+j(5)*40}%,${hues[c]}cc,${hues[c]}55 70%,transparent 100%);opacity:.34`);root.appendChild(b);blobs.push(b);}});
+ root.appendChild(mk('h0',esc(s.head[0].replace(/,$/,''))));const h1=mk('h1',esc(s.head[1]));root.appendChild(h1);stage.appendChild(root);root.style.display='block';const w=h1.getBoundingClientRect().width;if(w>950)h1.style.fontSize=Math.floor(126*950/w)+'px';root.style.display='none';
+ const notes=mk('notes');root.appendChild(notes);const els=[];let ec=null,ecEl=null;
+ s.items.forEach(it=>{if(it.k==='endcard'){ec=it;return;}const e=mk('note');notes.appendChild(e);els.push({it,e});});
+ if(ec){ecEl=mk('',`<div class="big" style="font-size:190px">${esc(ec.lines[0])}</div><div style="font-size:54px;margin-top:10px">${esc(ec.lines[1])}</div><div class="lab" style="margin-top:12px">${esc(ec.lines[2])}</div>`,'position:absolute;left:70px;top:540px;display:none');root.appendChild(ecEl);}
+ return {root,blobs,h1,els,ec,ecEl,notes,h0:root.querySelector('.h0')};
+}
+const paintIn=(e,p)=>{const f=Math.max(0,p*130-18);e.style.webkitMaskImage=e.style.maskImage=`linear-gradient(90deg,#000 ${f}%,transparent ${Math.min(130,f+22)}%)`;};
+function update(b,sc,s,t){
+ const c=sc.cues,ls=t-sc.start;
+ b.blobs.forEach((e,i)=>{const p=EZ.out(P(ls,.05+Math.floor(i/3)*.14,.9+Math.floor(i/3)*.14));e.style.opacity=.34*p;e.style.transform=`scale(${.82+.18*p})`;});
+ paintIn(b.h0,EZ.io(P(ls,.15,.5)));paintIn(b.h1,EZ.io(P(ls,.25,1.0)));
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ if(b.ecEl){b.ecEl.style.display=endOn?'block':'none';paintIn(b.ecEl,EZ.io(P(t,AT(b.ec.at,c),AT(b.ec.at,c)+.9)));}
+ b.notes.style.display=endOn?'none':'flex';
+ b.els.forEach(({it,e})=>{
+  const x=RESOLVE(it,t,c);e.style.visibility=x.vis?'visible':'hidden';if(!x.vis)return;
+  const len=(x.text||it.text||it.label||'xxxxxxxx').length;paintIn(e,it.k==='val'||it.k==='meter'?EZ.io(P(t,x.ta,x.ta+.7)):EZ.io(P(t,x.ta,x.ta+Math.min(.8,.14+len*.02))));
+  e.className='note '+(x.tone==='dim'?'dim':'')+(x.flag==='strike'?' strike':'');e.style.setProperty('--sw',SW[x.tone]||SW.normal);
+  let h='';
+  if(it.k==='val'){h=`<div class="lab">${esc(it.label)}</div><div class="big">${esc(x.text)}</div>`;}
+  else if(it.k==='meter')h=`<div class="mt"><span style="width:250px">${esc(it.label.toLowerCase())}</span><div class="bar"><i style="width:${clamp(x.ratio)*100}%"></i><u></u></div><span>${esc(x.text)}</span></div>`;
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.045));h=`<span class="tx" style="font-family:WM;font-weight:500;font-size:34px">${esc(it.text.slice(0,n))}</span>`;}
+  else h=`<span class="tx">${esc(x.text||'')}</span>`;
+  e.innerHTML=h;
+ });
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id],ls=t-sc.start;
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t);
+ // the sheet is its own eraser: a paper-coloured mist washes the page away between scenes
+ b.root.style.opacity=Math.min(P(ls,0,.2),1-P(ls,sc.dur-.3,sc.dur));
+ const cap=CAP(t,T.scenes);
+ if(cap){capEl.style.display='block';capEl.innerHTML=esc(cap.text).replace(/\*([^*]+)\*/g,'<em>$1</em>');capEl.style.opacity=P(t,cap.t0,cap.t0+.2);}else capEl.style.display='none';
+};
+window.ready=Promise.all(['italic 600 40px CG','600 40px CV','500 40px WM'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach((sc,i)=>{built[sc.id]=build(sc,i);});});
+</script></body></html>

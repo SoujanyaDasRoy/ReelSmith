@@ -1,0 +1,83 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Crayon Book</title>
+<style>
+@font-face{font-family:GG;font-weight:700;src:url(node_modules/@fontsource/gaegu/files/gaegu-latin-700-normal.woff2)}
+@font-face{font-family:PH;src:url(node_modules/@fontsource/patrick-hand/files/patrick-hand-latin-400-normal.woff2)}
+:root{--line:#2c2f6b;--paper:#F4EFE3}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--paper);font-family:PH,cursive;color:var(--line)}
+#tooth{position:absolute;inset:0;mix-blend-mode:multiply;opacity:.7;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .4 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
+.scene{position:absolute;inset:0;display:none}
+.cr{filter:url(#crayon)}
+.wash{position:absolute;mix-blend-mode:multiply;filter:url(#resist);opacity:.5}
+.h0{position:absolute;left:70px;top:206px;font-family:GG;font-weight:700;font-size:50px;color:#d9453d}
+.h1{position:absolute;left:64px;top:252px;font-family:GG;font-weight:700;font-size:136px;line-height:1;white-space:nowrap;color:var(--line)}
+.items{position:absolute;left:60px;width:960px;top:500px;display:flex;flex-direction:column;gap:20px}
+.it{position:relative;align-self:flex-start;max-width:960px;padding:8px 30px 10px 26px;font-size:46px;line-height:1.06}
+.it svg{position:absolute;left:-10px;top:-8px;overflow:visible;pointer-events:none}
+.it .hatch{position:absolute;inset:-6px -12px -8px -10px;z-index:-1;border-radius:22px 12px 20px 14px;background:repeating-linear-gradient(115deg,var(--c) 0 9px,transparent 9px 17px);opacity:.78}
+.it.dim{opacity:.55}.it.strike .tx{text-decoration:line-through}
+.big{font-family:GG;font-weight:700;font-size:150px;line-height:1}
+.lab{font-size:30px;color:#6a6d9a}
+.mt{display:flex;align-items:center;gap:16px;font-size:42px}.mt .bar{position:relative;width:380px;height:42px;border:5px solid var(--line);border-radius:14px 8px 12px 10px}.mt .bar i{position:absolute;left:0;top:0;bottom:0;background:repeating-linear-gradient(115deg,var(--c,#2ba6a0) 0 8px,transparent 8px 15px)}
+#cap{position:absolute;left:60px;right:60px;top:1298px;text-align:center;font-size:56px;line-height:1.05;color:var(--line)}
+#cap em{font-style:normal;color:#d9453d;border-bottom:5px solid #f2d94e}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><filter id="crayon" x="-3%" y="-5%" width="106%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.4" xChannelSelector="R" yChannelSelector="G" result="d"/><feComponentTransfer in="n" result="m"><feFuncA type="discrete" tableValues="0 0 1 1 1 1 1 1"/></feComponentTransfer><feComposite in="d" in2="m" operator="in"/></filter><filter id="resist" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".02" numOctaves="3" seed="6" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="40"/><feGaussianBlur stdDeviation="3"/></filter></svg>
+<div id="stage"></div><div id="tooth"></div><div id="cap" class="cr"></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),capEl=document.getElementById('cap');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const rnd=i=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x);};
+const BOX={alert:'#f26b5b',ok:'#2ba6a0',accent:'#f2d94e',dim:'#e8c27a',normal:'#5aa7e0'};
+const NS='http://www.w3.org/2000/svg';
+function wobbleRect(w,h,seed){const j=(i,a=6)=>(rnd(seed+i)-.5)*a,x0=-4,y0=-2,x1=w+12,y1=h+10;return `M${x0+j(0)} ${y0+j(1)} L${x1/2+j(2)} ${y0+j(3,4)} L${x1+j(4)} ${y0+j(5)} L${x1+j(6,4)} ${y1/2+j(7)} L${x1+j(8)} ${y1+j(9)} L${x1/2+j(10)} ${y1+j(11,4)} L${x0+j(12)} ${y1+j(13)} L${x0+j(14,4)} ${y1/2+j(15)} L${x0+j(16,10)} ${y0+j(17,10)}`;}
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+function build(sc,idx){
+ const s=SD[sc.id],root=mk('scene');
+ // one watercolour for the whole film, resisted by wax: it never paints the lettering
+ const wash=mk('wash','',`left:-120px;top:${idx%2?700:240}px;width:1300px;height:620px;border-radius:50%;background:radial-gradient(ellipse,#f3a8b8,#f3a8b8aa 55%,transparent 75%)`);root.appendChild(wash);
+ const h0=mk('h0 cr',esc(s.head[0].replace(/,$/,'')));const h1=mk('h1 cr',esc(s.head[1]));root.appendChild(h0);root.appendChild(h1);stage.appendChild(root);root.style.display='block';const w=h1.getBoundingClientRect().width;if(w>950)h1.style.fontSize=Math.floor(136*950/w)+'px';root.style.display='none';
+ const items=mk('items');root.appendChild(items);const els=[];let ec=null,ecEl=null;
+ s.items.forEach((it,i)=>{if(it.k==='endcard'){ec=it;return;}const e=mk('it cr');items.appendChild(e);els.push({it,e,i});});
+ if(ec){ecEl=mk('cr',`<div class="big" style="font-size:200px;color:#d9453d">${esc(ec.lines[0])}</div><div style="font-size:54px;margin-top:12px">${esc(ec.lines[1])}</div><div class="lab" style="margin-top:12px;font-size:34px">${esc(ec.lines[2])}</div>`,'position:absolute;left:70px;top:540px;display:none');root.appendChild(ecEl);}
+ return {root,wash,h0,h1,els,ec,ecEl,items,idx};
+}
+const draw=(e,p)=>{e.style.clipPath=`inset(-14px ${(1-p)*100}% -14px -14px)`;};
+function update(b,sc,s,t){
+ const c=sc.cues,ls=t-sc.start,t12=Math.floor(t*12)/12; // everything drawn steps at 12 fps and boils
+ const jit=(i)=>`translate(${(rnd(Math.floor(t12*12)+i)-.5)*2.4}px,${(rnd(Math.floor(t12*12)+i+7)-.5)*2.4}px) rotate(${(rnd(Math.floor(t12*12)+i+3)-.5)*.5}deg)`;
+ b.wash.style.opacity=.5*EZ.out(P(ls,.9,2.2)); // the wash arrives late and spills past the lines
+ draw(b.h0,EZ.io(P(t12,sc.start+.1,sc.start+.5)));draw(b.h1,EZ.io(P(t12,sc.start+.2,sc.start+1.0)));b.h0.style.transform=jit(1);b.h1.style.transform=jit(2);
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ if(b.ecEl){b.ecEl.style.display=endOn?'block':'none';draw(b.ecEl,EZ.io(P(t12,AT(b.ec.at,c),AT(b.ec.at,c)+.9)));b.ecEl.style.transform=jit(9);}
+ b.items.style.display=endOn?'none':'flex';
+ b.els.forEach(({it,e,i})=>{
+  const x=RESOLVE(it,t,c);e.style.visibility=x.vis?'visible':'hidden';if(!x.vis)return;
+  const col=BOX[x.tone]||BOX.normal;e.style.setProperty('--c',col);const len=(x.text||it.text||it.label||'xxxxxxxx').length;
+  draw(e,it.k==='val'||it.k==='meter'?EZ.io(P(t12,x.ta,x.ta+.7)):EZ.io(P(t12,x.ta,x.ta+Math.min(.8,.14+len*.02))));
+  e.className='it cr'+(x.tone==='dim'?' dim':'')+(x.flag==='strike'?' strike':'');e.style.transform=jit(i*3+11);
+  let h='';
+  if(it.k==='val')h=`<div class="lab">${esc(it.label.toLowerCase())}</div><div class="big">${esc(x.text)}</div>`;
+  else if(it.k==='meter')h=`<div class="mt"><span style="width:230px">${esc(it.label.toLowerCase())}</span><div class="bar"><i style="width:${clamp(x.ratio)*100}%"></i></div><span>${esc(x.text)}</span></div>`;
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.045));h=`<span class="tx">${esc(it.text.slice(0,n))}</span>`;}
+  else h=`<span class="tx">${esc(x.text||'')}</span>`;
+  e.innerHTML=`<span class="hatch"></span>`+h;
+  // the crayon outline: a wobbly hand-drawn box, drawn with the heaviest line on important items
+  let sv=e.querySelector('svg');if(!sv){sv=document.createElementNS(NS,'svg');sv.innerHTML='<path fill="none" stroke="#2c2f6b" stroke-linecap="round" stroke-linejoin="round"/>';e.appendChild(sv);}
+  const wd=e.offsetWidth,hg=e.offsetHeight;sv.setAttribute('width',wd+20);sv.setAttribute('height',hg+20);const pa=sv.firstChild;pa.setAttribute('d',wobbleRect(wd,hg,i*5+Math.floor(t12*12)%3));pa.setAttribute('stroke-width',x.tone==='alert'||x.tone==='accent'?7:5);
+ });
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id],ls=t-sc.start;
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t);
+ // a page turn: the sheet slides off, never fades
+ const turn=EZ.io(P(ls,sc.dur-.3,sc.dur));b.root.style.transform=`translateX(${-turn*110}%)`;
+ const cap=CAP(t,T.scenes);
+ if(cap){capEl.style.display='block';capEl.innerHTML=esc(cap.text).replace(/\*([^*]+)\*/g,'<em>$1</em>');capEl.style.clipPath=`inset(-6px ${(1-EZ.io(P(t,cap.t0,cap.t0+.35)))*100}% -6px 0)`;const f=Math.floor(t*12);capEl.style.transform=`translate(${(rnd(f)-.5)*2}px,${(rnd(f+4)-.5)*2}px)`;}else capEl.style.display='none';
+};
+window.ready=Promise.all(['700 40px GG','40px PH'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach((sc,i)=>{built[sc.id]=build(sc,i);});});
+</script></body></html>

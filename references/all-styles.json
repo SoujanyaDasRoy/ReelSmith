@@ -1,0 +1,2433 @@
+[
+ {
+  "id": "ui-cards/clean-ui",
+  "engine": "ui-cards",
+  "name": "Clean UI cards",
+  "category": "Explainer",
+  "how": "Light grid, white UI cards, coral serif-italic accent, deadpan Hinglish captions",
+  "doc": "references/engines/ui-cards.md",
+  "effort": "built in (easy)"
+ },
+ {
+  "id": "manim/3b1b",
+  "engine": "manim",
+  "name": "Manim / 3Blue1Brown math",
+  "category": "Explainer",
+  "how": "Shapes transform into shapes, MathTex, graphs, progressive reveal (Python Manim Community)",
+  "doc": "references/engines/manim.md",
+  "effort": "needs Python + Manim"
+ },
+ {
+  "id": "claude-animation-base/painted-cartoon",
+  "engine": "claude-animation-base",
+  "name": "Painted 2D cartoon",
+  "category": "Hand-drawn",
+  "how": "p5.brush washes + ink outlines, 31 acted emotions, no on-screen text, brush-wipe/iris transitions",
+  "doc": "references/engines/claude-animation-base.md",
+  "effort": "hard (needs Chrome, p5)"
+ },
+ {
+  "id": "anidoodle/ballpoint",
+  "engine": "anidoodle",
+  "name": "Ballpoint",
+  "category": "Hand-made marks",
+  "how": "One biro; tone from where hatching sits",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/broken-colour",
+  "engine": "anidoodle",
+  "name": "Broken colour",
+  "category": "Hand-made marks",
+  "how": "Separate dabs of unmixed colour, impressionist",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/chalkboard",
+  "engine": "anidoodle",
+  "name": "Chalkboard",
+  "category": "Hand-made marks",
+  "how": "Side-of-chalk scumble with dust",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/charcoal-erasure",
+  "engine": "anidoodle",
+  "name": "Charcoal erasure",
+  "category": "Hand-made marks",
+  "how": "Charcoal drawn, erased and redrawn, ghosts kept",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/coloured-pencil",
+  "engine": "anidoodle",
+  "name": "Coloured pencil",
+  "category": "Hand-made marks",
+  "how": "Directional pencil hatching on toothy cream paper",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/crayon",
+  "engine": "anidoodle",
+  "name": "Crayon",
+  "category": "Hand-made marks",
+  "how": "Waxy scribble fills that skip the paper's valleys",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/cut-paper-collage",
+  "engine": "anidoodle",
+  "name": "Cut-paper collage",
+  "category": "Hand-made marks",
+  "how": "Torn and cut paper, no drawn lines",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/cyanotype-blueprint",
+  "engine": "anidoodle",
+  "name": "Cyanotype blueprint",
+  "category": "Hand-made marks",
+  "how": "Ruling-pen drafting on a cyanotype sheet",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/dream-glaze",
+  "engine": "anidoodle",
+  "name": "Dream glaze",
+  "category": "Hand-made marks",
+  "how": "Thin resin-oil glazes, no visible stroke, every edge hard",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/embroidery",
+  "engine": "anidoodle",
+  "name": "Embroidery",
+  "category": "Hand-made marks",
+  "how": "Thread stitched through linen in a hoop",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/flat-vector",
+  "engine": "anidoodle",
+  "name": "Flat vector",
+  "category": "Hand-made marks",
+  "how": "Crisp geometric shapes with grain and long shadows",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/folk-tale-storybook",
+  "engine": "anidoodle",
+  "name": "Folk-tale storybook",
+  "category": "Hand-made marks",
+  "how": "Painted foreground dissolving into pencil line on cream paper",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/ink-line-wash",
+  "engine": "anidoodle",
+  "name": "Ink & line-wash",
+  "category": "Hand-made marks",
+  "how": "Washes first, then a flexible nib",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/isometric",
+  "engine": "anidoodle",
+  "name": "Isometric",
+  "category": "Hand-made marks",
+  "how": "A 2:1 isometric cutaway in flat-shaded planes",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/low-poly-3d",
+  "engine": "anidoodle",
+  "name": "Low-poly 3D",
+  "category": "Hand-made marks",
+  "how": "Flat-shaded triangles, drawn in code",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/marker-comic",
+  "engine": "anidoodle",
+  "name": "Marker comic",
+  "category": "Hand-made marks",
+  "how": "Flat cel fills and one heavy contour",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/mid-century-gouache",
+  "engine": "anidoodle",
+  "name": "Mid-century gouache",
+  "category": "Hand-made marks",
+  "how": "Opaque matte shapes, dry-brush edges, loose line",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/newsprint-halftone",
+  "engine": "anidoodle",
+  "name": "Newsprint halftone",
+  "category": "Hand-made marks",
+  "how": "One black screen plus a spot colour on newsprint",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/painted-oil",
+  "engine": "anidoodle",
+  "name": "Painted oil",
+  "category": "Hand-made marks",
+  "how": "Bristle strokes and impasto on a toned canvas",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/paper-craft",
+  "engine": "anidoodle",
+  "name": "Paper-craft",
+  "category": "Hand-made marks",
+  "how": "Layered cut paper and painted cut-outs, on twos",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/pencil-watercolour",
+  "engine": "anidoodle",
+  "name": "Pencil & watercolour",
+  "category": "Hand-made marks",
+  "how": "Washes that never quite fill their pencil line",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/pixel-art",
+  "engine": "anidoodle",
+  "name": "Pixel art",
+  "category": "Hand-made marks",
+  "how": "A fixed 16-colour palette on a low-res grid",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/risograph",
+  "engine": "anidoodle",
+  "name": "Risograph",
+  "category": "Hand-made marks",
+  "how": "Ink drums overprinting through registration",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/rubber-hose",
+  "engine": "anidoodle",
+  "name": "Rubber-hose",
+  "category": "Hand-made marks",
+  "how": "1930s cartoon ink with bendy limbs and film grain",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/scratchboard",
+  "engine": "anidoodle",
+  "name": "Scratchboard",
+  "category": "Hand-made marks",
+  "how": "White lines scratched out of black clay",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/single-line-engraving",
+  "engine": "anidoodle",
+  "name": "Single-line engraving",
+  "category": "Hand-made marks",
+  "how": "One unbroken spiral whose width is the tone",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/stipple",
+  "engine": "anidoodle",
+  "name": "Stipple",
+  "category": "Hand-made marks",
+  "how": "Pen dots whose density is the tone",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/storybook",
+  "engine": "anidoodle",
+  "name": "Storybook",
+  "category": "Hand-made marks",
+  "how": "Pencil and watercolour for characters",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/sumi-e",
+  "engine": "anidoodle",
+  "name": "Sumi-e",
+  "category": "Hand-made marks",
+  "how": "One loaded brush on absorbent paper",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/toy-brick",
+  "engine": "anidoodle",
+  "name": "Toy brick",
+  "category": "Hand-made marks",
+  "how": "Studded plastic bricks, built layer by layer",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/vintage-scrapbook",
+  "engine": "anidoodle",
+  "name": "Vintage scrapbook",
+  "category": "Hand-made marks",
+  "how": "Engravings, cut-letter titles and taped cards on aged paper",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "anidoodle/woodcut-ukiyo-e",
+  "engine": "anidoodle",
+  "name": "Woodcut / ukiyo-e",
+  "category": "Hand-made marks",
+  "how": "A carved keyblock and colour blocks on washi",
+  "doc": "vendor/anidoodle/skills/anidoodle/references/styles.md",
+  "effort": "medium-hard (anidoodle engine)"
+ },
+ {
+  "id": "huashu/10",
+  "engine": "huashu-art-motion",
+  "name": "Art Nouveau",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/10_nouveau.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/11",
+  "engine": "huashu-art-motion",
+  "name": "Analytic Cubism",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/11_cubism.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/12",
+  "engine": "huashu-art-motion",
+  "name": "Bauhaus",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/12_bauhaus.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/13",
+  "engine": "huashu-art-motion",
+  "name": "Lichtenstein pop (Ben-Day dots)",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/13_pop.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/14",
+  "engine": "huashu-art-motion",
+  "name": "8-bit pixel",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/14_8bit.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/15",
+  "engine": "huashu-art-motion",
+  "name": "Early raytraced CGI",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/15_raytrace.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/16",
+  "engine": "huashu-art-motion",
+  "name": "Contemporary flat illustration",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/16_2026.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/17",
+  "engine": "huashu-art-motion",
+  "name": "Chinese ink wash",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/17_ink.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/18",
+  "engine": "huashu-art-motion",
+  "name": "Klimt",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/18_klimt.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/19",
+  "engine": "huashu-art-motion",
+  "name": "Munch",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/19_munch.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/20",
+  "engine": "huashu-art-motion",
+  "name": "Dunhuang mural",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/20_dunhuang.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/21",
+  "engine": "huashu-art-motion",
+  "name": "Kusama dots",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/21_kusama.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/22",
+  "engine": "huashu-art-motion",
+  "name": "Constructivism (halftone, red wedge)",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/22_constructivism.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/23",
+  "engine": "huashu-art-motion",
+  "name": "Dali",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/23_dali.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/24",
+  "engine": "huashu-art-motion",
+  "name": "Hopper",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/24_hopper.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/25",
+  "engine": "huashu-art-motion",
+  "name": "Ghibli-style watercolour background",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/25_ghibli.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/26",
+  "engine": "huashu-art-motion",
+  "name": "Vaporwave / neon",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/26_vaporwave.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/27",
+  "engine": "huashu-art-motion",
+  "name": "Marvel-era comics",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/27_kirby.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/28",
+  "engine": "huashu-art-motion",
+  "name": "Monet",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/28_monet.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/29",
+  "engine": "huashu-art-motion",
+  "name": "Seurat dot colour mixing",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/29_seurat.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/30",
+  "engine": "huashu-art-motion",
+  "name": "Matisse cut-paper",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/30_matisse.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/31",
+  "engine": "huashu-art-motion",
+  "name": "Keith Haring",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/31_haring.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/32",
+  "engine": "huashu-art-motion",
+  "name": "Rembrandt chiaroscuro",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/32_rembrandt.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/33",
+  "engine": "huashu-art-motion",
+  "name": "1930s rubber-hose",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/33_rubberhose.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/34",
+  "engine": "huashu-art-motion",
+  "name": "Shadow puppetry",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/34_shadowpuppet.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/35",
+  "engine": "huashu-art-motion",
+  "name": "Shinkai clouds and light shafts",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/35_shinkai.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/36",
+  "engine": "huashu-art-motion",
+  "name": "Picasso Blue Period",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/36_picasso_blue.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/37",
+  "engine": "huashu-art-motion",
+  "name": "Rick & Morty (SVG pipeline)",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/37_rick_morty.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/01",
+  "engine": "huashu-art-motion",
+  "name": "Cave painting",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/01_cave.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/02",
+  "engine": "huashu-art-motion",
+  "name": "Egyptian mural",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/02_egypt.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/03",
+  "engine": "huashu-art-motion",
+  "name": "Attic black-figure",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/03_greek.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/04",
+  "engine": "huashu-art-motion",
+  "name": "Pompeii mosaic",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/04_roman.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/05",
+  "engine": "huashu-art-motion",
+  "name": "Gothic manuscript (gold leaf)",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/05_gothic.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/06",
+  "engine": "huashu-art-motion",
+  "name": "Renaissance sfumato",
+  "category": "Art history (era/artist)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/06_renaissance.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/08",
+  "engine": "huashu-art-motion",
+  "name": "Impressionism dabs",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/08_impressionism.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "huashu/09",
+  "engine": "huashu-art-motion",
+  "name": "Van Gogh flow-field strokes",
+  "category": "Art history (material)",
+  "how": "Canvas scene + style card from huashu-art-motion",
+  "doc": "vendor/huashu-art-motion/references/风格配方/09_postimp.md",
+  "effort": "hard (Python/uv + Chromium)"
+ },
+ {
+  "id": "grammar/y1",
+  "engine": "huashu-art-motion",
+  "name": "Kurzgesagt grammar",
+  "category": "Narration grammar",
+  "how": "One concrete object in a glowing world; scale zoom",
+  "doc": "references/narration-grammars.md",
+  "effort": "pattern (any engine)"
+ },
+ {
+  "id": "grammar/y2",
+  "engine": "huashu-art-motion",
+  "name": "Vox grammar",
+  "category": "Narration grammar",
+  "how": "Real-material collage, red lines, highlighter",
+  "doc": "references/narration-grammars.md",
+  "effort": "pattern (any engine)"
+ },
+ {
+  "id": "grammar/y3",
+  "engine": "huashu-art-motion",
+  "name": "Whiteboard grammar",
+  "category": "Narration grammar",
+  "how": "Draws as the narrator speaks",
+  "doc": "references/narration-grammars.md",
+  "effort": "pattern (any engine)"
+ },
+ {
+  "id": "grammar/y4",
+  "engine": "huashu-art-motion",
+  "name": "Storytime grammar",
+  "category": "Narration grammar",
+  "how": "Character reactions with punchline pauses",
+  "doc": "references/narration-grammars.md",
+  "effort": "pattern (any engine)"
+ },
+ {
+  "id": "grammar/y5",
+  "engine": "huashu-art-motion",
+  "name": "Kinetic type grammar",
+  "category": "Narration grammar",
+  "how": "Keywords slam in, one focus word",
+  "doc": "references/narration-grammars.md",
+  "effort": "pattern (any engine)"
+ },
+ {
+  "id": "grammar/t1",
+  "engine": "huashu-art-motion",
+  "name": "3Blue1Brown grammar",
+  "category": "Narration grammar",
+  "how": "Math morphing on black",
+  "doc": "references/narration-grammars.md",
+  "effort": "pattern (any engine)"
+ },
+ {
+  "id": "grammar/t2",
+  "engine": "huashu-art-motion",
+  "name": "Keynote UI grammar",
+  "category": "Narration grammar",
+  "how": "One point per screen, big numbers",
+  "doc": "references/narration-grammars.md",
+  "effort": "pattern (any engine)"
+ },
+ {
+  "id": "grammar/t3",
+  "engine": "huashu-art-motion",
+  "name": "Finance chart grammar",
+  "category": "Narration grammar",
+  "how": "Axes first, data grows, one highlight",
+  "doc": "references/narration-grammars.md",
+  "effort": "pattern (any engine)"
+ },
+ {
+  "id": "lemo/archive-lighttable",
+  "engine": "lemo-opuscar",
+  "name": "Archive Light Table",
+  "category": "Evidence films",
+  "how": "Real archive objects (glass negatives, slides, letters, telegrams, clippings, drawings) lie on a cool, backlit light table. A loupe comes down on one of them, and inside the glass the object comes alive: a negative turns positive, a line of",
+  "doc": "vendor/lemo-opuscar/styles/archive-lighttable/STYLE.md",
+  "card": "references/styles/archive-lighttable.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/art-deco",
+  "engine": "lemo-opuscar",
+  "name": "Art Deco",
+  "category": "Graphic",
+  "how": "Black lacquer, engraved gold line and airbrushed geometry: a 1930s poster that moves. Every composition has a centre axis, transitions open or close along it, and light arrives as bulbs switching on one by one.",
+  "doc": "vendor/lemo-opuscar/styles/art-deco/STYLE.md",
+  "card": "references/styles/art-deco.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/ascii-crt",
+  "engine": "lemo-opuscar",
+  "name": "ASCII / CRT Terminal",
+  "category": "Graphic",
+  "how": "Everything on screen is a real character on a monospace grid, lit by the phosphor of an old monochrome CRT.",
+  "doc": "vendor/lemo-opuscar/styles/ascii-crt/STYLE.md",
+  "card": "references/styles/ascii-crt.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/backrooms",
+  "engine": "lemo-opuscar",
+  "name": "Liminal Found Footage",
+  "category": "Cinema",
+  "how": "Camcorder tapes recovered from empty, endless, fluorescent-lit spaces. Rules instead of monsters.",
+  "doc": "vendor/lemo-opuscar/styles/backrooms/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/blueprint",
+  "engine": "lemo-opuscar",
+  "name": "Blueprint",
+  "category": "Graphic",
+  "how": "Engineering drawings that come alive on a sheet of cyanotype paper: white technical line work on Prussian blue, drawn in drafting order, with annotations that move.",
+  "doc": "vendor/lemo-opuscar/styles/blueprint/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/brick-toy",
+  "engine": "lemo-opuscar",
+  "name": "Brick Toy",
+  "category": "Materials",
+  "how": "Stop-motion toy-brick films shot like macro photography on a real desk: a world built from interlocking plastic bricks with round studs, animated a pose at a time.",
+  "doc": "vendor/lemo-opuscar/styles/brick-toy/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/briefing-board",
+  "engine": "lemo-opuscar",
+  "name": "Engineering Briefing Board",
+  "category": "Evidence films",
+  "how": "One real whiteboard wall, filmed: window light on enamel, ghosts of erased marker, frame and tray. Cut-out photographs of real things land on it with weight; tags, magnets, a ruler and stamps are pinned to it; marker ink draws itself in thr",
+  "doc": "vendor/lemo-opuscar/styles/briefing-board/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/caption-news",
+  "engine": "lemo-opuscar",
+  "name": "Caption News",
+  "category": "Edit & documentary",
+  "how": "Social-video news that reads with the sound off. Real footage, photos and the source document are the ground; huge captions are the lead actor, slammed in a chunk at a time with one keyword on a yellow block. Hard cuts on a music grid, numb",
+  "doc": "vendor/lemo-opuscar/styles/caption-news/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/cel-anime-80s",
+  "engine": "lemo-opuscar",
+  "name": "80s Cel Anime",
+  "category": "Cartoon",
+  "how": "Hand-painted cel animation from the golden age of Japanese OVAs, re-created in code: flat two-tone cels over airbrushed backgrounds, backlit neon, limited-animation timing, played back as a late-80s videotape on a CRT television.",
+  "doc": "vendor/lemo-opuscar/styles/cel-anime-80s/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/chalkboard",
+  "engine": "lemo-opuscar",
+  "name": "Chalkboard",
+  "category": "Hand-drawn",
+  "how": "A real classroom blackboard on which chalk writes itself, stroke by stroke in true stroke order, with no hand, no chalk stick and no eraser in sight. One idea is taught the way a teacher does it: write what people think, wipe it with one pa",
+  "doc": "vendor/lemo-opuscar/styles/chalkboard/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/circuit-board",
+  "engine": "lemo-opuscar",
+  "name": "Circuit Board",
+  "category": "Information",
+  "how": "The subject is drawn as a printed circuit board seen from straight above: the world is copper under green solder mask, routes are traces, places are pads, words are white silkscreen, and what flows (power, water, signals, goods) is light ru",
+  "doc": "vendor/lemo-opuscar/styles/circuit-board/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/city-symphony",
+  "engine": "lemo-opuscar",
+  "name": "Time-lapse Symphony",
+  "category": "Edit & documentary",
+  "how": "A city film cut like a piece of minimalist music: time-lapse turns traffic, crowds and clouds into rivers of light, the cuts get denser with the score's subdivisions, one thing is slowed almost to a stop, and the film ends on a hard cut to ",
+  "doc": "vendor/lemo-opuscar/styles/city-symphony/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/countdown",
+  "engine": "lemo-opuscar",
+  "name": "Live Countdown Split-screen",
+  "category": "Edit & documentary",
+  "how": "An edit style, not a look. Real footage of one event with a known zero (a launch, a verdict, a final whistle, polls closing), shown in real time: screen time equals event time, a clock ticks every second, and the screen splits into more and",
+  "doc": "vendor/lemo-opuscar/styles/countdown/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/crayon-book",
+  "engine": "lemo-opuscar",
+  "name": "Crayon Picture Book",
+  "category": "Hand-drawn",
+  "how": "A picture-book page drawn live in wax crayon on toothy paper, with a watercolour wash that reveals what the crayon was hiding.",
+  "doc": "vendor/lemo-opuscar/styles/crayon-book/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/dark-keynote",
+  "engine": "lemo-opuscar",
+  "name": "Dark Tech Keynote",
+  "category": "Information",
+  "how": "A software launch film where the interface itself is the star: near-black gradient, hairline grid, soft light, one brand accent, and UI that moves with snap-grid precision. Light reveals, one giant number, and a sound design that is as orde",
+  "doc": "vendor/lemo-opuscar/styles/dark-keynote/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/data-physical",
+  "engine": "lemo-opuscar",
+  "name": "Data Physicalization",
+  "category": "Evidence films",
+  "how": "Real statistics built as real objects: every unit is a countable piece of material (a plate, a block, a coin, a bar) stacked to exact scale on a crafted base, shot like a product in a studio — soft key, long shadows, shallow depth of field,",
+  "doc": "vendor/lemo-opuscar/styles/data-physical/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/dataviz",
+  "engine": "lemo-opuscar",
+  "name": "Data Storytelling",
+  "category": "Information",
+  "how": "A chart that tells a story: real data, drawn mark by mark on cream paper by a red–blue pencil, with handwritten notes pinned to the numbers. The chart itself is the camera, the rhythm and the plot.",
+  "doc": "vendor/lemo-opuscar/styles/dataviz/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/desktop-flythrough",
+  "engine": "lemo-opuscar",
+  "name": "Desktop Flythrough 桌面穿梭",
+  "category": "Materials",
+  "how": "App screens and tools lie on a sunlit desk as printed paper cards; small pixel characters, popped up into voxel toys, carry the work from card to card, while one unbroken camera flies after them, whips between stops and finally pulls back o",
+  "doc": "vendor/lemo-opuscar/styles/desktop-flythrough/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/engraving",
+  "engine": "lemo-opuscar",
+  "name": "Copperplate Engraving",
+  "category": "Print",
+  "how": "An intaglio plate that engraves itself: a burin cuts swelling lines into copper, a proof is pulled, and the figure builds up — outline, hatching, cross-hatching — until engraved lettering, magnified details and a hand-laid wash make a finis",
+  "doc": "vendor/lemo-opuscar/styles/engraving/STYLE.md",
+  "card": "references/styles/engraving.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/game-show",
+  "engine": "lemo-opuscar",
+  "name": "Game Show Flat",
+  "category": "Games",
+  "how": "A rhythm-game variety show in flat vector: toy-like mascots with thick ink outlines on candy-coloured stripes and sunbursts, every hit landing on a fixed tempo grid, call-and-response patterns, and a judgement word when each round is won.",
+  "doc": "vendor/lemo-opuscar/styles/game-show/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/glass-product",
+  "engine": "lemo-opuscar",
+  "name": "Glass Product Render",
+  "category": "Materials",
+  "how": "Launch-film product rendering in transparent and frosted glass: a dark-field studio, strip-light sweeps, dispersion, caustics, light travelling inside the object, slow exploded views that snap shut on a downbeat.",
+  "doc": "vendor/lemo-opuscar/styles/glass-product/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/halftone-dossier",
+  "engine": "lemo-opuscar",
+  "name": "Halftone Dossier",
+  "category": "Print",
+  "how": "A retro print case file: cream archive paper, overprinted halftone dots in a few flat inks, huge heavy headlines with misregistered shadows, rubber stamps that slam, and thick-outlined characters. The film is a file that is read out one exh",
+  "doc": "vendor/lemo-opuscar/styles/halftone-dossier/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/hd-2d",
+  "engine": "lemo-opuscar",
+  "name": "HD-2D",
+  "category": "Games",
+  "how": "Hand-made pixel sprites standing like paper cut-outs inside a lit, fogged, fully 3D diorama, shot from a high three-quarter angle through a tilt-shift lens: a toy world where every lamp throws a real shadow.",
+  "doc": "vendor/lemo-opuscar/styles/hd-2d/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/hologram-hud",
+  "engine": "lemo-opuscar",
+  "name": "Sci-fi Hologram HUD",
+  "category": "Information",
+  "how": "An object is scanned into a glowing wireframe. Target boxes lock onto its parts; each opens in a local exploded view, a leader pulls out, and its number rolls from garbage glyphs into the real value. It may light up, once, into a solid holo",
+  "doc": "vendor/lemo-opuscar/styles/hologram-hud/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/impasto",
+  "engine": "lemo-opuscar",
+  "name": "Impasto · Palette Knife",
+  "category": "Hand-drawn",
+  "how": "Thick oil paint laid with a palette knife: big, flat, sharp-edged planes of colour, raked by light so every ridge of paint shows. Clarity first: value structure before texture, hard edges at the focus, calm planes everywhere else.",
+  "doc": "vendor/lemo-opuscar/styles/impasto/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/ink-wash",
+  "engine": "lemo-opuscar",
+  "name": "Chinese Ink Wash",
+  "category": "Hand-drawn",
+  "how": "Xieyi ink painting on rice paper, animated: blank paper is space, one brushstroke is a mountain, a wave, a gesture or a cut.",
+  "doc": "vendor/lemo-opuscar/styles/ink-wash/STYLE.md",
+  "card": "references/styles/ink-wash.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/iso-infographic",
+  "engine": "lemo-opuscar",
+  "name": "Isometric Infographic",
+  "category": "Information",
+  "how": "A system diagram comes alive: an isometric diorama of flat three-tone blocks, thin ink labels and Isotype numbers, where things open up to show their insides and the numbers are drawn, not stated.",
+  "doc": "vendor/lemo-opuscar/styles/iso-infographic/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/isometric-picture-book",
+  "engine": "lemo-opuscar",
+  "name": "Isometric Picture Book",
+  "category": "Information",
+  "how": "A calm explainer of an everyday rule, set in one real place drawn in true isometric with flat colour: small faceless people seen from behind do the thing in order, while serif type lands on the ground, character by character, as if painted ",
+  "doc": "vendor/lemo-opuscar/styles/isometric-picture-book/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/kino-montage",
+  "engine": "lemo-opuscar",
+  "name": "Constructivist Montage",
+  "category": "Edit & documentary",
+  "how": "Real archive footage, photographs and documents, printed as one ink-and-paper poster with a single red, and cut on a machine beat. Diagonal bands carry the type; windows cut along the axis hold the film; people are scissored out of photogra",
+  "doc": "vendor/lemo-opuscar/styles/kino-montage/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/lidar-survey",
+  "engine": "lemo-opuscar",
+  "name": "LiDAR Survey",
+  "category": "Evidence films",
+  "how": "Real airborne laser points of a real place, floating in the dark as a measured cloud; a scan line or a cutting plane passes through them and the points condense into a solid, raking-lit surface, which is then measured with hairline instrume",
+  "doc": "vendor/lemo-opuscar/styles/lidar-survey/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/living-screencast",
+  "engine": "lemo-opuscar",
+  "name": "Living Screencast",
+  "category": "Information",
+  "how": "A product walkthrough that looks like a real screen recording, where a low-resolution mascot lives inside a high-resolution interface and acts out what the software is doing.",
+  "doc": "vendor/lemo-opuscar/styles/living-screencast/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/lowpoly-island",
+  "engine": "lemo-opuscar",
+  "name": "Low-poly Isometric Island",
+  "category": "Materials",
+  "how": "A tiny faceted world seen through an orthographic isometric lens: everything is a geometric block, and everything that appears arrives with a bounce and a note.",
+  "doc": "vendor/lemo-opuscar/styles/lowpoly-island/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/memphis-diorama",
+  "engine": "lemo-opuscar",
+  "name": "Memphis Diorama",
+  "category": "Materials",
+  "how": "A place built as a tabletop model: on warm white paper an organic, grainy frame grows open, and inside it a small world in flat Memphis colours, ink outlines, hard purple shadows and tiny patterns, full of small motions under a slow camera.",
+  "doc": "vendor/lemo-opuscar/styles/memphis-diorama/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/microgame",
+  "engine": "lemo-opuscar",
+  "name": "Microgame Frenzy",
+  "category": "Games",
+  "how": "A rapid-fire party-game film: one command word, a few seconds, one action. Every microgame is drawn in a completely different art style, and the film keeps getting faster.",
+  "doc": "vendor/lemo-opuscar/styles/microgame/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/microscope",
+  "engine": "lemo-opuscar",
+  "name": "Microscope Story",
+  "category": "Evidence films",
+  "how": "Real, licence-clean microscopy of a real specimen, seen as it is, and one continuous change of scale that carries the viewer from the glass slide in the hand to a single cell. Focus breathes when the magnification changes, a focal plane swe",
+  "doc": "vendor/lemo-opuscar/styles/microscope/STYLE.md",
+  "card": "references/styles/microscope.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/midcentury-toon",
+  "engine": "lemo-opuscar",
+  "name": "Mid-century Cartoon",
+  "category": "Cartoon",
+  "how": "1950s flat colour and limited animation for \"follow along\" films: colour printed a few pixels off its broken ink line, bodies that hold still while hands do the work, abstract colour-block rooms, a calm classroom narrator, and a cool-jazz c",
+  "doc": "vendor/lemo-opuscar/styles/midcentury-toon/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/news-package",
+  "engine": "lemo-opuscar",
+  "name": "Broadcast News Package",
+  "category": "Edit & documentary",
+  "how": "A television newsroom's on-air package, built entirely in code: a sting that becomes the channel bug, a rundown of today's stories that opens and closes the bulletin, a lower-third strap that never leaves the bottom of the frame, and full-f",
+  "doc": "vendor/lemo-opuscar/styles/news-package/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/newsreel",
+  "engine": "lemo-opuscar",
+  "name": "1920s Newsreel",
+  "category": "Edit & documentary",
+  "how": "A sound newsreel of the late 1920s, cut from real archive material: a searchlight-and-globe ident with a brass fanfare, a newspaper that spins into the lens, a fast and cheerful announcer on an optical soundtrack, place-and-date cards, maps",
+  "doc": "vendor/lemo-opuscar/styles/newsreel/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/one-line",
+  "engine": "lemo-opuscar",
+  "name": "One-line Drawing",
+  "category": "Hand-drawn",
+  "how": "A single ink line that never leaves the paper. Everything on screen is that one line being drawn; scenes don't cut, they morph.",
+  "doc": "vendor/lemo-opuscar/styles/one-line/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/paper-lantern",
+  "engine": "lemo-opuscar",
+  "name": "Paper-cut Lightbox",
+  "category": "East Asian",
+  "how": "A layered paper-cut shadow box (纸雕灯) lit from behind: 6–9 sheets of cut card stacked in a shallow box, a warm light glowing through the paper, windows and moons burning through holes, soft shadows falling from each layer onto the next. The ",
+  "doc": "vendor/lemo-opuscar/styles/paper-lantern/STYLE.md",
+  "card": "references/styles/paper-lantern.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/paper-popup",
+  "engine": "lemo-opuscar",
+  "name": "Paper Pop-up Book",
+  "category": "Materials",
+  "how": "A pop-up book on a real desk becomes a stage: flat cut-paper actors with white borders perform in front of paper sets that spring up from the page, under real lamp light and a real macro lens.",
+  "doc": "vendor/lemo-opuscar/styles/paper-popup/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/papercut-red",
+  "engine": "lemo-opuscar",
+  "name": "Red Paper-cut",
+  "category": "East Asian",
+  "how": "Chinese window-flower paper-cuts brought to life: jointed red cut-outs on paper grounds, where the cut *is* the drawing and the holes are where the light gets in.",
+  "doc": "vendor/lemo-opuscar/styles/papercut-red/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/pictogram-motion",
+  "engine": "lemo-opuscar",
+  "name": "Pictogram Motion",
+  "category": "Graphic",
+  "how": "A beat-locked film built from three things only: a square-grid \"core graphic\" of circles, half-discs and tiny patterned cells whose rows slide past each other; geometric pictograms (objects, vehicles, weather, signs, and a disc-headed figur",
+  "doc": "vendor/lemo-opuscar/styles/pictogram-motion/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/pixel-rpg",
+  "engine": "lemo-opuscar",
+  "name": "16-bit Pixel RPG",
+  "category": "Games",
+  "how": "A short film that looks, sounds and *behaves* like a mid-90s console role-playing game: 320×180 pixels, a limited indexed palette, text boxes that type, menus, save files, chip music with echo.",
+  "doc": "vendor/lemo-opuscar/styles/pixel-rpg/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/printed-long-take",
+  "engine": "lemo-opuscar",
+  "name": "Printed Long Take",
+  "category": "Print",
+  "how": "A three-dimensional world rendered as a scratchboard print, ink and paper with one red, crossed by one unbroken camera move. Depth, weather and light are all cut lines; the camera travels through the print instead of the print being turned ",
+  "doc": "vendor/lemo-opuscar/styles/printed-long-take/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/risograph",
+  "engine": "lemo-opuscar",
+  "name": "Risograph Print",
+  "category": "Print",
+  "how": "Animation that looks printed, frame by frame, on a stencil duplicator: two or three translucent spot inks overprinted on warm paper, halftone dots, ink grain, and plates that never quite line up.",
+  "doc": "vendor/lemo-opuscar/styles/risograph/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/rubber-hose",
+  "engine": "lemo-opuscar",
+  "name": "1930s Rubber Hose Cartoon",
+  "category": "Cartoon",
+  "how": "Black-and-white hand-inked cartoons where every object is alive and swings to a hot jazz band.",
+  "doc": "vendor/lemo-opuscar/styles/rubber-hose/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/satellite-briefing",
+  "engine": "lemo-opuscar",
+  "name": "Satellite Briefing",
+  "category": "Evidence films",
+  "how": "Real satellite imagery of a real place, graded down to an analyst's grey, with thin white measurement lines drawn on the ground: a lock-on reticle, outlines, a range line, one reading. One continuous zoom built from stacked imagery plates c",
+  "doc": "vendor/lemo-opuscar/styles/satellite-briefing/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/scifi-toon",
+  "engine": "lemo-opuscar",
+  "name": "Sci-Fi Sitcom Toon",
+  "category": "Cartoon",
+  "how": "Adult-animation sci-fi sitcom: thick boiling outlines, flat colour, a duo whose reactions don't match, a glowing portal, and one palette per world.",
+  "doc": "vendor/lemo-opuscar/styles/scifi-toon/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/shadow-puppet",
+  "engine": "lemo-opuscar",
+  "name": "Shadow Puppetry",
+  "category": "East Asian",
+  "how": "Chinese shadow theatre: translucent dyed-hide puppets, carved like lace, pressed against a cotton screen and lit from behind by oil lamps.",
+  "doc": "vendor/lemo-opuscar/styles/shadow-puppet/STYLE.md",
+  "card": "references/styles/shadow-puppet.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/silent-film",
+  "engine": "lemo-opuscar",
+  "name": "1920s Silent Film",
+  "category": "Cinema",
+  "how": "An engraved-illustration silent film projected in a picture house: ink line and silver wash, a 4:3 print that flickers and weaves between velvet curtains, intertitles instead of voices, and a cinema pianist who plays every beat.",
+  "doc": "vendor/lemo-opuscar/styles/silent-film/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/silkscreen-poster",
+  "engine": "lemo-opuscar",
+  "name": "Silkscreen Travel Poster",
+  "category": "Print",
+  "how": "Opaque, hard-edged flat inks pulled one colour at a time through a screen: 4–6 inks per poster, stepped colour bands instead of gradients, thin paper-white gaps where the registration slips. Information is revealed the way the print is made",
+  "doc": "vendor/lemo-opuscar/styles/silkscreen-poster/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/spy-titles",
+  "engine": "lemo-opuscar",
+  "name": "60s Spy Title Sequence",
+  "category": "Graphic",
+  "how": "A cut-paper, four-ink opening title sequence for a film that never existed: silhouettes move through sets built out of the credits themselves, every brass stab is a cut, and a title is assembled from the pieces.",
+  "doc": "vendor/lemo-opuscar/styles/spy-titles/STYLE.md",
+  "card": "references/styles/spy-titles.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/stained-glass",
+  "engine": "lemo-opuscar",
+  "name": "Stained Glass",
+  "category": "Graphic",
+  "how": "A medieval stained-glass window seen from inside a dark stone hall, alive only where the sun touches it: light is the clock, the camera and the story.",
+  "doc": "vendor/lemo-opuscar/styles/stained-glass/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/swiss-motion",
+  "engine": "lemo-opuscar",
+  "name": "Swiss Motion Graphics",
+  "category": "Graphic",
+  "how": "International Typographic Style in motion: a modular grid, one typeface, one signal colour, and movement as exact as a printing press.",
+  "doc": "vendor/lemo-opuscar/styles/swiss-motion/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/teardown",
+  "engine": "lemo-opuscar",
+  "name": "Exploded Teardown",
+  "category": "Evidence films",
+  "how": "A real product, built from its own engineering files (CAD, PCB layout, bill of materials), lit like a studio packshot and taken apart in front of the camera: the layers lift on one axis, the camera travels between them, every part is named ",
+  "doc": "vendor/lemo-opuscar/styles/teardown/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/telestrator",
+  "engine": "lemo-opuscar",
+  "name": "Sports Telestrator",
+  "category": "Edit & documentary",
+  "how": "The TV football analysis segment: play the clip at full speed, rewind, freeze it, and draw on the broadcast picture — rings under players' feet, marker arrows for the ball, a red patch for the space nobody covered — then play on, switch ang",
+  "doc": "vendor/lemo-opuscar/styles/telestrator/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/tilt-shift",
+  "engine": "lemo-opuscar",
+  "name": "Tilt-Shift Miniature",
+  "category": "Materials",
+  "how": "A real-looking place photographed from high above with a tilted lens and a time-lapse camera, so the whole world reads as a tabletop model.",
+  "doc": "vendor/lemo-opuscar/styles/tilt-shift/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/transit-map",
+  "engine": "lemo-opuscar",
+  "name": "Transit Map",
+  "category": "Information",
+  "how": "A metro schematic printed on a physical sheet: lines held to eight directions, white stops, black-outlined interchange capsules, water as a flat blue band. The network is drawn on by glowing pen tips while a real perspective camera moves ov",
+  "doc": "vendor/lemo-opuscar/styles/transit-map/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/ukiyoe",
+  "engine": "lemo-opuscar",
+  "name": "Ukiyo-e",
+  "category": "East Asian",
+  "how": "Edo-period woodblock prints brought to life: flat colour blocks, carved ink lines, bokashi skies, paper you can feel, and a camera that moves over the print like an unrolling handscroll.",
+  "doc": "vendor/lemo-opuscar/styles/ukiyoe/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/urban-sketch",
+  "engine": "lemo-opuscar",
+  "name": "Urban Sketch · Pen & Wash",
+  "category": "Hand-drawn",
+  "how": "A sketchbook page drawn on location: fine sepia fineliner lines that wobble, overshoot and never quite close, with loose transparent watercolour dropped on top. The colour sits slightly off the lines, spills over them, and dissolves into cr",
+  "doc": "vendor/lemo-opuscar/styles/urban-sketch/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/visual-investigation",
+  "engine": "lemo-opuscar",
+  "name": "Visual Investigation",
+  "category": "Edit & documentary",
+  "how": "A cold investigation desk: footage, photographs, documents, sound and maps from one real event, laid out on one shared clock so they check each other. The clock lives inside the picture — timestamps on the evidence, a playhead on a data cha",
+  "doc": "vendor/lemo-opuscar/styles/visual-investigation/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/watercolor",
+  "engine": "lemo-opuscar",
+  "name": "Watercolor Brush",
+  "category": "Hand-drawn",
+  "how": "A hand-painted journal page that paints itself: translucent brush strokes with dry-brush flying white on warm cotton paper, hand-written notes beside what is painted, nothing drawn with a vector line.",
+  "doc": "vendor/lemo-opuscar/styles/watercolor/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/white-model",
+  "engine": "lemo-opuscar",
+  "name": "Projection on White Model",
+  "category": "Evidence films",
+  "how": "A pure white massing model of a real place stands on a plinth in a dark room, and a projector paints data onto it as light: one layer at a time, falling on the surfaces that face it, spilling a little past the plate. The model never changes",
+  "doc": "vendor/lemo-opuscar/styles/white-model/STYLE.md",
+  "card": "references/styles/white-model.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/whiteboard",
+  "engine": "lemo-opuscar",
+  "name": "Whiteboard Explainer",
+  "category": "Hand-drawn",
+  "how": "An explainer drawn live on one glossy dry-erase board: single-line handwriting that is actually *written* stroke by stroke, floating markers with no hand, magnets that can move, an eraser that can rewind, and a camera that travels across th",
+  "doc": "vendor/lemo-opuscar/styles/whiteboard/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "lemo/woodcut",
+  "engine": "lemo-opuscar",
+  "name": "Woodcut Print",
+  "category": "Print",
+  "how": "A relief print that carves itself: every frame is a black wood block, and light only exists where a knife has cut it away. One colour at most, and only for the thing that burns.",
+  "doc": "vendor/lemo-opuscar/styles/woodcut/STYLE.md",
+  "effort": "medium-hard (lemo-opuscar engine or own canvas)"
+ },
+ {
+  "id": "bang/cinematic-dark",
+  "engine": "bang-motion",
+  "name": "Cinematic dark",
+  "category": "Motion design",
+  "how": "near-black gradient, particles, bloom only on objects; type: bold clean grotesk; motion: push-through, light in front of the lens. Good for creative tools, gaming, tech",
+  "doc": "vendor/bang-motion/README.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "bang/poster-color-block",
+  "engine": "bang-motion",
+  "name": "Poster color-block",
+  "category": "Motion design",
+  "how": "large solid color fields changing per scene; type: ultra-heavy display, giant cropped letters; motion: block wipes, text slamming the frame edge. Good for consumer apps, music, events",
+  "doc": "vendor/bang-motion/README.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "bang/editorial-light",
+  "engine": "bang-motion",
+  "name": "Editorial light",
+  "category": "Motion design",
+  "how": "white/cream, generous space, hairlines; type: display serif + small grotesk; motion: calm slides, lines that draw. Good for productivity, finance, SaaS",
+  "doc": "vendor/bang-motion/README.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "bang/paper-print",
+  "engine": "bang-motion",
+  "name": "Paper & print",
+  "category": "Motion design",
+  "how": "paper texture, collage, stamps, tape; type: handwriting + serif; motion: objects flying in and landing. Good for education, community, food",
+  "doc": "vendor/bang-motion/README.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "bang/retro-analog",
+  "engine": "bang-motion",
+  "name": "Retro / analog",
+  "category": "Motion design",
+  "how": "faded color, grain, scanlines; type: 70s–90s geometric; motion: controlled glitch, rough zoom, freeze. Good for nostalgia, music, entertainment",
+  "doc": "vendor/bang-motion/README.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "bang/brutalist-mono",
+  "engine": "bang-motion",
+  "name": "Brutalist mono",
+  "category": "Motion design",
+  "how": "black and white, hard grid; type: monospace + condensed; motion: hard cuts, shifting blocks, blinking cursor. Good for developer tools",
+  "doc": "vendor/bang-motion/README.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "bang/pastel-playful",
+  "engine": "bang-motion",
+  "name": "Pastel playful",
+  "category": "Motion design",
+  "how": "stacked pastels, big round shapes; type: heavy rounded sans; motion: elastic bounce, blooming shapes. Good for kids, health, lifestyle",
+  "doc": "vendor/bang-motion/README.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "bang/luxury-dark",
+  "engine": "bang-motion",
+  "name": "Luxury dark",
+  "category": "Motion design",
+  "how": "black + gold/bronze, soft shadows; type: tall wide-tracked serif; motion: slow motion, sweeping light, depth. Good for fashion, automotive, property",
+  "doc": "vendor/bang-motion/README.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "bang/flat-pop-with-photos",
+  "engine": "bang-motion",
+  "name": "Flat pop with photos",
+  "category": "Motion design",
+  "how": "neutral light alternating with solid brand fields; type: rounded heavy sans + giant cropped words; motion: cutouts popping in, stickers, fields snapping on the beat. Good for consumer apps, fintech, e-commerce",
+  "doc": "vendor/bang-motion/README.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "bang/grainy-gradient",
+  "engine": "bang-motion",
+  "name": "Grainy gradient",
+  "category": "Motion design",
+  "how": "deep base, saturated glowing shapes, fine grain; type: small clean grotesk or minimal heavy display; motion: layers opening, camera through the shape, a guiding orb. Good for tech, AI, music, creative launches",
+  "doc": "vendor/bang-motion/README.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "bang/explainer-continuous-action",
+  "engine": "bang-motion",
+  "name": "Bang explainer: Continuous action",
+  "category": "Explainer",
+  "how": "flowing vector world, one subject that never leaves, changing viewpoints. Best for speed, routes, processes",
+  "doc": "vendor/bang-motion/references/explainer.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "bang/explainer-cartoon-collage",
+  "engine": "bang-motion",
+  "name": "Bang explainer: Cartoon collage",
+  "category": "Explainer",
+  "how": "cream paper, flat illustration cutouts, handwriting, color pills. Best for science, education",
+  "doc": "vendor/bang-motion/references/explainer.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "bang/explainer-visual-journalism",
+  "engine": "bang-motion",
+  "name": "Bang explainer: Visual journalism",
+  "category": "Explainer",
+  "how": "black, real photos with source tags, highlighter, dashed annotations. Best for news, current issues",
+  "doc": "vendor/bang-motion/references/explainer.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "bang/explainer-white-catalog",
+  "engine": "bang-motion",
+  "name": "Bang explainer: White catalog",
+  "category": "Explainer",
+  "how": "white grid, photo cutouts, mixed typography, scribbles. Best for products, brands",
+  "doc": "vendor/bang-motion/references/explainer.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "bang/explainer-vintage-sketch",
+  "engine": "bang-motion",
+  "name": "Bang explainer: Vintage sketch",
+  "category": "Explainer",
+  "how": "sepia paper, engraving art, classic serifs, rust annotations. Best for history, biography",
+  "doc": "vendor/bang-motion/references/explainer.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "bang/explainer-cartoon-stage",
+  "engine": "bang-motion",
+  "name": "Bang explainer: Cartoon stage",
+  "category": "Explainer",
+  "how": "one stage per scene, jointed characters, no captions. Best for education with characters",
+  "doc": "vendor/bang-motion/references/explainer.md",
+  "effort": "medium (own canvas renderer or the bang-motion engine)"
+ },
+ {
+  "id": "grammar/bang-one-continuous-shot",
+  "engine": "bang-motion",
+  "name": "Bang concept: One continuous shot",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for creative tools, hardware, spaces",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-pure-typography",
+  "engine": "bang-motion",
+  "name": "Bang concept: Pure typography",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for strong taglines, events, releases",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-problem-gone",
+  "engine": "bang-motion",
+  "name": "Bang concept: Problem → gone",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for productivity, utilities",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-before-after",
+  "engine": "bang-motion",
+  "name": "Bang concept: Before / after",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for editors, filters, optimization",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-journey-inside-the-ui",
+  "engine": "bang-motion",
+  "name": "Bang concept: Journey inside the UI",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for apps with a distinctive UI",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-product-macro",
+  "engine": "bang-motion",
+  "name": "Bang concept: Product macro",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for hardware, packaging, F&B, fashion",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-object-metaphor",
+  "engine": "bang-motion",
+  "name": "Bang concept: Object metaphor",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for security, cloud, finance",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-living-number",
+  "engine": "bang-motion",
+  "name": "Bang concept: Living number",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for milestones, performance",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-one-feature-fully-demoed",
+  "engine": "bang-motion",
+  "name": "Bang concept: One feature, fully demoed",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for apps with one clear edge",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-diegetic-question-answer",
+  "engine": "bang-motion",
+  "name": "Bang concept: Diegetic question → answer",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for AI, search, support",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-rhythmic-collage",
+  "engine": "bang-motion",
+  "name": "Bang concept: Rhythmic collage",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for music, lifestyle, community",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-logo-as-stage",
+  "engine": "bang-motion",
+  "name": "Bang concept: Logo as stage",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for brands with a strong logo shape",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-object-relay",
+  "engine": "bang-motion",
+  "name": "Bang concept: Object relay",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for e-commerce, delivery, marketplaces",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-brand-system-showcase",
+  "engine": "bang-motion",
+  "name": "Bang concept: Brand system showcase",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for launches, rebrands, communities",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-claim-how-result",
+  "engine": "bang-motion",
+  "name": "Bang concept: Claim → how → result",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for new features, generative AI, creative tools",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-living-ui-ecosystem",
+  "engine": "bang-motion",
+  "name": "Bang concept: Living UI ecosystem",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for B2B SaaS, AI assistants, workflows",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-flat-pop-with-photos",
+  "engine": "bang-motion",
+  "name": "Bang concept: Flat pop with photos",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for consumer apps, fintech, campaigns",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-through-the-gradient-shapes",
+  "engine": "bang-motion",
+  "name": "Bang concept: Through the gradient shapes",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for tech, AI, security, premium launches",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "grammar/bang-product-tour-with-claims",
+  "engine": "bang-motion",
+  "name": "Bang concept: Product tour with claims",
+  "category": "Opener structure",
+  "how": "A structure for the whole film (not a look); good for SaaS, team tools, dashboards",
+  "doc": "vendor/bang-motion/references/opener-konsep.md"
+ },
+ {
+  "id": "vox/explainer-collage",
+  "engine": "vox-explainer",
+  "name": "Vox editorial collage",
+  "category": "Explainer",
+  "how": "Cream paper panel on one saturated accent field, paper cutouts with white sticker borders, halftone dots, washi tape, flat geometric accents, bold condensed type, bold outlined captions",
+  "doc": "vendor/vox-explainer-skill/references/vox-style-guide.md",
+  "card": "references/styles/vox-explainer.md",
+  "effort": "easy-medium (own canvas renderer; real cutout images optional)"
+ },
+ {
+  "id": "grammar/vox-arc",
+  "engine": "vox-explainer",
+  "name": "Vox narrative arc",
+  "category": "Narration",
+  "how": "Cold open, turn to context, escalating explanation, complication, reframe; 150 wpm beat budgets",
+  "doc": "vendor/vox-explainer-skill/references/vox-style-guide.md",
+  "card": "references/styles/vox-explainer.md"
+ },
+ {
+  "id": "draw/inkpaint",
+  "engine": "claude-drawing",
+  "name": "Ink wash",
+  "category": "Procedural painting",
+  "how": "rice paper; occluding washes with wet rims and mist; bristle brush with flying-white; texture strokes (皴); moss dots; pines, boats, reeds; calligraphy and seal",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/watercolor",
+  "engine": "claude-drawing",
+  "name": "Watercolour",
+  "category": "Procedural painting",
+  "how": "cold-press paper tooth; transparent glazes that mix subtractively; wet-edge darkening; granulation; blooms; wet-in-wet feathering; reflections; lifting",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/papercut",
+  "engine": "claude-drawing",
+  "name": "Paper collage",
+  "category": "Procedural painting",
+  "how": "torn edges with a white fibrous core; paper depth shadows; kraft, crayon, newsprint and ruled-notebook papers; waxy crayon lines; cute faces",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/colorpencil",
+  "engine": "claude-drawing",
+  "name": "Coloured pencil",
+  "category": "Procedural painting",
+  "how": "short directional hatching; wax that catches on the paper tooth, with pressure reaching the valleys; soft layered blending; brown pencil outlines; gel-pen sparkles",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/anime",
+  "engine": "claude-drawing",
+  "name": "Anime",
+  "category": "Procedural painting",
+  "how": "gradient skies; cumulus with crescent cel shadows on every puff; bloom, god rays, lens flare; flat-shaded fields, perspective roads, power lines; line-art characters",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/editorial",
+  "engine": "claude-drawing",
+  "name": "Editorial",
+  "category": "Procedural painting",
+  "how": "4–5 spot inks with grain, uneven density and mis-registration; overprinting; halftone shading; wobbly hand-drawn line; stylised figures",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/oilpaint",
+  "engine": "claude-drawing",
+  "name": "Impasto oil",
+  "category": "Procedural painting",
+  "how": "thousands of strokes following a flow field; each pixel knows its place inside its stroke → flat-topped paint ridges, bristle grooves, heavier paint where the brush lands; lit relief",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/ukiyoe",
+  "engine": "claude-drawing",
+  "name": "Ukiyo-e woodblock",
+  "category": "Procedural painting",
+  "how": "one block per colour on washi, with wood grain and registration drift; bokashi graded wipes; black key-block outlines; seigaiha waves; cloud bands; title cartouche and seal",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/pixelart",
+  "engine": "claude-drawing",
+  "name": "Pixel art",
+  "category": "Procedural painting",
+  "how": "a 320×180 canvas painted pixel by pixel; limited palette; ordered (Bayer) dithering for gradients, glows and reflections; 3×5 bitmap font; crisp ×6 upscale",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/clay",
+  "engine": "claude-drawing",
+  "name": "Stop-motion clay",
+  "category": "Procedural painting",
+  "how": "a height map of pressed pieces (pads, balls, rolled snakes, puffy letters, finger-smeared slabs, tool grooves, pokes) with lumps and fingerprints; lit like a photo of a set: wrap-diffuse key + cool fill, waxy sheen, shadows marched through ",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/cyanotype",
+  "engine": "claude-drawing",
+  "name": "Cyanotype",
+  "category": "Procedural painting",
+  "how": "emulsion brushed on in strokes with dry-brush ends; objects block UV (transmissions multiply): translucent leaves with whiter veins, fluff lifted off the paper with a soft penumbra, light scattering under edges; a Prussian-blue density curv",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/stitch",
+  "engine": "claude-drawing",
+  "name": "Cross-stitch embroidery",
+  "category": "Procedural painting",
+  "how": "Aida cloth with a hole at every block corner; one X per cell, lit as round twisted thread with a shadow, in hand-made variants; half stitches; back-stitch snapped hole to hole; padded glossy satin stitch; French knots; ASCII charts and a 5×",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/panel",
+  "engine": "claude-drawing",
+  "name": "Vintage instrument panel",
+  "category": "Procedural painting",
+  "how": "teak veneer, brushed aluminium, moulded plastic, grille cloth with lurex floats, perforated metal; bevels, wells and drop shadows from one key light; machined knobs, piano keys, toggle switch, jewel lamp, magic-eye tube, meter; silkscreened",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/sticker",
+  "engine": "claude-drawing",
+  "name": "Sticker collage × receipt",
+  "category": "Procedural painting",
+  "how": "cream card board with grain, mottling and fibres; flat-vector art die-cut into vinyl stickers (rounded white border, cut-edge thickness, laminate gloss rim and sheen, contact + drop shadow, peeled corners showing the pale backing); a therma",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/notebook",
+  "engine": "claude-drawing",
+  "name": "Lab notebook × stickers",
+  "category": "Procedural painting",
+  "how": "a wire-o graph-paper notebook on a graphite desk (hard back cover, stepped page stack, divider tabs, dog-ear, wire loops lit as metal tubes); graphite that only catches the paper tooth, with pressure, taper and hand wobble; ruled lines, hat",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/chalk",
+  "engine": "claude-drawing",
+  "name": "Chalkboard",
+  "category": "Procedural painting",
+  "how": "cloudy green slate paint; chalk that only catches the board's tooth, with pressure, grain and broken edges; side-of-the-stick shading; a felt eraser that really removes chalk, drags a smear along the wipe and leaves ghosts of the last lesso",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/cyberpunk",
+  "engine": "claude-drawing",
+  "name": "Cyberpunk",
+  "category": "Procedural painting",
+  "how": "a pinhole camera down a rain-soaked street canyon, rendered in HDR with a z-buffer: glass-tube neon with over-exposed cores, dead and flickering tubes; backlit light boxes; a translucent hologram ad with scan lines, tear slices and colour f",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/cartoon",
+  "engine": "claude-drawing",
+  "name": "Hand-drawn cartoon",
+  "category": "Procedural painting",
+  "how": "drawn the way an animator draws one frame: a blue col-erase pencil rough left under everything; brush-pen ink that lands thin, swells and lifts off to a point, closed shapes inked in one stroke whose ends overlap, heavier on the shadow side",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/isometric",
+  "engine": "claude-drawing",
+  "name": "Isometric 2.5D",
+  "category": "Procedural painting",
+  "how": "a true isometric orthographic camera and a small ray tracer: every part is an exact analytic solid (chamfered boxes, roofs, rocks and hulls as convex polyhedra; cylinders and cones on any axis; ellipsoids cut by planes) in a G-buffer, so hi",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/lineart",
+  "engine": "claude-drawing",
+  "name": "Continuous line art",
+  "category": "Procedural painting",
+  "how": "the whole picture is one path: shapes strung together in drawing order with tangent-continuous bridges, loop-the-loops laid along the path, invisible retraces to reach a window; rasterised once into a time map, so every draw-on stage is an ",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/soft3d",
+  "engine": "claude-drawing",
+  "name": "Soft 3D",
+  "category": "Procedural painting",
+  "how": "an actual little ray tracer: tens of thousands of balls found by walking a grid (DDA) with exact ray–sphere hits; puffy letters as signed distance fields (exact 2D distance transform of the glyph, extruded, rounded and inflated); a studio s",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/morph",
+  "engine": "claude-drawing",
+  "name": "Shape morph",
+  "category": "Procedural painting",
+  "how": "one closed outline per object: resampled to 256 points evenly along its arc length, given the same winding, start point aligned by FFT cross-correlation, then blended point by point while its centroid travels an eased motion path with squas",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/newscollage",
+  "engine": "claude-drawing",
+  "name": "Newspaper collage",
+  "category": "Procedural painting",
+  "how": "everything is paper that was printed, then torn or cut, then glued: kraft board with fibres; hand-torn newsprint of generated pseudo-text that shows a pale fibrous core along stretches of the tear; \"old photos\" that are real renders (height",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/aurora",
+  "engine": "claude-drawing",
+  "name": "Aurora glassmorphism",
+  "category": "Procedural painting",
+  "how": "a mesh gradient of colour pools mixed in OKLab on a domain-warped grid, with aurora ribbons and fine grain; glossy iridescent orbs; frosted panes that blur the actual pixels beneath them (backdrop, orbs, the cards and text behind), boost sa",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/bauhaus",
+  "engine": "claude-drawing",
+  "name": "Bauhaus geometric",
+  "category": "Procedural painting",
+  "how": "a press sheet printed screen by screen, light to dark, on cream uncoated stock (cloudy pulp, fibres, flecks, tooth, a slight cockle); each screen has its own registration error, so colour meets black with a sliver of paper or a dark overlap",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/synthwave",
+  "engine": "claude-drawing",
+  "name": "Retro synthwave",
+  "category": "Procedural painting",
+  "how": "an 80s retro-future dusk through a pinhole camera: a gradient sun cut by slits that thicken toward the horizon; an analytic neon grid with honest line widths that fades to its average instead of moiré; wireframe mountains glowing magenta to",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/perler",
+  "engine": "claude-drawing",
+  "name": "Perler beads",
+  "category": "Procedural painting",
+  "how": "a height field of real tubes seen by a camera leaning back a little (each pixel walks its column to the first surface), so every bead shows a sliver of side wall, its hole shows the inner wall and the peg inside tinted by light through the ",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/petroglyph",
+  "engine": "claude-drawing",
+  "name": "Petroglyph",
+  "category": "Procedural painting",
+  "how": "the picture is knocked out of the rock, not painted on: a sandstone height field (swells, faint bedding, grain, solution pockets, a stepped ledge) under desert varnish that grows as a near-uniform dark coat with crisp blue-black runoff stre",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/tomb",
+  "engine": "claude-drawing",
+  "name": "Egyptian tomb painting",
+  "category": "Procedural painting",
+  "how": "the wall is built in the painters' own order and every layer is kept: straw-tempered mud under gypsum plaster, a red-ochre squaring grid snapped at one canon unit per cell, a searching red underdrawing, a ground wash brushed round the figur",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/mosaic",
+  "engine": "claude-drawing",
+  "name": "Roman mosaic",
+  "category": "Procedural painting",
+  "how": "a hidden cartoon that every stone samples and snaps to a finite box of stones (limestone, veined marble, smalti glass, terracotta), matched on hue before lightness; rows traced along iso-lines of distance fields (marching squares) so they w",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/stainedglass",
+  "engine": "claude-drawing",
+  "name": "Stained glass",
+  "category": "Procedural painting",
+  "how": "the glazier's process: a cartoon cut into pieces (Voronoi mosaics, explicit cut sites for borders, slivers merged away); pot-metal glass coloured all the way through, every piece with its own shade and thickness (transmission  thickness), r",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/illuminated",
+  "engine": "claude-drawing",
+  "name": "Illuminated manuscript",
+  "category": "Procedural painting",
+  "how": "textura written with a simulated broad-edged quill (a stroke is the area an angled nib sweeps, so the diamond feet and hairline joins come from the pen, not a font), with long s, the Tironian et and a per-letter wobble; iron-gall ink that b",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/codex",
+  "engine": "claude-drawing",
+  "name": "Leonardo codex",
+  "category": "Procedural painting",
+  "how": "laid rag paper on a mount (laid and chain lines, fibre tooth), aged unevenly: browned ragged edges, a lost corner, yellowed clouds, crisp foxing, a water stain with a darker tide line, writing from the verso showing through; iron-gall ink f",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/silhouette",
+  "engine": "claude-drawing",
+  "name": "Silhouette",
+  "category": "Procedural painting",
+  "how": "black paper that is actually cut: a glued outline re-cut into tiny straight scissor facets, separately snipped strands (plume barbs, lashes, whiskers, ringlets, rigging) that lift a little and throw a longer shadow, and cut-outs where the c",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/letterpress",
+  "engine": "claude-drawing",
+  "name": "Letterpress poster",
+  "category": "Procedural painting",
+  "how": "one forme per ink, pressed one pass at a time, and each pass lands a few pixels off: the red tint creeps out from under the black key on one side and leaves a sliver of paper on the other; wood type set to full measure, every letter its own",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/constructivism",
+  "engine": "claude-drawing",
+  "name": "Soviet constructivism",
+  "category": "Procedural painting",
+  "how": "one sheet, two plates: everything red is on one plate and everything black (solids, type, every halftone dot) on the other, each laid down with its own registration error, so red and black meet with a sliver of paper or a dark overprint; tr",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/artdeco",
+  "engine": "claude-drawing",
+  "name": "Art Deco",
+  "category": "Procedural painting",
+  "how": "nothing is ever outlined: every shape is a knife-cut frisket sprayed with an airbrush, so edges are crisp and every inside is one smooth fade, with droplet grain only where the coat is thin; a sunburst of alternating rays that fades with di",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/comic",
+  "engine": "claude-drawing",
+  "name": "Golden-age comic",
+  "category": "Procedural painting",
+  "how": "made the way the shop made it, printed the way the press printed it: brush key lines on the black plate that land thin, swell, lift off and run heavier on the shadow side, spotted blacks, feathering that grows out of shadow edges in uneven ",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/popart",
+  "engine": "claude-drawing",
+  "name": "Pop silkscreen",
+  "category": "Procedural painting",
+  "how": "the Factory method rebuilt step by step on one gessoed cotton-duck canvas (a plain-weave height field with slubs), taped into a grid with paint creeping under the tape. Each panel is hand-painted first in loud flat acrylic: the background, ",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/lineprinter",
+  "engine": "claude-drawing",
+  "name": "ASCII art",
+  "category": "Procedural painting",
+  "how": "the scene is never drawn on the paper: it is painted into a hidden role map at six by ten samples per character cell, then every cell picks its character: lines and silhouette turns by their direction measured in real pixels and where they ",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/lowpoly",
+  "engine": "claude-drawing",
+  "name": "Low poly",
+  "category": "Procedural painting",
+  "how": "an actual little software rasterizer drawing into a 384×216 framebuffer: a pinhole camera, vertices snapped to whole pixels, back-face culling, every triangle of the scene in one painter's-sorted list (the console ordering table) with a dep",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/stencil",
+  "engine": "claude-drawing",
+  "name": "Stencil graffiti",
+  "category": "Procedural painting",
+  "how": "a board-marked concrete wall built as albedo plus height and lit by a low sun (sawn-plank bands and wood grain pressed into the cement, broken paste fins along the seams, cone-shaped form-tie holes with rusted rods or mortar plugs, bug hole",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/patch",
+  "engine": "claude-drawing",
+  "name": "Embroidered patches",
+  "category": "Procedural painting",
+  "how": "stitched the way an embroidery machine does it: every shape is cut into parallel rows at its own angle and each row into stitches — short staggered tatami for backgrounds, one long float per row for satin (split above a max length) — so eve",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/blueprint",
+  "engine": "claude-drawing",
+  "name": "Blueprint",
+  "category": "Procedural painting",
+  "how": "the drawing is inked first, on tracing linen, with a few fixed ruling-pen weights and single-stroke lettering-guide capitals (pencil guide lines left on the linen, hatching scraped back behind dimension figures), then contact-printed: ink b",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/crayon",
+  "engine": "claude-drawing",
+  "name": "Children's crayon",
+  "category": "Procedural painting",
+  "how": "rough paper whose tooth is equalised so pressure maps straight to coverage; wax only catches on the peaks, and dragging the stick stretches the bare pits into short streaks along each stroke; a worn, faceted tip lays a bundle of uneven sub-",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/crt",
+  "engine": "claude-drawing",
+  "name": "Green-screen CRT terminal",
+  "category": "Procedural painting",
+  "how": "a character terminal, not a picture: 120×36 cells of character memory with dim / normal / bold, reverse video, underline and double-height lines, a 5×7 dot-matrix ROM with descenders plus a graphics set (box drawing, the five scan-line bars",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/thermal",
+  "engine": "claude-drawing",
+  "name": "Thermal camera",
+  "category": "Procedural painting",
+  "how": "never painted in colour: the scene is a temperature field in °C — a room layered warm over cool, every object at its own temperature with its own gradients (a pot hottest at the base, a cat's eye hotter than its nose and ears), polished met",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/delft",
+  "engine": "claude-drawing",
+  "name": "Delft tiles",
+  "category": "Procedural painting",
+  "how": "a tin-glazed tile wall made in workshop order: blank tiles on a grid that is never quite straight, the design pounced through a pricked pattern as charcoal dots, outlines with a fine brush (a bead where it lands, a taper where it lifts, hea",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/cave",
+  "engine": "claude-drawing",
+  "name": "Cave painting",
+  "category": "Procedural painting",
+  "how": "the opposite of the petroglyph: pigment laid on pale limestone and seen only by a fire. The wall is a height field (broad swells, ridged folds, faint solution scallops, pits that hold clay, calcite crust on the convex parts, wet flowstone d",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/macpaint",
+  "engine": "claude-drawing",
+  "name": "1-bit paint program",
+  "category": "Procedural painting",
+  "how": "the whole screen of a 1984-style black-and-white paint program, not \"pixel art\": a 640×360 framebuffer with exactly two values, blown up ×3 with no smoothing; every tone is one of 38 eight-by-eight patterns anchored to the document origin (",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/blackfigure",
+  "engine": "claude-drawing",
+  "name": "Greek black-figure vase",
+  "category": "Procedural painting",
+  "how": "the pot is thrown first — a profile r(y) with two round handles — and everything is painted on its unrolled surface, so the same painting wraps onto the curved pot and lies flat in the rollout without ever disagreeing. Work goes in the work",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/graphite",
+  "engine": "claude-drawing",
+  "name": "Graphite pencil",
+  "category": "Procedural painting",
+  "how": "graphite is a mass on the paper, not a colour: value is Dmax·(1 − e^−m), so layers build up but never reach black, darks stay a cool slate and hard pressure polishes them to a faint silvery sheen; the lead only deposits where it touches the",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/xray",
+  "engine": "claude-drawing",
+  "name": "X-ray",
+  "category": "Procedural painting",
+  "how": "nothing is drawn as a picture of an object: every object is built as material along the beam (a solid with rounded edges, a hollow shell, a round rod or tube, a spring whose far half dives along the beam, discs seen edge-on or face-on, zips",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/rubberhose",
+  "engine": "claude-drawing",
+  "name": "1930s rubber hose",
+  "category": "Procedural painting",
+  "how": "made the way a studio made one frame, then printed and worn: a grey-gouache background painted once on board (washes with a dry-brush streak, airbrushed pools of light and contact shadows, a thin grey outline); actors roughed in pencil, ink",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/linocut",
+  "engine": "claude-drawing",
+  "name": "Linocut",
+  "category": "Procedural painting",
+  "how": "made by subtraction, like the real thing: a rolled-up block prints solid black and every white in the picture is lino a gouge took away. Each block is a relief map; every cut is a tapered polygon with a crumbly edge — a V-gouge dips in to a",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/vhs",
+  "engine": "claude-drawing",
+  "name": "VHS home video",
+  "category": "Procedural painting",
+  "how": "not a retro filter over a picture but the three steps a home-video frame really went through, each one leaving its own marks. The room is painted as surface colour lit by its lamps (a dim warm ambient, a floor lamp that throws scallops up a",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/flatvector",
+  "engine": "claude-drawing",
+  "name": "Flat vector",
+  "category": "Procedural painting",
+  "how": "an artboard of crisp anti-aliased geometric shapes (analytic circles, filleted polygons, tapered capsules, spline land profiles) combined with boolean ops, with no outlines anywhere; seven flat hues, every other colour a tone or mix of them",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/storybook",
+  "engine": "claude-drawing",
+  "name": "Storybook animation",
+  "category": "Procedural painting",
+  "how": "a real animation, not a draw-on: every piece of scenery is pre-painted once with a reveal map (the moment the pen or brush reaches each pixel), so ink lines draw along their length, washes spread with a darker wet front and props pop in wit",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/ballpoint",
+  "engine": "claude-drawing",
+  "name": "Ballpoint doodle",
+  "category": "Procedural painting",
+  "how": "ballpoint ink is an oil paste a rolling ball lays down, kept as optical density, so a line drawn twice, a crossing or a blob goes darker and more saturated (blue deepens to blue-violet, never flat black); every stroke starts dry and thin, d",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/overlay",
+  "engine": "claude-drawing",
+  "name": "Overlay sheets",
+  "category": "Procedural painting",
+  "how": "the picture is a product of transmittances: a warm light box glows through a base sheet printed in black line and grey tints, then through translucent sheets that each carry ONE ink, laid down on registration crosses; an ink's coverage is a",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/pastelui",
+  "engine": "claude-drawing",
+  "name": "Pastel UI",
+  "category": "Procedural painting",
+  "how": "one frame of a modern product film: a flat pastel field (blue, pink, yellow, lilac, mint, peach) with one big pool of soft light and a few white bokeh discs; macOS window cards with a frosted rim, a white body, the red / yellow / green ligh",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/grading",
+  "engine": "claude-drawing",
+  "name": "Exam grading",
+  "category": "Procedural painting",
+  "how": "an answer sheet on a green felt desk, printed like the real form — timing marks down the edge, a heavy title, fields, a ticket number with its bubbles filled, a score / grader table, numbered sections, ruled answer lines and a hatched gradi",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/shadowpuppet",
+  "engine": "claude-drawing",
+  "name": "Shadow puppetry",
+  "category": "Procedural painting",
+  "how": "a shadow play seen from the audience, where everything on the screen is lamp light that came through it: a cloth screen lit by an oil lamp behind the middle (pale gold at the hot spot, deep amber toward the rim, thread slubs, a fold or two)",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/penwash",
+  "engine": "claude-drawing",
+  "name": "Pen & wash",
+  "category": "Procedural painting",
+  "how": "small cold-press sketch cards made the way a sketcher makes them — a fineliner line first, loose watercolour after, then the cards photographed on a table. Each card is its own sheet (paper tooth lit by the window, a cut edge that is not qu",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/gouache",
+  "engine": "claude-drawing",
+  "name": "Retro gouache",
+  "category": "Procedural painting",
+  "how": "picture-book character portraits in opaque gouache, painted the way a gouache painter works, dark to light and big to small: a warm imprimatura scrubbed onto the board, an umber underdrawing, a background laid solid and then scumbled with a",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/bluebook",
+  "engine": "claude-drawing",
+  "name": "Blue picture book",
+  "category": "Procedural painting",
+  "how": "a page of a soft-blue modern picture book, drawn the way the illustrator works and then printed: colour blocks, a loose ink line, dark masses scribbled in, small accents, chalk whites, weather, print. The palette is held to three blues (pow",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/jiangnan",
+  "engine": "claude-drawing",
+  "name": "Jiangnan garden",
+  "category": "Procedural painting",
+  "how": "a lush, finely painted spring garden in the manner of a contemporary digital-gouache illustration, painted back to front the way a landscape painter works: sky, far hills, haze, the trees behind, the buildings, the far bank, the water, thin",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/drybrush",
+  "engine": "claude-drawing",
+  "name": "Dry-brush blocks",
+  "category": "Procedural painting",
+  "how": "a mid-century poster / gouache-collage illustration built from a few big dry-brushed blocks of colour on cream paper, in a strictly limited palette: forest and sage green, teal-blue, navy, a near-black, vermilion, a touch of sky blue and ce",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/twilight",
+  "engine": "claude-drawing",
+  "name": "Twilight storybook",
+  "category": "Procedural painting",
+  "how": "a tender dusk picture-book page full of miniature detail, at the hour when day turns to night. The dusk sky is a six-stop gradient (lavender, lilac, rose, peach, apricot, gold) whose stops are warped by horizontally stretched noise, so the ",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/nocturne",
+  "engine": "claude-drawing",
+  "name": "Hatched nocturne",
+  "category": "Procedural painting",
+  "how": "a small night print built entirely from short directional strokes, the way a pastel or coloured-pencil artist hatches a nocturne, then mounted on cream paper. The sheet has an equalised tooth, mottling and fibres; the picture is underpainte",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/obsidianui",
+  "engine": "claude-drawing",
+  "name": "Obsidian UI",
+  "category": "Procedural painting",
+  "how": "a dark note-taking app the way an explainer film shows it: a near-black page with a soft violet glow and the app window on it — a tab bar with the traffic lights (the active tab open at the bottom so it runs into the note), a slim icon ribb",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/canvasboard",
+  "engine": "claude-drawing",
+  "name": "Canvas board",
+  "category": "Procedural painting",
+  "how": "the canvas view of a dark note-taking app, as a product film shows it: a dark page with a faint violet glow, the app window (traffic lights and a .canvas tab in the tab bar, a ribbon of line icons, the zoom buttons top right) and in it an i",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/flexoki",
+  "engine": "claude-drawing",
+  "name": "Flexoki paper",
+  "category": "Procedural painting",
+  "how": "an explainer sheet the way a docs site themed with the Flexoki palette shows its diagrams: warm paper #FFFCF0, ink-black type, a ladder of warm greys (surface, track, hairline, border, faint and muted text) and eight accents in two shades. ",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/pencilbook",
+  "engine": "claude-drawing",
+  "name": "Warm pencil storybook",
+  "category": "Procedural painting",
+  "how": "a children's-storybook page in soft, layered coloured pencil on warm, toothy paper — a giant gentle creature and a small child at dusk. The sheet has an equalised tooth that is mostly a one-pixel grain; wax catches where the tooth is above ",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/colortown",
+  "engine": "claude-drawing",
+  "name": "Colour town",
+  "category": "Procedural painting",
+  "how": "a dense, cheerful storybook hill town in opaque gouache and a fine ink line — tall narrow houses in tomato, mustard, teal, mint, coral and cream piled up a slope under blue-grey slate mansards, a white clock tower, strings of bunting across",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/pastelvignette",
+  "engine": "claude-drawing",
+  "name": "Pastel vignette",
+  "category": "Procedural painting",
+  "how": "a whimsical picture-book vignette in soft chalk pastel and a little gouache on pure white paper — a person and an animal companion, half-length, with no background panel and no frame: the painting simply stops and its edges break up into th",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/poetichalloween",
+  "engine": "claude-drawing",
+  "name": "Poetic Halloween",
+  "category": "Procedural painting",
+  "how": "a melancholic, slightly surreal picture-book portrait for an autumn night, in opaque gouache and fine pencil hatching on a dark toned board, then printed. Faces are pale porcelain with a strong red flush on the nose, the cheeks and the lids",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/oilpastel",
+  "engine": "claude-drawing",
+  "name": "Oil-pastel portrait",
+  "category": "Procedural painting",
+  "how": "a figure drawn with oil pastels (wax crayons) on white, toothy cold-press paper and left floating as a vignette — no background, at most a smear of sky or a dry-brushed cast shadow. The palette is tight and high-chroma: saffron and marigold",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/sketchbook",
+  "engine": "claude-drawing",
+  "name": "Sketchbook doodle",
+  "category": "Procedural painting",
+  "how": "a page from an illustrator's sketchbook: warm off-white paper with a faint blush, mostly left empty, one small character and two or three sparse props floating on it — no ground, no background. The drawing is hair-thin dark ink: every line ",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/spotillo",
+  "engine": "claude-drawing",
+  "name": "Flat spot illustration",
+  "category": "Procedural painting",
+  "how": "Japanese-style spot illustrations of everyday life: several small vignettes floating on white with generous space between them — no ground, no background, at most a puddle or a sliver of shadow. Every shape is one flat, opaque colour with n",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/grainbook",
+  "engine": "claude-drawing",
+  "name": "Grainy picture book",
+  "category": "Procedural painting",
+  "how": "the sweet, grainy mid-century children's-book look: a full-bleed page — no margin, no vignette — in a small, saturated palette (cobalt and ultramarine skies or a dusty-blue ground, vermilion and tomato red, orange, pine green, cream, peach ",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/dreamhills",
+  "engine": "claude-drawing",
+  "name": "Dreamy hills",
+  "category": "Procedural painting",
+  "how": "the minimalist, dreamy hills wallpaper: a tall 1:2 picture with a clean, deep sky over half of it, giant soft hills below, and one person a few pixels tall walking on a crest for scale. Each hill is a Catmull-Rom ridge painted back to front",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "draw/sunlitgreen",
+  "engine": "claude-drawing",
+  "name": "Sunlit greenery",
+  "category": "Procedural painting",
+  "how": "bright, high-key summer daylight as an anime background painter or a digital-gouache illustrator paints it — no outlines, hard-edged flat shapes, a faint paper tooth. The leaves carry it: canopy() packs every mass with small sub-clump domes",
+  "doc": "vendor/claude-drawing-skill/docs/STYLES.md",
+  "effort": "hard (needs Python + numpy + Pillow; draw-on GIF frames then mux)"
+ },
+ {
+  "id": "own/kinetic-type",
+  "engine": "reelsmith",
+  "name": "Kinetic Type",
+  "category": "Reelsmith original",
+  "how": "Dark stage, huge heavy type blurring in, gradient headline, spotlight drift",
+  "doc": "templates/styles/README.md",
+  "effort": "built in (ready renderer)"
+ },
+ {
+  "id": "own/system-diagram",
+  "engine": "reelsmith",
+  "name": "System Diagram",
+  "category": "Reelsmith original",
+  "how": "Blueprint-grid node boxes with type tags and dashed connectors carrying dots (system design)",
+  "doc": "templates/styles/README.md",
+  "effort": "built in (ready renderer)"
+ },
+ {
+  "id": "own/clay-toy",
+  "engine": "reelsmith",
+  "name": "Clay Toy",
+  "category": "Reelsmith original",
+  "how": "Claymorphism: pastel puffy cards, soft shadows, clay balls, bouncy pop-in",
+  "doc": "templates/styles/README.md",
+  "effort": "built in (ready renderer)"
+ },
+ {
+  "id": "own/receipt",
+  "engine": "reelsmith",
+  "name": "Receipt",
+  "category": "Reelsmith original",
+  "how": "Thermal till receipt, mono type, dotted leaders, red boxed flags, barcode",
+  "doc": "templates/styles/README.md",
+  "effort": "built in (ready renderer)"
+ },
+ {
+  "id": "own/sticker-collage",
+  "engine": "reelsmith",
+  "name": "Sticker Collage",
+  "category": "Reelsmith original",
+  "how": "Kraft paper, die-cut vinyl stickers with white borders and gloss",
+  "doc": "templates/styles/README.md",
+  "effort": "built in (ready renderer)"
+ },
+ {
+  "id": "own/lab-notebook",
+  "engine": "reelsmith",
+  "name": "Lab Notebook",
+  "category": "Reelsmith original",
+  "how": "Graph-paper notebook, pencil handwriting, tick/cross checkboxes, marker highlights",
+  "doc": "templates/styles/README.md",
+  "effort": "built in (ready renderer)"
+ }
+]

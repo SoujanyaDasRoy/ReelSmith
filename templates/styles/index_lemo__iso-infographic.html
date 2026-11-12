@@ -1,0 +1,60 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Iso Infographic</title>
+<style>
+@font-face{font-family:TI;font-weight:500;src:url(node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2)}
+@font-face{font-family:TI;font-weight:700;src:url(node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2)}
+@font-face{font-family:TI;font-weight:800;src:url(node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2)}
+*{margin:0}html,body{width:1080px;height:1920px;overflow:hidden;background:#EEF2F7}
+canvas{position:absolute;left:0;top:0}
+</style></head><body>
+<canvas id="cv" width="1080" height="1920"></canvas>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,cv=document.getElementById('cv'),g=cv.getContext('2d');
+const INK='#1b2433';
+// tone -> [top, left side, front side]
+const TONE={normal:['#FFFFFF','#C9D4E3','#DCE4F0'],ok:['#BFEBD2','#7FBF9A','#9AD3B2'],alert:['#FFB3AA','#D9685D','#EE8A80'],accent:['#FFE08A','#D9B23E','#EBC862'],dim:['#E6EAF0','#BCC5D2','#CCD3DE']};
+const OX=40,OY=690,C=.866;
+const S=(x,y)=>[OX+C*(x+y),OY+.5*(y-x)];
+function wrapC(t,maxW){const words=t.split(' '),out=[];let cur='';for(const x of words){const tt=cur?cur+' '+x:x;if(g.measureText(tt).width>maxW&&cur){out.push(cur);cur=x;}else cur=tt;}out.push(cur);return out;}
+function slab(ox,oy,w,d,h,tone,lift,alpha){ // local origin shifts along the stack (oy) and rises by lift
+ const [tp,lf,fr]=TONE[tone]||TONE.normal;g.globalAlpha=alpha;
+ const P=(x,y,z)=>{const s=S(ox+x,oy+y);return[s[0],s[1]-lift-z];};
+ const q=(pts,c)=>{g.beginPath();pts.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.closePath();g.fillStyle=c;g.fill();g.strokeStyle=INK;g.lineWidth=2;g.lineJoin='round';g.stroke();};
+ q([P(0,0,0),P(0,d,0),P(0,d,-h),P(0,0,-h)],lf);
+ q([P(0,d,0),P(w,d,0),P(w,d,-h),P(0,d,-h)],fr);
+ q([P(0,0,0),P(w,0,0),P(w,d,0),P(0,d,0)],tp);
+ g.globalAlpha=1;
+}
+function topText(ox,oy,lift,fn){ // draw in the slab's top-plane coordinates (x along the slab, y across)
+ g.save();const s=S(ox,oy);g.setTransform(C,-.5,C,.5,s[0],s[1]-lift);fn();g.restore();}
+function frame(t,sc,s,idx){
+ const c=sc.cues,ls=t-sc.start;
+ g.setTransform(1,0,0,1,0,0);g.fillStyle='#EEF2F7';g.fillRect(0,0,1080,1920);
+ // isometric dot lattice
+ g.fillStyle='rgba(27,36,51,.12)';for(let i=-4;i<20;i++)for(let j=-4;j<20;j++){const p=S(i*60,j*60);if(p[1]>180&&p[1]<1290&&p[0]>0&&p[0]<1080){g.beginPath();g.arc(p[0],p[1],2.4,0,7);g.fill();}}
+ // flat title
+ g.fillStyle='#6a7a92';g.font='500 28px TI';g.textBaseline='alphabetic';g.fillText(s.head[0].replace(/,$/,'').toUpperCase(),64,226);
+ let fs=104;g.font=`800 ${fs}px TI`;while(g.measureText(s.head[1]).width>950&&fs>40){fs-=2;g.font=`800 ${fs}px TI`;}g.fillStyle=INK;g.fillText(s.head[1],60,226+fs*.95);
+ const ec=s.items.find(i=>i.k==='endcard'),endOn=ec&&t>=AT(ec.at,c);
+ const its=s.items.filter(i=>i.k!=='endcard');
+ let off=0;const W=540;
+ if(endOn){const a=AT(ec.at,c),p=BACK(P(t,a,a+.45),1.4),lift=(1-p)*260;slab(0,0,W,300,26,'accent',lift,P(t,a,a+.15));
+  topText(0,0,lift+26*0,()=>{g.globalAlpha=P(t,a,a+.2);g.fillStyle=INK;g.textAlign='center';g.font='800 150px TI';g.fillText(ec.lines[0],W/2,130);g.font='700 40px TI';g.fillText(ec.lines[1],W/2,206);g.font='500 24px TI';g.fillText(ec.lines[2],W/2,256);g.globalAlpha=1;g.textAlign='left';});}
+ else its.forEach((it,i)=>{const x=RESOLVE(it,t,c);const d=it.k==='val'?160:84;const y0=off;off+=d+14;if(!x.vis)return;
+  const age=t-x.ta,drop=BACK(P(age,0,.4),1.5),lift=(1-drop)*240,a=P(age,0,.12);if(a<=0)return;
+  const tone=x.tone||'normal',dim=tone==='dim',h=it.k==='val'?30:22;
+  slab(0,y0,W,d,h,tone,lift,a*(dim?.8:1));
+  topText(0,y0,lift,()=>{g.globalAlpha=a;g.fillStyle=tone==='alert'?'#8a1a12':INK;g.textBaseline='alphabetic';
+   if(it.k==='val'){g.font='500 26px TI';g.fillText(it.label,28,44);let f=124;g.font=`800 ${f}px TI`;while(g.measureText(x.text).width>W-56&&f>40){f-=4;g.font=`800 ${f}px TI`;}g.fillText(x.text,28,d-26);}
+   else if(it.k==='meter'){g.font='700 32px TI';g.fillText(it.label,26,d/2+11);const bx=300,bw=W-bx-150;g.fillStyle='rgba(27,36,51,.15)';g.fillRect(bx,d/2-14,bw,28);g.fillStyle=tone==='alert'?'#D9362B':'#2E9E6B';g.fillRect(bx,d/2-14,Math.max(4,bw*clamp(x.ratio)),28);g.fillStyle=INK;g.font='700 30px TI';g.fillText(x.text,bx+bw+14,d/2+11);}
+   else if(it.k==='cmd'){const n=Math.max(0,Math.floor(age/.04));let f=34;g.font=`700 ${f}px TI`;const txt=it.text;while(g.measureText(txt).width>W-52&&f>20){f-=2;g.font=`700 ${f}px TI`;}g.fillText(txt.slice(0,n),26,d/2+11);}
+   else{let f=36;g.font=`700 ${f}px TI`;let lines=wrapC(x.text||'',W-52);while(lines.length>2&&f>22){f-=2;g.font=`700 ${f}px TI`;lines=wrapC(x.text||'',W-52);}lines.forEach((l,k)=>g.fillText(l,26,d/2+11+(k-(lines.length-1)/2)*(f*1.15)));if(x.flag==='strike'){g.fillRect(26,d/2+4,Math.min(g.measureText(lines[0]).width,W-52),3);}}
+   g.globalAlpha=1;});});
+ // legend plate: flat caption
+ const cap=CAP(t,T.scenes);if(cap){const a=P(t,cap.t0,cap.t0+.15);g.globalAlpha=a;g.fillStyle='#fff';g.beginPath();g.roundRect(56,1296,968,112,18);g.fill();g.strokeStyle=INK;g.lineWidth=3;g.stroke();g.fillStyle='#2E6BE6';g.fillRect(56,1296,16,112);g.font='700 42px TI';g.textBaseline='middle';const parts=cap.text.split(/(\*[^*]+\*)/).filter(Boolean);let tw=0;const ms=parts.map(p=>{const v=p.replace(/\*/g,'');const m=g.measureText(v).width;tw+=m;return[v,m,p.startsWith('*')];});let px=548-tw/2;for(const [v,m,acc] of ms){g.fillStyle=acc?'#D9362B':INK;g.fillText(v,px,1353);px+=m;}g.globalAlpha=1;g.textBaseline='alphabetic';}
+ const f=Math.max(1-P(ls,0,.2),P(ls,sc.dur-.2,sc.dur));if(f>0){g.fillStyle=`rgba(238,242,247,${f})`;g.fillRect(0,0,1080,1920);}
+}
+window.renderAt=function(t){const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx];frame(t,sc,SD[sc.id],idx);};
+window.ready=Promise.all(['500 40px TI','700 40px TI','800 40px TI'].map(f=>document.fonts.load(f,'A').catch(()=>[])));
+</script></body></html>

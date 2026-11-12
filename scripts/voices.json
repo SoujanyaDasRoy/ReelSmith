@@ -1,0 +1,194 @@
+{
+  "_note": "Preset names are used in script.json parts as \"v\". 'script' says which text the voice expects: devanagari = Hindi in Devanagari, roman = Hinglish in Roman letters. 'verified' = I could only confirm audio was returned, not how it sounds; listen with `node voices.mjs sample <preset>` before using.",
+  "presets": {
+    "narrator_m": {
+      "voice": "hi-IN-MadhurNeural",
+      "rate": "+20%",
+      "pitch": "default",
+      "script": "devanagari",
+      "desc": "Native Hindi male, default narrator"
+    },
+    "narrator_f": {
+      "voice": "hi-IN-SwaraNeural",
+      "rate": "+20%",
+      "pitch": "default",
+      "script": "devanagari",
+      "desc": "Native Hindi female"
+    },
+    "deep_slow_m": {
+      "voice": "hi-IN-MadhurNeural",
+      "rate": "-12%",
+      "pitch": "-18Hz",
+      "script": "devanagari",
+      "desc": "Deep, slow, game-show gravity"
+    },
+    "fast_excited_m": {
+      "voice": "hi-IN-MadhurNeural",
+      "rate": "+32%",
+      "pitch": "+14Hz",
+      "script": "devanagari",
+      "desc": "Fast, higher, panicked/excited"
+    },
+    "calm_f": {
+      "voice": "hi-IN-SwaraNeural",
+      "rate": "+5%",
+      "pitch": "-4Hz",
+      "script": "devanagari",
+      "desc": "Slower, calmer female"
+    },
+    "friend_hinglish_m": {
+      "voice": "en-IN-PrabhatNeural",
+      "rate": "+10%",
+      "pitch": "default",
+      "script": "roman",
+      "desc": "Indian-English male reading Roman Hinglish (casual character)"
+    },
+    "friend_hinglish_f": {
+      "voice": "en-IN-NeerjaNeural",
+      "rate": "+10%",
+      "pitch": "default",
+      "script": "roman",
+      "desc": "Indian-English female reading Roman Hinglish"
+    },
+    "friend_expressive_f": {
+      "voice": "en-IN-NeerjaExpressiveNeural",
+      "rate": "+10%",
+      "pitch": "default",
+      "script": "roman",
+      "desc": "More expressive Indian-English female"
+    },
+    "ml_andrew": {
+      "voice": "en-US-AndrewMultilingualNeural",
+      "rate": "+15%",
+      "pitch": "default",
+      "script": "devanagari",
+      "desc": "Multilingual male on Hindi text (accent unverified)"
+    },
+    "ml_brian": {
+      "voice": "en-US-BrianMultilingualNeural",
+      "rate": "+15%",
+      "pitch": "default",
+      "script": "devanagari",
+      "desc": "Multilingual male on Hindi text (accent unverified)"
+    },
+    "ml_william": {
+      "voice": "en-AU-WilliamMultilingualNeural",
+      "rate": "+15%",
+      "pitch": "default",
+      "script": "devanagari",
+      "desc": "Multilingual male on Hindi text (accent unverified)"
+    },
+    "ml_ava": {
+      "voice": "en-US-AvaMultilingualNeural",
+      "rate": "+15%",
+      "pitch": "default",
+      "script": "devanagari",
+      "desc": "Multilingual female on Hindi text (accent unverified)"
+    },
+    "ml_emma": {
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+15%",
+      "pitch": "default",
+      "script": "devanagari",
+      "desc": "Multilingual female on Hindi text (accent unverified; rate-limited once during testing)"
+    },
+    "en_us_guy_m": {
+      "voice": "en-US-GuyNeural",
+      "rate": "+8%",
+      "pitch": "default",
+      "script": "english",
+      "desc": "US male, clear explainer (default English male)"
+    },
+    "en_us_andrew_m": {
+      "voice": "en-US-AndrewNeural",
+      "rate": "+8%",
+      "pitch": "default",
+      "script": "english",
+      "desc": "US male, warm and conversational"
+    },
+    "en_us_brian_m": {
+      "voice": "en-US-BrianNeural",
+      "rate": "+8%",
+      "pitch": "default",
+      "script": "english",
+      "desc": "US male, relaxed"
+    },
+    "en_us_christopher_m": {
+      "voice": "en-US-ChristopherNeural",
+      "rate": "+5%",
+      "pitch": "-2Hz",
+      "script": "english",
+      "desc": "US male, authoritative documentary tone"
+    },
+    "en_us_aria_f": {
+      "voice": "en-US-AriaNeural",
+      "rate": "+8%",
+      "pitch": "default",
+      "script": "english",
+      "desc": "US female, bright explainer (default English female)"
+    },
+    "en_us_jenny_f": {
+      "voice": "en-US-JennyNeural",
+      "rate": "+8%",
+      "pitch": "default",
+      "script": "english",
+      "desc": "US female, friendly"
+    },
+    "en_us_ava_f": {
+      "voice": "en-US-AvaNeural",
+      "rate": "+8%",
+      "pitch": "default",
+      "script": "english",
+      "desc": "US female, natural and soft"
+    },
+    "en_gb_ryan_m": {
+      "voice": "en-GB-RyanNeural",
+      "rate": "+8%",
+      "pitch": "default",
+      "script": "english",
+      "desc": "British male, crisp"
+    },
+    "en_gb_sonia_f": {
+      "voice": "en-GB-SoniaNeural",
+      "rate": "+8%",
+      "pitch": "default",
+      "script": "english",
+      "desc": "British female, polished"
+    },
+    "en_au_natasha_f": {
+      "voice": "en-AU-NatashaNeural",
+      "rate": "+8%",
+      "pitch": "default",
+      "script": "english",
+      "desc": "Australian female"
+    },
+    "en_in_prabhat_m": {
+      "voice": "en-IN-PrabhatNeural",
+      "rate": "+8%",
+      "pitch": "default",
+      "script": "english",
+      "desc": "Indian-English male: real English with an Indian accent"
+    },
+    "en_in_neerja_f": {
+      "voice": "en-IN-NeerjaNeural",
+      "rate": "+8%",
+      "pitch": "default",
+      "script": "english",
+      "desc": "Indian-English female: real English with an Indian accent"
+    },
+    "en_deep_m": {
+      "voice": "en-US-ChristopherNeural",
+      "rate": "-10%",
+      "pitch": "-16Hz",
+      "script": "english",
+      "desc": "Deep, slow trailer-style male"
+    },
+    "en_fast_m": {
+      "voice": "en-US-GuyNeural",
+      "rate": "+28%",
+      "pitch": "+10Hz",
+      "script": "english",
+      "desc": "Fast excited male"
+    }
+  }
+}

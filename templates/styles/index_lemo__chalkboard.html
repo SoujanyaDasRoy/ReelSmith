@@ -1,0 +1,82 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Chalkboard</title>
+<style>
+@font-face{font-family:SB;src:url(node_modules/@fontsource/schoolbell/files/schoolbell-latin-400-normal.woff2)}
+@font-face{font-family:CI;font-weight:500;src:url(node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2)}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#3a2a1d;font-family:SB,cursive}
+#wall{position:absolute;inset:0;background:linear-gradient(#d9cfba 0,#d9cfba 100%)}
+#board{position:absolute;left:24px;top:160px;width:1032px;height:1340px;border:26px solid #6b4a2b;border-radius:10px;box-shadow:0 30px 60px rgba(0,0,0,.5),inset 0 0 0 3px #3e2a16,inset 0 0 90px rgba(0,0,0,.55);overflow:hidden;background:radial-gradient(900px 700px at 40% 30%,#2d5a46,#214536 55%,#1a3829)}
+#mottle{position:absolute;inset:-40px;mix-blend-mode:soft-light;opacity:.6;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.008 .012' numOctaves='3' seed='5'/%3E%3C/filter%3E%3Crect width='500' height='500' filter='url(%23n)'/%3E%3C/svg%3E")}
+#grain{position:absolute;inset:0;mix-blend-mode:overlay;opacity:.5;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='8'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E")}
+#tray{position:absolute;left:24px;top:1486px;width:1032px;height:34px;background:linear-gradient(#7d5833,#563a1f);border-radius:0 0 8px 8px;box-shadow:0 10px 20px rgba(0,0,0,.4)}
+#tray i{position:absolute;top:-8px;height:14px;border-radius:7px}
+.scene{position:absolute;inset:0;display:none}
+.chalk{filter:url(#chalk)}
+.w{color:#F2F0E6}.o{color:#F2A65A}.y{color:#F5E59A}.dim{opacity:.5}
+.h0{position:absolute;left:46px;top:40px;font-size:40px}
+.h1{position:absolute;left:46px;top:90px;font-size:118px;line-height:1;white-space:nowrap}
+.ul{position:absolute;left:40px;top:222px;width:940px;height:30px}
+.rows{position:absolute;left:46px;top:290px;width:930px;display:flex;flex-direction:column;gap:16px}
+.row{font-size:50px;line-height:1.12;white-space:normal;max-width:930px;position:relative}
+.row.strike:after{content:"";position:absolute;left:0;right:0;top:55%;height:4px;background:#F2F0E6;opacity:.85;border-radius:3px}
+.cb{display:flex;align-items:center;gap:16px;font-size:40px}.cb .bx{width:380px;height:34px;border:4px solid #F2F0E6;border-radius:4px;position:relative;overflow:hidden}.cb .bx i{position:absolute;left:0;top:0;bottom:0;background:repeating-linear-gradient(135deg,#F2F0E6 0 4px,transparent 4px 12px)}
+.bigc{font-size:170px;line-height:1}
+#cap{position:absolute;left:50%;transform:translateX(-50%);top:1290px;max-width:960px;padding:14px 34px;border-radius:40px;background:rgba(10,18,14,.58);font-family:CI;font-weight:500;font-size:40px;color:#F2F0E6;white-space:nowrap}
+#cap em{font-style:normal;color:#F2A65A}
+#streak{position:absolute;top:0;bottom:0;width:140px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);filter:blur(10px);display:none}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><filter id="chalk" x="-3%" y="-8%" width="106%" height="116%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G" result="d"/><feComponentTransfer in="n" result="m"><feFuncA type="discrete" tableValues="0 1 1 1 1 1 1 1"/></feComponentTransfer><feComposite in="d" in2="m" operator="in"/></filter></svg>
+<div id="wall"></div>
+<div id="board"><div id="mottle"></div><div id="stage"></div><div id="streak"></div><div id="grain"></div></div>
+<div id="tray"><i style="left:60px;width:70px;background:#F2F0E6"></i><i style="left:150px;width:56px;background:#F2A65A"></i><i style="left:226px;width:64px;background:#F5E59A"></i></div>
+<div id="cap"></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),capEl=document.getElementById('cap'),streak=document.getElementById('streak');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+const scribble=(w)=>{let d='M4 16';for(let x=4;x<w;x+=34){d+=` Q${x+10} ${x%2?6:26} ${x+34} 16`;}return d;};
+function build(sc){
+ const s=SD[sc.id],root=mk('scene');
+ root.appendChild(mk('h0 o chalk',esc(s.head[0].replace(/,$/,''))));
+ const h1=mk('h1 w chalk','<span>'+esc(s.head[1])+'</span>');root.appendChild(h1);
+ stage.appendChild(root);root.style.display='block';const w=h1.firstChild.getBoundingClientRect().width;if(w>930)h1.style.fontSize=Math.floor(118*930/w)+'px';root.style.display='none';
+ const ul=document.createElementNS('http://www.w3.org/2000/svg','svg');ul.setAttribute('class','ul chalk');ul.setAttribute('viewBox','0 0 940 30');ul.innerHTML=`<path d="${scribble(900)}" fill="none" stroke="#F2A65A" stroke-width="5" stroke-linecap="round" pathLength="1" stroke-dasharray="1"/>`;root.appendChild(ul);
+ const rows=mk('rows');root.appendChild(rows);const els=[];let ec=null,ecEl=null;
+ s.items.forEach(it=>{if(it.k==='endcard'){ec=it;return;}const e=mk('row chalk w');rows.appendChild(e);els.push({it,e});});
+ if(ec){ecEl=mk('chalk',`<div class="bigc w" style="font-size:190px">${esc(ec.lines[0].toLowerCase())}</div><div class="o" style="font-size:52px;margin-top:20px">${esc(ec.lines[1])}</div><div class="y" style="font-size:36px;margin-top:20px">${esc(ec.lines[2])}</div>`,'position:absolute;left:46px;top:330px;display:none');root.appendChild(ecEl);}
+ return {root,h1,ul:ul.firstChild,els,ec,ecEl,rows,h0:root.querySelector('.h0')};
+}
+const dur=len=>Math.min(.9,.12+len*.022); // chalk speed: writes at hand speed, never faster than the voice can follow
+function reveal(e,p){e.style.clipPath=`inset(-4px ${(1-p)*100}% -6px 0)`;}
+function update(b,sc,s,t){
+ const c=sc.cues,ls=t-sc.start;
+ reveal(b.h0,EZ.io(P(ls,.1,.35)));reveal(b.h1,EZ.io(P(ls,.2,.9)));b.ul.setAttribute('stroke-dashoffset',String(1-EZ.io(P(ls,.85,1.25))));
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ if(b.ecEl){b.ecEl.style.display=endOn?'block':'none';reveal(b.ecEl,EZ.io(P(t,AT(b.ec.at,c),AT(b.ec.at,c)+.9)));}
+ b.rows.style.display=endOn?'none':'flex';
+ b.els.forEach(({it,e})=>{
+  const x=RESOLVE(it,t,c);e.style.visibility=x.vis?'visible':'hidden';if(!x.vis)return;
+  const len=(x.text||it.text||it.label||'xxxxxxxxxx').length,p=EZ.io(P(t,x.ta,x.ta+dur(len)));reveal(e,it.k==='val'||it.k==='meter'?1:p);
+  e.className='row chalk '+(x.tone==='alert'||x.tone==='accent'?'o':(x.tone==='dim'?'w dim':(it.text&&/^(YOU|FRIEND|INTERVIEWER|SERVER)>/.test(String(it.text))?'y':'w')))+(x.flag==='strike'?' strike':'');
+  if(it.k==='val')e.innerHTML=`<div style="font-size:36px;opacity:.8">${esc(it.label.toLowerCase())}</div><div class="bigc">${esc(x.text)}</div>`;
+  else if(it.k==='meter')e.innerHTML=`<div class="cb"><span style="width:250px">${esc(it.label.toLowerCase())}</span><div class="bx"><i style="width:${clamp(x.ratio)*100}%"></i></div><span>${esc(x.text)}</span></div>`;
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.05));e.textContent=it.text.slice(0,n);}
+  else{e.textContent=x.text||'';}
+  if(it.k==='val'||it.k==='meter'){e.style.clipPath=`inset(-4px ${(1-EZ.io(P(t,x.ta,x.ta+.5)))*100}% -6px 0)`;}
+ });
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id],ls=t-sc.start;
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t);
+ // wipe with a damp cloth: one pass left to right clears the old lesson; a wet streak trails the edge
+ const w=EZ.io(P(ls,0,.55));b.root.style.clipPath=sc.start===0?'none':`inset(0 ${(1-w)*100}% 0 0)`;
+ if(sc.start>0&&ls<.7){streak.style.display='block';streak.style.left=(w*980-60)+'px';streak.style.opacity=1-P(ls,.45,.7);}else streak.style.display='none';
+ const cap=CAP(t,T.scenes);
+ if(cap){capEl.style.display='block';capEl.innerHTML=esc(cap.text).replace(/\*([^*]+)\*/g,'<em>$1</em>');capEl.style.opacity=P(t,cap.t0,cap.t0+.15);}else capEl.style.display='none';
+};
+window.ready=Promise.all(['40px SB','500 40px CI'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach(sc=>{built[sc.id]=build(sc);});});
+</script></body></html>

@@ -1,0 +1,5 @@
+# Engine: Real SFX (Clipwing/skills, skills/real-sfx) - link only
+
+https://github.com/Clipwing/skills/tree/main/skills/real-sfx. The repository declares NO licence (GitHub shows none), so under default copyright its files must not be copied or vendored. Nothing from it is in this package.
+From its README (read, paraphrased): a Claude Code skill that sound-designs a finished motion video with REAL recorded sounds from the user's own library: it finds moments in the picture, picks and processes recordings, places them on the exact frame, keeps music and voice, and returns a new MP4, a separate SFX track and a cue report. Needs Python 3.9+, ffmpeg (with drawtext and rubberband), and a sound library the user owns; it ships no library except 78 CC0 UI cues. Install is the user's choice: copy that folder into their skills folder.
+Reelsmith does the same job natively without Python for our pipeline: `scripts/sfx.mjs` (find, license-check, credit) + cue-timed `file:` sounds in `audio.mjs` (references/sound-effects.md). If the user wants the Clipwing skill as well, they must install it themselves; agents must not copy its files into this package.

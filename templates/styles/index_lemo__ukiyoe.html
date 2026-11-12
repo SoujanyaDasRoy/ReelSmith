@@ -1,0 +1,87 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Ukiyo-e</title>
+<style>
+@font-face{font-family:UB;font-weight:700;src:url(node_modules/@fontsource/old-standard-tt/files/old-standard-tt-latin-700-normal.woff2)}
+@font-face{font-family:UI;font-style:italic;src:url(node_modules/@fontsource/old-standard-tt/files/old-standard-tt-latin-400-italic.woff2)}
+:root{--sumi:#1c1a22;--pru:#1c3d6e;--pale:#9fc0d2;--beni:#c8362a;--washi:#E9DDC0;--ochre:#d6a448}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--washi);font-family:UB,serif;font-weight:700;color:var(--sumi)}
+#fibre{position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.55;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .09' numOctaves='4' seed='5'/%3E%3CfeColorMatrix values='0 0 0 0 .62 0 0 0 0 .5 0 0 0 0 .34 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E")}
+#specks{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:.45;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' seed='4'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='discrete' tableValues='0 0 0 0 0 0 0 0 0 1'/%3E%3C/feComponentTransfer%3E%3CfeColorMatrix values='0 0 0 0 .93 0 0 0 0 .88 0 0 0 0 .75 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E")}
+.scene{position:absolute;inset:0;display:none}
+.frame{position:absolute;left:44px;top:176px;width:992px;height:1088px;border:10px solid var(--sumi);outline:3px solid var(--sumi);outline-offset:-24px}
+.blocks,.key{position:absolute;left:54px;top:186px;width:972px;height:1068px;overflow:hidden}
+.blocks{mix-blend-mode:multiply}
+.sky{position:absolute;left:0;top:0;width:100%;height:420px;background:linear-gradient(#1c3d6e,#4d7fa6 58%,#d7e6e8)}
+.sea{position:absolute;left:0;top:400px;width:100%;height:700px;background:var(--pru)}
+.scales{position:absolute;left:0;top:400px;width:100%;height:700px;opacity:.9;background:radial-gradient(circle at 50% 100%,transparent 0 38%,#9fc0d2 39% 46%,#1c3d6e 47% 56%,#d7e6e8 57% 60%,transparent 61%) 0 0/84px 42px,radial-gradient(circle at 50% 100%,transparent 0 38%,#9fc0d2 39% 46%,#1c3d6e 47% 56%,#d7e6e8 57% 60%,transparent 61%) 42px 21px/84px 42px}
+.grain{position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 2px,transparent 2px 9px)}
+.sun{position:absolute;left:640px;top:96px;width:150px;height:150px;border-radius:50%;background:var(--beni)}
+.mist{position:absolute;height:34px;border-radius:17px;background:rgba(240,232,210,.85)}
+.cart{position:absolute;left:36px;top:34px;width:640px;padding:14px 22px 14px;background:#F2E7C9;border:3px solid var(--sumi);outline:2px solid var(--sumi);outline-offset:-9px}
+.cart .a{font-family:UI;font-style:italic;font-weight:400;font-size:26px;color:#5a5048}.cart .b{font-size:50px;line-height:1.02;text-transform:uppercase;letter-spacing:.03em}
+.seal{position:absolute;left:700px;top:40px;width:96px;height:96px;background:var(--beni);color:#F2E7C9;font-size:46px;line-height:96px;text-align:center;letter-spacing:.02em}
+.strips{position:absolute;left:36px;width:900px;top:430px;display:flex;flex-direction:column;gap:12px}
+.strip{position:relative;align-self:flex-start;max-width:900px;background:#F2E7C9;border:3px solid var(--sumi);padding:6px 26px 6px 22px;font-size:36px;line-height:1.08}
+.strip:before{content:"";position:absolute;right:-3px;top:-3px;bottom:-3px;width:14px;background:var(--tab,transparent)}
+.strip.dim{opacity:.6}.strip.strike .tx{text-decoration:line-through}
+.big{font-size:128px;line-height:1}.lab{font-family:UI;font-style:italic;font-weight:400;font-size:26px;color:#5a5048}
+.mt{display:flex;align-items:center;gap:16px;font-size:32px}.mt .bar{position:relative;width:360px;height:26px;border:3px solid var(--sumi)}.mt .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--tab,var(--pru))}
+#cap{position:absolute;left:54px;top:1296px;width:972px;font-family:UI;font-style:italic;font-weight:400;font-size:46px;line-height:1.1;color:var(--sumi);border-top:3px solid var(--sumi);padding-top:14px}
+#cap em{font-style:normal;font-weight:700;color:var(--beni)}
+</style></head><body>
+<div id="stage"></div><div id="fibre"></div><div id="specks"></div><div id="cap"></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),capEl=document.getElementById('cap');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const TAB={alert:'#c8362a',ok:'#1c3d6e',accent:'#d6a448',dim:'#9a8f78',normal:'transparent'};
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+const WAVE='M0 420 C60 420 90 300 150 210 C190 150 260 110 330 128 C290 138 276 182 306 206 C340 170 390 176 380 226 C362 288 410 340 470 420 Z';
+function build(sc,idx){
+ const s=SD[sc.id],root=mk('scene'),fr=mk('frame');root.appendChild(fr);
+ // each colour group is its own block, printed slightly out of register with the key line
+ const blocks=mk('blocks'),key=mk('key');root.appendChild(blocks);root.appendChild(key);
+ blocks.appendChild(mk('sky'));blocks.appendChild(mk('sea'));blocks.appendChild(mk('scales'));blocks.appendChild(mk('grain'));blocks.appendChild(mk('sun'));
+ const mists=[[40,360,420],[500,400,380],[200,440,520]].map(([x,y,w],i)=>mk('mist','',`left:${x}px;top:${y}px;width:${w}px`));mists.forEach(m=>blocks.appendChild(m));
+ blocks.insertAdjacentHTML('beforeend',`<svg style="position:absolute;left:520px;top:580px" width="470" height="440" viewBox="0 0 470 440"><path d="${WAVE}" fill="#1c3d6e" transform="translate(0,0)"/></svg>`);
+ key.insertAdjacentHTML('beforeend',`<svg style="position:absolute;left:520px;top:580px" width="470" height="440" viewBox="0 0 470 440"><path d="${WAVE}" fill="none" stroke="#1c1a22" stroke-width="4" stroke-linejoin="round"/><g fill="#F2E7C9" stroke="#1c1a22" stroke-width="2">${[[300,128],[322,112],[344,128],[270,150],[372,176],[388,206],[352,196]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="${5+((x+y)%4)}"/>`).join('')}</g></svg>`);
+ const cart=mk('cart',`<div class="a">${esc(s.head[0].replace(/,$/,''))}</div><div class="b">${esc(s.head[1])}</div>`);key.appendChild(cart);key.appendChild(mk('seal','TK'));
+ const strips=mk('strips');key.appendChild(strips);const els=[];let ec=null,ecEl=null;
+ s.items.forEach(it=>{if(it.k==='endcard'){ec=it;return;}const e=mk('strip');strips.appendChild(e);els.push({it,e});});
+ if(ec){ecEl=mk('strip',`<div class="lab">${esc(ec.lines[2])}</div><div class="big" style="color:#c8362a">${esc(ec.lines[0])}</div><div style="font-size:40px;margin-top:6px">${esc(ec.lines[1])}</div>`,'position:absolute;left:36px;top:440px;display:none;padding:18px 32px');key.appendChild(ecEl);}
+ stage.appendChild(root);root.style.display='block';const cb=cart.querySelector('.b');let fs=50;while(cb.getBoundingClientRect().height>110&&fs>28){fs-=2;cb.style.fontSize=fs+'px';}root.style.display='none';
+ return {root,blocks,key,mists,cart,els,ec,ecEl,strips,fr};
+}
+function update(b,sc,s,t){
+ const c=sc.cues,ls=t-sc.start;
+ // register: blocks and key line land 1.5-2.5 px apart; the camera drifts across the sheet like an unrolling scroll
+ b.blocks.style.transform=`translate(${-2.2+ls*-3}px,1.6px)`;b.key.style.transform=`translate(${ls*-3}px,0)`;
+ b.mists.forEach((m,i)=>{m.style.transform=`translateX(${Math.sin(t*.25+i*2)*40}px)`;});
+ b.blocks.style.clipPath=`inset(0 ${(1-EZ.out(P(ls,0,.45)))*100}% 0 0)`; // colour blocks printed first
+ b.key.style.clipPath=`inset(0 ${(1-EZ.out(P(ls,.2,.7)))*100}% 0 0)`;    // then the key block
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ if(b.ecEl){b.ecEl.style.display=endOn?'block':'none';b.ecEl.style.clipPath=`inset(0 0 ${(1-EZ.out(P(t,AT(b.ec.at,c),AT(b.ec.at,c)+.4)))*100}% 0)`;}
+ b.strips.style.display=endOn?'none':'flex';
+ b.els.forEach(({it,e})=>{
+  const x=RESOLVE(it,t,c);e.style.visibility=x.vis?'visible':'hidden';if(!x.vis)return;
+  e.className='strip'+(x.tone==='dim'?' dim':'')+(x.flag==='strike'?' strike':'');e.style.setProperty('--tab',TAB[x.tone]||'transparent');
+  e.style.transform=`translateX(${-(1-EZ.out(P(t,x.ta,x.ta+.3)))*60}px)`;e.style.opacity=P(t,x.ta,x.ta+.08);
+  let h='';
+  if(it.k==='val')h=`<div class="lab">${esc(it.label.toLowerCase())}</div><div class="big">${esc(x.text)}</div>`;
+  else if(it.k==='meter')h=`<div class="mt"><span style="width:230px">${esc(it.label.toLowerCase())}</span><div class="bar"><i style="width:${clamp(x.ratio)*100}%"></i></div><span>${esc(x.text)}</span></div>`;
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.04));h=`<span class="tx" style="font-weight:400;font-style:italic">${esc(it.text.slice(0,n))}</span>`;}
+  else h=`<span class="tx">${esc(x.text||'')}</span>`;
+  e.innerHTML=h;
+ });
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id];
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t);
+ const cap=CAP(t,T.scenes);
+ if(cap){capEl.style.display='block';capEl.innerHTML=esc(cap.text).replace(/\*([^*]+)\*/g,'<em>$1</em>');capEl.style.clipPath=`inset(0 ${(1-EZ.out(P(t,cap.t0,cap.t0+.25)))*100}% 0 0)`;}else capEl.style.display='none';
+};
+window.ready=Promise.all(['700 40px UB','italic 40px UI'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach((sc,i)=>{built[sc.id]=build(sc,i);});});
+</script></body></html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Game Show Flat</title>
+<style>
+@font-face{font-family:FR;font-weight:600;src:url(node_modules/@fontsource/fredoka/files/fredoka-latin-600-normal.woff2)}
+@font-face{font-family:FR;font-weight:700;src:url(node_modules/@fontsource/fredoka/files/fredoka-latin-700-normal.woff2)}
+:root{--ink:#1b1230;--cream:#FFF3D6}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;font-family:FR,sans-serif;font-weight:700;color:var(--ink);background:#FFB870}
+.scene{position:absolute;inset:0;display:none;overflow:hidden}
+.set{position:absolute;inset:-300px}
+.floor{position:absolute;left:0;right:0;top:1250px;height:60px;background:rgba(0,0,0,.18);border-top:6px solid var(--ink)}
+.banner{position:absolute;left:50px;top:196px;background:#fff;border:7px solid var(--ink);border-radius:20px;padding:6px 28px;font-size:40px;box-shadow:10px 10px 0 var(--ink);transform:rotate(-2deg)}
+.title{position:absolute;left:50px;top:270px;font-size:128px;line-height:1.02;white-space:nowrap;color:#fff;-webkit-text-stroke:0;paint-order:stroke fill;-webkit-text-stroke:20px var(--ink);letter-spacing:.01em}
+.title span{display:inline-block}
+.plates{position:absolute;left:50px;width:980px;top:520px;display:flex;flex-direction:column;gap:20px}
+.plate{align-self:flex-start;max-width:980px;background:var(--cream);border:7px solid var(--ink);border-radius:26px;padding:6px 24px 8px;font-size:38px;line-height:1.1;box-shadow:12px 12px 0 var(--ink)}
+.plate.alert{background:#FF5C8A;color:#fff;-webkit-text-stroke:0;text-shadow:0 0 0 #000}
+.plate.ok{background:#B6F04B}.plate.accent{background:#FFE14A}.plate.dim{background:#ffffff;opacity:.55;box-shadow:8px 8px 0 rgba(27,18,48,.5)}
+.plate.strike .tx{text-decoration:line-through}
+.num{font-size:150px;line-height:.98;color:#fff;paint-order:stroke fill;-webkit-text-stroke:18px var(--ink)}
+.lbl{font-size:30px;letter-spacing:.06em;text-transform:uppercase}
+.mt{display:flex;align-items:center;gap:16px;font-size:34px}.mt .bar{width:360px;height:40px;border:7px solid var(--ink);border-radius:22px;background:#fff;position:relative;overflow:hidden}.mt .bar i{position:absolute;left:0;top:0;bottom:0;background:repeating-linear-gradient(135deg,#FF5C8A 0 16px,#FF8DAD 16px 32px)}
+.burst{position:absolute;right:40px;top:740px;width:260px;height:260px;display:none;align-items:center;justify-content:center;font-size:54px;color:#fff;paint-order:stroke fill;-webkit-text-stroke:14px var(--ink);text-align:center;line-height:1}
+.burst:before{content:"";position:absolute;inset:0;background:var(--c,#FFE14A);clip-path:polygon(50% 0,60% 18%,80% 6%,78% 28%,100% 30%,86% 48%,100% 66%,78% 70%,82% 92%,60% 82%,50% 100%,40% 82%,18% 92%,22% 70%,0 66%,14% 48%,0 30%,22% 28%,20% 6%,40% 18%);filter:drop-shadow(10px 10px 0 var(--ink));z-index:-1}
+.mascot{position:absolute;right:50px;top:1040px;width:230px;height:230px}
+#cap{position:absolute;left:50px;right:50px;top:1300px;text-align:center;font-size:54px;line-height:1.05;color:#fff;paint-order:stroke fill;-webkit-text-stroke:15px var(--ink)}
+#cap em{font-style:normal;color:#FFE14A}
+</style></head><body>
+<div id="stage"></div><div id="cap"></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),capEl=document.getElementById('cap'),BEAT=.5;
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const SETS=[ // one saturated ground + a same-hue pattern one step lighter; neighbouring rounds never share a hue
+ {bg:'#FFB870',pat:'repeating-linear-gradient(45deg,#FFA85A 0 60px,transparent 60px 120px)',c:'#2EC4B6'},
+ {bg:'#2EC4B6',pat:'radial-gradient(circle,rgba(255,255,255,.28) 22%,transparent 24%) 0 0/70px 70px',c:'#FF5C8A'},
+ {bg:'#FF5C8A',pat:'repeating-conic-gradient(rgba(255,255,255,.14) 0 12deg,transparent 12deg 24deg)',c:'#FFE14A'},
+ {bg:'#4D7CFE',pat:'repeating-linear-gradient(-45deg,#6E94FF 0 60px,transparent 60px 120px)',c:'#B6F04B'},
+ {bg:'#B6F04B',pat:'radial-gradient(circle,rgba(255,255,255,.35) 22%,transparent 24%) 0 0/70px 70px',c:'#FF8A3D'},
+ {bg:'#FF8A3D',pat:'repeating-conic-gradient(rgba(255,255,255,.16) 0 12deg,transparent 12deg 24deg)',c:'#4D7CFE'},
+ {bg:'#9B6BFF',pat:'repeating-linear-gradient(45deg,#B08CFF 0 60px,transparent 60px 120px)',c:'#FFE14A'},
+ {bg:'#FFE14A',pat:'radial-gradient(circle,rgba(255,255,255,.4) 22%,transparent 24%) 0 0/70px 70px',c:'#FF5C8A'},
+ {bg:'#1c2a6b',pat:'repeating-conic-gradient(rgba(255,214,102,.22) 0 8deg,transparent 8deg 16deg)',c:'#FFE14A'}];
+const BURST={fast:['PERFECT!','#B6F04B'],seat:['ONLY 1!','#FFE14A'],crash:['OOPS!','#FF5C8A'],dup:['DOUBLE!','#FF5C8A'],kismat:['HMM...','#FFE14A'],unique:['LOCKED!','#B6F04B'],replica:['SAVED!','#B6F04B']};
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+function mascotSVG(c){return `<svg viewBox="0 0 230 230" width="230" height="230"><g stroke="#1b1230" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"><ellipse cx="115" cy="205" rx="70" ry="12" fill="rgba(0,0,0,.18)" stroke="none"/><path d="M60 190 Q40 100 115 70 Q190 100 170 190 Z" fill="${c}"/><ellipse cx="115" cy="150" rx="40" ry="38" fill="#FFF3D6"/><circle cx="92" cy="105" r="16" fill="#fff"/><circle cx="138" cy="105" r="16" fill="#fff"/><circle cx="95" cy="107" r="7" fill="#1b1230" stroke="none"/><circle cx="135" cy="107" r="7" fill="#1b1230" stroke="none"/><circle cx="97" cy="103" r="2.5" fill="#fff" stroke="none"/><circle cx="137" cy="103" r="2.5" fill="#fff" stroke="none"/><path class="mouth" d="M100 132 Q115 144 130 132" fill="none"/><path class="armL" d="M62 135 Q38 120 34 98" fill="none"/><path class="armR" d="M168 135 Q192 120 196 98" fill="none"/><path d="M95 62 L115 38 L135 62" fill="${c}"/></g></svg>`;}
+function build(sc,idx){
+ const s=SD[sc.id],st=SETS[idx%9],root=mk('scene','',`background:${st.bg}`);
+ root.appendChild(mk('set','',`background:${st.pat};`));root.appendChild(mk('floor'));
+ root.appendChild(mk('banner',`ROUND ${idx+1}`+(esc(s.head[0].replace(/,$/,''))?` · ${esc(s.head[0].replace(/,$/,''))}`:'')));
+ const title=mk('title');title.innerHTML=[...s.head[1]].map(c=>`<span>${c===' '?'&nbsp;':esc(c)}</span>`).join('');root.appendChild(title);stage.appendChild(root);root.style.display='block';const w=title.getBoundingClientRect().width;if(w>980)title.style.fontSize=Math.floor(128*980/w)+'px';root.style.display='none';
+ const plates=mk('plates');root.appendChild(plates);const els=[];let ec=null,ecEl=null;
+ s.items.forEach(it=>{if(it.k==='endcard'){ec=it;return;}const e=mk('plate');plates.appendChild(e);els.push({it,e});});
+ if(ec){ecEl=mk('',`<div class="num" style="font-size:200px">${esc(ec.lines[0])}</div><div class="plate" style="margin-top:24px;display:inline-block;font-size:44px">${esc(ec.lines[1])}</div><div class="lbl" style="margin-top:20px;color:#fff;paint-order:stroke fill;-webkit-text-stroke:8px #1b1230">${esc(ec.lines[2])}</div>`,'position:absolute;left:50px;top:520px;display:none');root.appendChild(ecEl);}
+ const burst=mk('burst');root.appendChild(burst);const m=mk('mascot',mascotSVG(st.c));root.appendChild(m);
+ return {root,title,els,ec,ecEl,burst,m,st,plates};
+}
+function update(b,sc,s,t){
+ const c=sc.cues,ls=t-sc.start;
+ b.root.firstChild.style.transform=`translate(${(t*40)%120}px,${(t*40)%120}px)`; // slow scrolling set
+ [...b.title.children].forEach((sp,i)=>{const p=BACK(P(ls,.1+i*.03,.1+i*.03+.3),1.7);sp.style.opacity=P(ls,.1+i*.03,.12+i*.03);sp.style.transform=`translateY(${(1-p)*-110}px) scale(${.6+.4*Math.min(p,1.1)})`;});
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ if(b.ecEl){b.ecEl.style.display=endOn?'block':'none';const p=BACK(P(t,AT(b.ec.at,c),AT(b.ec.at,c)+.35),1.8);b.ecEl.style.transform=`scale(${Math.max(.01,p)})`;b.ecEl.style.transformOrigin='left top';}
+ b.plates.style.display=endOn?'none':'flex';
+ b.els.forEach(({it,e})=>{
+  const x=RESOLVE(it,t,c);e.style.display=x.vis?'block':'none';if(!x.vis)return;
+  const p=BACK(P(t,x.ta,x.ta+.3),1.9),dr=(1-Math.min(p,1))*-70;e.style.transform=`translateY(${dr}px) scale(${.7+.3*Math.min(p,1.1)})`;e.style.transformOrigin='left center';
+  e.className='plate '+(x.tone||'')+(x.flag==='strike'?' strike':'');
+  let h='';
+  if(it.k==='val')h=`<div class="lbl">${esc(it.label)}</div><div class="num">${esc(x.text)}</div>`;
+  else if(it.k==='meter')h=`<div class="mt"><span style="width:210px">${esc(it.label)}</span><div class="bar"><i style="width:${clamp(x.ratio)*100}%"></i></div><span>${esc(x.text)}</span></div>`;
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.04));h=`<span class="tx">${esc(it.text.slice(0,n))}</span>`;}
+  else{h=`<span class="tx">${esc(x.text||'')}</span>`;e.style.display=x.text?'block':'none';}
+  e.innerHTML=h;
+ });
+ // judgement burst: pops on the beat, stays ~1.1 s, ink-outlined word
+ let shown=null;for(const k in BURST){if(c[k]!==undefined){const d=t-c[k];if(d>=0&&d<1.1)shown=[k,d];}}
+ if(shown){const [w,col]=BURST[shown[0]],d=shown[1],p=BACK(P(d,0,.25),1.9);b.burst.style.display='flex';b.burst.style.setProperty('--c',col);b.burst.textContent=w;b.burst.style.transform=`scale(${Math.max(.01,p)}) rotate(${-8+Math.sin(d*8)*3}deg)`;}else b.burst.style.display='none';
+ // mascot hops on the beat grid (120 bpm), squashes on landing, throws arms up on a shout
+ const ph=(t%BEAT)/BEAT,hop=Math.abs(Math.sin(ph*Math.PI)),sq=ph<.12||ph>.9?.9:1;b.m.style.transform=`translateY(${-hop*46}px) scale(${1/sq*1},${sq})`;
+ const arms=shown?1:0;b.m.querySelector('.armL').setAttribute('d',arms?'M62 135 Q30 100 40 62':'M62 135 Q38 120 34 98');b.m.querySelector('.armR').setAttribute('d',arms?'M168 135 Q200 100 190 62':'M168 135 Q192 120 196 98');b.m.querySelector('.mouth').setAttribute('d',shown?'M98 130 Q115 156 132 130 Z':'M100 132 Q115 144 130 132');
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id];
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t);
+ const cap=CAP(t,T.scenes);
+ if(cap){capEl.style.display='block';capEl.innerHTML=esc(cap.text).replace(/\*([^*]+)\*/g,'<em>$1</em>');const p=BACK(P(t,cap.t0,cap.t0+.18),1.8);capEl.style.transform=`scale(${Math.max(.01,p)})`;}else capEl.style.display='none';
+};
+window.ready=Promise.all(['600 40px FR','700 40px FR'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach((sc,i)=>{built[sc.id]=build(sc,i);});});
+</script></body></html>

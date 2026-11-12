@@ -1,0 +1,70 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - ASCII / CRT</title>
+<style>
+@font-face{font-family:VT;src:url(node_modules/@fontsource/vt323/files/vt323-latin-400-normal.woff2)}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#050302}
+#screen{position:absolute;left:30px;top:200px;width:1020px;height:1300px;border-radius:90px;background:#090604;overflow:hidden;box-shadow:inset 0 0 120px rgba(0,0,0,.9),0 0 0 14px #120c08}
+#txt{position:absolute;left:44px;top:56px;width:940px;font-family:VT,monospace;color:#FFB000;white-space:pre;text-shadow:0 0 6px rgba(255,176,0,.75),0 0 20px rgba(255,120,0,.35)}
+.l{display:block;min-height:1em}
+.t-dim{color:#FF6605;text-shadow:0 0 5px rgba(255,102,5,.7)}
+.t-ok,.t-normal{color:#FFB000}
+.t-accent{color:#FFEBB8;text-shadow:0 0 8px rgba(255,235,184,.8),0 0 22px rgba(255,160,0,.5)}
+.inv{background:#FFB000;color:#090604;text-shadow:none;padding:0 6px}
+.strike{text-decoration:line-through}
+#log{position:absolute;left:44px;top:1180px;width:940px;font-family:VT,monospace;color:#FFEBB8;text-shadow:0 0 8px rgba(255,235,184,.7);white-space:pre-wrap;line-height:1.05}
+#log b{background:#FFB000;color:#090604;font-weight:normal;text-shadow:none;padding:0 4px}
+#scan{position:absolute;inset:0;background:repeating-linear-gradient(to bottom,rgba(0,0,0,.30) 0,rgba(0,0,0,.30) 1px,transparent 1px,transparent 3px);pointer-events:none}
+#vig{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 52%,rgba(0,0,0,.72) 100%);pointer-events:none}
+#glare{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 12%,rgba(255,235,184,.07),transparent 40%);pointer-events:none}
+</style></head><body>
+<div id="screen"><div id="txt"></div><div id="log"></div><div id="scan"></div><div id="vig"></div><div id="glare"></div></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T; const COLS=40;
+const GL={'0':['###','# #','# #','# #','###'],'1':[' # ','## ',' # ',' # ','###'],'2':['###','  #','###','#  ','###'],'3':['###','  #','###','  #','###'],'4':['# #','# #','###','  #','  #'],'5':['###','#  ','###','  #','###'],'6':['###','#  ','###','# #','###'],'7':['###','  #','  #',' # ',' # '],'8':['###','# #','###','# #','###'],'9':['###','# #','###','  #','###'],':':[' ',' #',' ',' #',' '],',':[' ',' ',' ',' #','# ']};
+const big=str=>{const rows=['','','','',''];for(const ch of str){const g=GL[ch]||['   ','   ','   ','   ','   '];for(let i=0;i<5;i++)rows[i]+=g[i]+' ';}return rows;};
+const txt=document.getElementById('txt'),logEl=document.getElementById('log'),screen=document.getElementById('screen');
+function fit(){const m=document.createElement('span');m.style.cssText='position:absolute;visibility:hidden;font-family:VT,monospace;font-size:40px;white-space:pre';m.textContent='X'.repeat(COLS+2);document.body.appendChild(m);const w=m.getBoundingClientRect().width||600;m.remove();const fs=Math.floor(40*940/w*10)/10;window.BASEFS=fs;txt.style.fontSize=fs+'px';txt.style.lineHeight=(fs*1.22)+'px';logEl.style.fontSize=(fs*.9)+'px';}
+function wrap(s,n=COLS){const out=[];let cur='';for(const w of s.split(' ')){if((cur+' '+w).trim().length>n){out.push(cur);cur=w;}else cur=(cur?cur+' ':'')+w;}out.push(cur);return out;}
+function reveal(text,count){const w=wrap(text);const out=[];let left=count;for(const ln of w){if(left<=0)break;out.push(ln.slice(0,left));left-=ln.length+1;}return out;}
+const maxLines=it=>{const arr=Array.isArray(it.text)?it.text.map(x=>x[1]):[it.text||''];return Math.max(1,...arr.map(s=>wrap(s.replace('{lock}','0:00')).length));};
+const nchar=(t,ta,cps)=>Math.max(0,Math.floor((t-ta)/cps));
+function lines(sc,s,t){
+ const c=sc.cues,L=[],ls=t-sc.start;
+ const ec=s.items.find(i=>i.k==='endcard');
+ if(ec&&t>=AT(ec.at,c)){const ta=AT(ec.at,c);const rule='+'+'-'.repeat(COLS-2)+'+';L.push({t:'',tone:'normal'});L.push({t:rule,tone:'dim'});
+  ec.lines.forEach((x,i)=>{const full=wrap(x,COLS-4);const n=nchar(t,ta+i*.35,.03);let left=n;full.forEach(w=>{const sh=w.slice(0,Math.max(0,left));left-=w.length+1;const pad=Math.max(0,Math.floor((COLS-2-w.length)/2));L.push({t:'|'+(' '.repeat(pad)+sh).padEnd(COLS-2)+'|',tone:i===0?'accent':'normal'});});L.push({t:'|'+' '.repeat(COLS-2)+'|',tone:'dim'});});
+  L.push({t:rule,tone:'dim'});return L;}
+ L.push({t:'IRCTC.LOG   TATKAL TERMINAL',tone:'dim'});L.push({t:'-'.repeat(COLS),tone:'dim'});
+ const title='> '+s.head[0]+' '+s.head[1];const tn=nchar(t,c.start+.1,.045);
+ reveal(title,tn).forEach((x,i,a)=>L.push({t:x+(i===a.length-1&&tn<title.length+14?'_':''),tone:'accent'}));
+ for(let k=reveal(title,tn).length;k<wrap(title).length;k++)L.push({t:'',tone:'normal'});
+ L.push({t:'',tone:'normal'});
+ for(const it of s.items){
+  if(it.k==='endcard')continue;
+  const r=RESOLVE(it,t,c);
+  const rows=[];
+  if(!r.vis){ if(it.k==='val'){for(let i=0;i<6;i++)rows.push({t:'',tone:'normal'});} else if(it.k==='cmd'){rows.push({t:'',tone:'normal'});} else for(let i=0;i<(it.k==='meter'?1:maxLines(it));i++)rows.push({t:'',tone:'normal'}); L.push(...rows); continue; }
+  if(it.k==='val'){rows.push({t:it.label,tone:'dim'});big(r.text).forEach(row=>rows.push({t:row,tone:r.tone==='ok'?'normal':'accent'}));}
+  else if(it.k==='meter'){const n=Math.round(clamp(r.ratio)*14);rows.push({t:it.label.padEnd(14)+'['+'#'.repeat(n)+'-'.repeat(14-n)+']'+r.text.padStart(5),tone:r.tone});}
+  else if(it.k==='cmd'){const n=nchar(t,r.ta,.038);const rv=reveal(it.text,n);rv.forEach((x,i)=>rows.push({t:x+(i===rv.length-1&&n<it.text.length+12?'_':''),tone:'accent'}));}
+  else {const n=nchar(t,r.ta,.016);reveal(r.text||'',n).forEach(x=>rows.push({t:x,tone:r.tone,flag:r.flag}));}
+  const want=it.k==='val'?6:(it.k==='meter'?1:maxLines(it));while(rows.length<want)rows.push({t:'',tone:'normal'});
+  L.push(...rows);
+ }
+ return L;
+}
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+window.renderAt=function(t){
+ const sc=SCENE_AT(t,T.scenes),s=SD[sc.id],ls=t-sc.start;
+ const L=lines(sc,s,t);
+ const k=Math.min(1,16/Math.max(1,L.length)),fs2=window.BASEFS*k;txt.style.fontSize=fs2+'px';txt.style.lineHeight=(fs2*1.22)+'px';
+ txt.innerHTML=L.map(x=>{const body=esc(x.t)||' ';const inner=x.tone==='alert'&&x.t?`<span class="inv">${body}</span>`:body;return `<span class="l t-${x.tone}${x.flag==='strike'?' strike':''}">${inner}</span>`;}).join('');
+ const cap=CAP(t,T.scenes);
+ if(cap){const a=P(t,cap.t0,cap.t0+.12);logEl.innerHTML='LOG&gt; '+esc(cap.text.toUpperCase()).replace(/\*([^*]+)\*/g,'<b>$1</b>');logEl.style.opacity=a;}else logEl.innerHTML='';
+ const f=ls<.06?0:ls<.1?.6:ls<.14?.1:1; screen.style.opacity=f*(.99+.01*Math.sin(t*44));
+ document.getElementById('glare').style.opacity=.8+.2*(Math.floor(t*2)%2);
+};
+window.ready=document.fonts.load('40px VT','X').catch(()=>[]).then(()=>{fit();});
+</script></body></html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Transit Map</title>
+<style>
+@font-face{font-family:TI;font-weight:500;src:url(node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2)}
+@font-face{font-family:TI;font-weight:700;src:url(node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2)}
+@font-face{font-family:TI;font-weight:800;src:url(node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2)}
+*{margin:0}html,body{width:1080px;height:1920px;overflow:hidden;background:#F4F2EA}
+canvas{position:absolute;left:0;top:0}
+</style></head><body>
+<canvas id="cv" width="1080" height="1920"></canvas>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,cv=document.getElementById('cv'),g=cv.getContext('2d');
+const INK='#1c1b22',COL=['#E3262E','#0B7BC1','#1FA05A','#F2A900','#7B4FB6','#00A6A6','#E0589B','#8A5A2B','#2E3A8C'];
+const rnd=i=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x);};
+function wrapC(t,maxW){const words=t.split(' '),out=[];let cur='';for(const x of words){const tt=cur?cur+' '+x:x;if(g.measureText(tt).width>maxW&&cur){out.push(cur);cur=x;}else cur=tt;}out.push(cur);return out;}
+// route on eight directions only: vertical runs joined by 45-degree jogs, one fillet radius
+function route(items){const pts=[],st=[];let y=540;const X=[150,150,236,236];let px=null;
+ items.forEach((it,i)=>{const h=it.k==='val'?160:100,x=X[i%4];if(i===0){pts.push([x,y-60],[x,y]);}else{const a=pts[pts.length-1];if(a[0]===x){pts.push([x,y]);}else{const dx=Math.abs(x-a[0]);pts.push([a[0],y-dx-8],[x,y-8],[x,y]);}}
+  st.push({x,y,it,h});y+=h;});pts.push([pts[pts.length-1][0],y-30]);return {pts,st};}
+function poly(pts,upto){g.beginPath();g.moveTo(pts[0][0],pts[0][1]);let rem=upto;for(let i=1;i<pts.length&&rem>0;i++){const l=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]),k=Math.min(1,rem/l);g.lineTo(pts[i-1][0]+(pts[i][0]-pts[i-1][0])*k,pts[i-1][1]+(pts[i][1]-pts[i-1][1])*k);rem-=l;}}
+function lenOf(pts){let L=0;for(let i=1;i<pts.length;i++)L+=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]);return L;}
+function at(pts,s){let rem=s;for(let i=1;i<pts.length;i++){const l=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]);if(rem<=l){const k=rem/l;return {x:pts[i-1][0]+(pts[i][0]-pts[i-1][0])*k,y:pts[i-1][1]+(pts[i][1]-pts[i-1][1])*k,a:Math.atan2(pts[i][1]-pts[i-1][1],pts[i][0]-pts[i-1][0])};}rem-=l;}const p=pts[pts.length-1];return {x:p[0],y:p[1],a:Math.PI/2};}
+function frame(t,sc,s,idx){
+ const c=sc.cues,ls=t-sc.start,col=COL[idx%9];
+ g.fillStyle='#F4F2EA';g.fillRect(0,0,1080,1920);
+ // paper tooth: faint print grid
+ g.strokeStyle='rgba(28,27,34,.05)';g.lineWidth=1;for(let x=0;x<1080;x+=40){g.beginPath();g.moveTo(x,170);g.lineTo(x,1280);g.stroke();}for(let y=170;y<1280;y+=40){g.beginPath();g.moveTo(0,y);g.lineTo(1080,y);g.stroke();}
+ // river: a flat band on 45 degrees with a darker edge
+ g.save();g.beginPath();g.rect(0,170,1080,1110);g.clip();g.strokeStyle='#bfd9e8';g.lineWidth=70;g.lineCap='butt';g.beginPath();g.moveTo(560,1300);g.lineTo(1100,760);g.stroke();g.strokeStyle='#8fb7cf';g.lineWidth=5;for(const o of[-35,35]){g.beginPath();g.moveTo(560+o*.707,1300+o*.707);g.lineTo(1100+o*.707,760+o*.707);g.stroke();}g.restore();
+ // cartouche: the title is printed, with the line bullet
+ g.fillStyle='#fff';g.fillRect(56,196,968,150);g.strokeStyle=INK;g.lineWidth=4;g.strokeRect(56,196,968,150);g.lineWidth=1.5;g.strokeRect(64,204,952,134);
+ g.fillStyle=col;g.beginPath();g.arc(124,271,36,0,7);g.fill();g.fillStyle='#fff';g.font='800 40px TI';g.textAlign='center';g.textBaseline='middle';g.fillText(String(idx+1),124,273);
+ g.textAlign='left';g.fillStyle=INK;g.font='500 22px TI';g.fillText(s.head[0].replace(/,$/,'').toUpperCase(),184,236);let fs=64;g.font=`800 ${fs}px TI`;while(g.measureText(s.head[1]).width>800&&fs>30){fs-=2;g.font=`800 ${fs}px TI`;}g.fillText(s.head[1],184,290);
+ // network thumbnail: the lines drawn so far, one per chapter
+ g.save();g.translate(0,0);for(let k=0;k<=idx;k++){const bx=800+(k%5)*44,by=366+Math.floor(k/5)*30;g.strokeStyle=COL[k%9];g.lineWidth=5;g.lineCap='round';g.lineJoin='round';g.beginPath();g.moveTo(bx,by);g.lineTo(bx,by+8);g.lineTo(bx+12,by+20);g.lineTo(bx+12,by+26);g.stroke();}g.restore();
+ // the line and its stops
+ const ec=s.items.find(i=>i.k==='endcard'),endOn=ec&&t>=AT(ec.at,c);
+ const its=s.items.filter(i=>i.k!=='endcard');const R=route(its);const L=lenOf(R.pts);
+ // drawn length follows the pen: each stop is reached when its words appear
+ let drawn=0;const stopLen=[];{let acc=0,idxp=0;R.st.forEach((st,i)=>{let a=0,pi=1;/* length to station */let lenTo=0;for(let k=1;k<R.pts.length;k++){const p=R.pts[k],q=R.pts[k-1];const l=Math.hypot(p[0]-q[0],p[1]-q[1]);if(st.x===p[0]&&st.y===p[1]){lenTo+=l;break;}lenTo+=l;}stopLen.push(lenTo);});}
+ const tl=[sc.start+.1,...its.map(it=>AT(it.at,c)-.1)];let prev=0;
+ R.st.forEach((st,i)=>{const a=i?stopLen[i-1]:0,z=stopLen[i],ts=tl[i]??sc.start,dur=Math.min(.9,.2+(z-a)/900);if(t>=ts)drawn=Math.max(drawn,lerp(a,z,EZ.io(P(t,ts,ts+dur))));});
+ if(!its.length)drawn=0;g.lineCap='round';g.lineJoin='round';if(!endOn){g.strokeStyle='#fff';g.lineWidth=30;poly(R.pts,drawn);g.stroke();g.strokeStyle=col;g.lineWidth=16;poly(R.pts,drawn);g.stroke();}
+ // stops, labels, interchange for the key number
+ g.textBaseline='alphabetic';
+ if(!endOn)R.st.forEach((st,i)=>{const x=RESOLVE(st.it,t,c);if(!x.vis||stopLen[i]>drawn+3)return;const it=st.it,age=t-x.ta,pop=BACK(P(age,0,.25),1.7);
+  const dim=x.tone==='dim',alert=x.tone==='alert';const r=(it.k==='val'?22:14)*Math.max(.01,pop);
+  if(it.k==='val'){g.fillStyle='#fff';g.strokeStyle=INK;g.lineWidth=5;g.beginPath();g.roundRect(st.x-26,st.y-26,52,52,26);g.fill();g.stroke();g.fillStyle=col;g.beginPath();g.arc(st.x,st.y,10*pop,0,7);g.fill();}
+  else{g.fillStyle='#fff';g.beginPath();g.arc(st.x,st.y,r,0,7);g.fill();g.strokeStyle=alert?'#E3262E':col;g.lineWidth=7;g.stroke();}
+  const lx=st.x+52;g.globalAlpha=P(age,0,.12)*(dim?.55:1);g.fillStyle=alert?'#c4161d':INK;
+  if(it.k==='val'){g.font='500 22px TI';g.fillText(it.label,lx,st.y-34);g.font='800 100px TI';g.fillText(x.text,lx,st.y+52);}
+  else if(it.k==='meter'){g.font='700 34px TI';g.fillText(it.label,lx,st.y+12);const bx=lx+290,bw=300;g.strokeStyle=INK;g.lineWidth=3;g.beginPath();g.roundRect(bx,st.y-14,bw,28,14);g.stroke();g.fillStyle=alert?'#E3262E':col;g.beginPath();g.roundRect(bx+3,st.y-11,Math.max(8,(bw-6)*clamp(x.ratio)),22,11);g.fill();g.fillStyle=INK;g.font='700 30px TI';g.fillText(x.text,bx+bw+16,st.y+10);}
+  else if(it.k==='cmd'){g.font='700 32px TI';const n=Math.max(0,Math.floor((t-x.ta)/.038));g.fillText(it.text.slice(0,n),lx,st.y+11);}
+  else{g.font='700 34px TI';const lines=wrapC(x.text||'',900-st.x);lines.forEach((l,k)=>g.fillText(l,lx,st.y+11+(k-(lines.length-1)/2)*38));if(x.flag==='strike'){g.fillRect(lx,st.y+5,Math.min(g.measureText(lines[0]).width,860-st.x),3);}}
+  g.globalAlpha=1;});
+ // a train runs along the finished track
+ if(!endOn&&drawn>60){const tp=at(R.pts,(t*190)%drawn);g.save();g.translate(tp.x,tp.y);g.rotate(tp.a);g.fillStyle='#fff';g.strokeStyle=INK;g.lineWidth=2.5;g.beginPath();g.roundRect(-20,-8,40,16,8);g.fill();g.stroke();g.fillStyle=col;for(const o of[-11,-3,5])g.fillRect(o,-3,6,5);g.restore();}
+ // pen tip: white core, a ring and a soft halo in the line colour
+ if(!endOn&&drawn<L-4&&drawn>2){const pt=at(R.pts,drawn);const hg=g.createRadialGradient(pt.x,pt.y,0,pt.x,pt.y,46);hg.addColorStop(0,col+'88');hg.addColorStop(1,col+'00');g.fillStyle=hg;g.beginPath();g.arc(pt.x,pt.y,46,0,7);g.fill();g.fillStyle='#fff';g.beginPath();g.arc(pt.x,pt.y,11,0,7);g.fill();g.strokeStyle=col;g.lineWidth=5;g.stroke();}
+ if(endOn){g.fillStyle='#fff';g.fillRect(56,430,968,430);g.strokeStyle=INK;g.lineWidth=4;g.strokeRect(56,430,968,430);const p=BACK(P(t,AT(ec.at,c),AT(ec.at,c)+.35),1.5);g.save();g.translate(540,645);g.scale(Math.max(.01,p),Math.max(.01,p));g.textAlign='center';g.fillStyle=col;g.font='800 150px TI';g.fillText(ec.lines[0],0,0);g.fillStyle=INK;g.font='700 44px TI';g.fillText(ec.lines[1],0,80);g.font='500 26px TI';g.fillText(ec.lines[2],0,130);g.restore();g.textAlign='left';}
+ // caption: a printed cartouche
+ const cap=CAP(t,T.scenes);if(cap){const a=P(t,cap.t0,cap.t0+.15);g.globalAlpha=a;g.fillStyle='#fff';g.fillRect(56,1296,968,112);g.strokeStyle=INK;g.lineWidth=4;g.strokeRect(56,1296,968,112);g.lineWidth=1.5;g.strokeRect(64,1304,952,96);g.font='700 42px TI';g.textBaseline='middle';const parts=cap.text.split(/(\*[^*]+\*)/).filter(Boolean);let tw=0;const ms=parts.map(p=>{const v=p.replace(/\*/g,'');const m=g.measureText(v).width;tw+=m;return[v,m,p.startsWith('*')];});let px=540-tw/2;for(const [v,m,acc] of ms){g.fillStyle=acc?col:INK;g.fillText(v,px,1353);px+=m;}g.globalAlpha=1;g.textBaseline='alphabetic';}
+ const f=Math.max(1-P(ls,0,.2),P(ls,sc.dur-.2,sc.dur));if(f>0){g.fillStyle=`rgba(244,242,234,${f})`;g.fillRect(0,0,1080,1920);}
+}
+window.renderAt=function(t){const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx];frame(t,sc,SD[sc.id],idx);};
+window.ready=Promise.all(['500 40px TI','700 40px TI','800 40px TI'].map(f=>document.fonts.load(f,'A').catch(()=>[])));
+</script></body></html>

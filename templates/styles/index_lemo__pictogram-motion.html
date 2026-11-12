@@ -1,0 +1,105 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Pictogram Motion</title>
+<style>
+@font-face{font-family:PG;font-weight:800;src:url(node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2)}
+@font-face{font-family:PG;font-weight:900;src:url(node_modules/@fontsource/inter/files/inter-latin-900-normal.woff2)}
+@font-face{font-family:PM;font-weight:500;src:url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2)}
+@font-face{font-family:PM;font-weight:700;src:url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-700-normal.woff2)}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#222;font-family:PG,sans-serif;color:#F6ECD6}
+canvas{position:absolute;left:0;top:0}
+.scene{position:absolute;inset:0;display:none}
+.tag{position:absolute;left:60px;top:196px;font-family:PM;font-weight:700;font-size:22px;letter-spacing:.22em;text-transform:uppercase}
+.ticks{position:absolute;right:60px;top:196px;display:flex;gap:6px;align-items:flex-end;height:34px}.ticks i{width:8px;height:16px;background:rgba(246,236,214,.35)}.ticks i.cur{height:34px;background:#F6ECD6}.ticks i.done{background:rgba(246,236,214,.7)}
+.title{position:absolute;left:60px;top:598px;font-weight:900;font-size:140px;letter-spacing:-.018em;line-height:.95;text-transform:uppercase;white-space:nowrap}
+.rows{position:absolute;left:60px;top:790px;width:960px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.chip{display:inline-flex;align-items:center;gap:14px;font-family:PM;font-weight:700;font-size:28px;line-height:1.15;padding:8px 20px 8px;border-radius:999px;max-width:960px}
+.chip.strike{text-decoration:line-through}
+.chip .mini{display:inline-block;width:150px;height:12px;border-radius:6px;background:rgba(0,0,0,.35);position:relative;overflow:hidden}.chip .mini i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:currentColor}
+.big{font-weight:900;font-size:112px;letter-spacing:-.04em;line-height:.95}
+.lab{font-family:PM;font-weight:500;font-size:20px;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+#cap{position:absolute;left:0;top:1298px;padding:18px 40px 18px 60px;font-weight:800;font-size:48px;line-height:1.1;letter-spacing:-.015em;max-width:1000px;border-radius:0 28px 28px 0}
+</style></head><body>
+<canvas id="cv" width="1080" height="1920"></canvas><div id="stage"></div><div id="cap"></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,cv=document.getElementById('cv'),g=cv.getContext('2d'),stage=document.getElementById('stage'),capEl=document.getElementById('cap');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const HUES=[8,275,150,45,25],LS=[16,30,44,62,80];
+const tone=(h,i,a=1)=>`hsla(${h},56%,${LS[i]}%,${a})`;
+const CREAM='#F6ECD6',INK='#1b1410';
+const rng=seed=>()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646;};
+const S=180,COLS=6,ROWS=11;
+function pattern(h,seed){const r=rng(seed+7),cells=[];for(let y=0;y<ROWS;y++){const row=[];for(let x=0;x<COLS;x++){const k=r();row.push({k:k<.34?'disc':k<.52?'half':k<.64?'quarter':k<.74?'ring':k<.84?'dots':k<.92?'wave':'none',t:1+Math.floor(r()*4),rot:Math.floor(r()*4),t2:Math.floor(r()*5)});}cells.push(row);}return cells;}
+function drawCell(c,x,y,h){const cx=x+S/2,cy=y+S/2;g.fillStyle=tone(h,c.t);
+ if(c.k==='disc'){g.beginPath();g.arc(cx,cy,S/2,0,7);g.fill();g.fillStyle=tone(h,(c.t+2)%5);g.beginPath();g.arc(cx,cy,S/4,0,7);g.fill();}
+ else if(c.k==='half'){g.beginPath();g.arc(cx,cy,S/2,c.rot*Math.PI/2,c.rot*Math.PI/2+Math.PI);g.fill();}
+ else if(c.k==='quarter'){const a=[[x,y],[x+S,y],[x+S,y+S],[x,y+S]][c.rot];g.beginPath();g.moveTo(a[0],a[1]);g.arc(a[0],a[1],S,c.rot*Math.PI/2,c.rot*Math.PI/2+Math.PI/2);g.closePath();g.fill();}
+ else if(c.k==='ring'){g.strokeStyle=tone(h,c.t);g.lineWidth=S*.14;g.beginPath();g.arc(cx,cy,S*.34,0,7);g.stroke();}
+ else if(c.k==='dots'){for(let i=0;i<3;i++)for(let j=0;j<3;j++){g.beginPath();g.arc(x+S*(.2+.3*i),y+S*(.2+.3*j),S*.07,0,7);g.fill();}}
+ else if(c.k==='wave'){g.strokeStyle=tone(h,c.t);g.lineWidth=S*.09;g.lineCap='round';for(let i=0;i<3;i++){g.beginPath();g.arc(x+S*.25+i*S*.25,y+S*.7,S*.16,Math.PI,0);g.stroke();}}}
+// pictogram helpers (round-capped bars, discs, rings, capsules)
+const bar=(x1,y1,x2,y2,w,c)=>{g.strokeStyle=c;g.lineWidth=w;g.lineCap='round';g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.stroke();};
+const disc=(x,y,r,c)=>{g.fillStyle=c;g.beginPath();g.arc(x,y,r,0,7);g.fill();};
+const ring=(x,y,r,w,c,a0=0,a1=Math.PI*2)=>{g.strokeStyle=c;g.lineWidth=w;g.lineCap='round';g.beginPath();g.arc(x,y,r,a0,a1);g.stroke();};
+const caps=(x,y,w,h,c)=>{g.fillStyle=c;g.beginPath();g.roundRect(x-w/2,y-h/2,w,h,Math.min(w,h)/2);g.fill();};
+const rr=(x,y,w,h,r,c)=>{g.fillStyle=c;g.beginPath();g.roundRect(x-w/2,y-h/2,w,h,r);g.fill();};
+const HERO={
+ hook:(t,c,ls,h)=>{const u=P(t,c.start,c.clock);ring(0,0,130,22,CREAM);for(let i=0;i<12;i++){const a=i*Math.PI/6;bar(Math.cos(a)*100,Math.sin(a)*100,Math.cos(a)*116,Math.sin(a)*116,8,CREAM);}
+  const ma=-Math.PI/2+u*Math.PI*4,ha=-Math.PI/2+(Math.PI*2*(10/12))*0+(-Math.PI/2+Math.PI*2*(10/12)+Math.PI/2)*0+(-Math.PI/2-Math.PI/3);bar(0,0,Math.cos(ma)*104,Math.sin(ma)*104,14,CREAM);bar(0,0,Math.cos(ha)*66,Math.sin(ha)*66,18,INK);disc(0,0,12,INK);
+  const k=t>c.users?EZ.out(P(t,c.users,c.users+.5)):0;for(let i=0;i<10;i++){const a=i*Math.PI*2/10+t*.4,r=180+20*Math.sin(t*3+i);disc(Math.cos(a)*r,Math.sin(a)*r,10*k,CREAM);}},
+ question:(t,c,ls,h)=>{rr(-40,-30,300,170,50,CREAM);g.fillStyle=CREAM;g.beginPath();g.moveTo(-120,40);g.lineTo(-170,100);g.lineTo(-70,60);g.fill();for(let i=0;i<3;i++)disc(-100+i*60,-30,12*(1+.35*Math.sin(t*6-i*1.2)),INK);rr(110,95,170,100,36,tone(h,0));for(let i=0;i<2;i++)disc(80+i*50,95,8,CREAM);},
+ naive:(t,c,ls,h)=>{const cr=t>c.crash,j=cr?Math.sin(t*60)*6*Math.max(0,1-(t-c.crash)*2):0;g.save();g.translate(j,0);for(let i=0;i<3;i++)caps(-40,-90+i*86,250,66,i%2?tone(h,4):CREAM);g.restore();const f=FN.cpu(t,c).ratio;rr(150,0,30,230,15,tone(h,0));rr(150,115-(230*f)/2,30,230*f,15,cr?INK:CREAM);if(cr){bar(-120,-140,120,140,16,INK);bar(120,-140,-120,140,16,INK);}},
+ race:(t,c,ls,h)=>{rr(0,40,130,110,26,CREAM);rr(0,-30,130,36,18,CREAM);const u=EZ.io(P(t,c.race,c.dup));disc(-230+u*170,-10,40,CREAM);disc(230-u*170,-10,40,tone(h,4));if(t>c.dup){const k=P(t,c.dup,c.dup+.4);ring(0,10,60+k*90,12,CREAM,0,Math.PI*2);bar(-60,-70,60,70,14,INK);bar(60,-70,-60,70,14,INK);}},
+ wait:(t,c,ls,h)=>{const o=Math.floor(clamp((t-c.token)/.25)*0)+0;for(let i=0;i<6;i++){const x=-250+i*62+((t>c.batch)?((t-c.batch)*60)%62:0);disc(x,40,26,i%2?CREAM:tone(h,4));}const open=t>c.batch?EZ.out(P(t,c.batch,c.batch+.3)):0;bar(80,-70,80,-30-open*50,16,CREAM);bar(80,150,80,110+open*50,16,CREAM);rr(210,40,110,150,24,tone(h,0));caps(210,10,70,16,tone(h,4));caps(210,50,70,16,tone(h,4));if(t>c.bots){const k=EZ.out(P(t,c.bots,c.bots+.6));const bx=-120+k*170-(t>c.block?EZ.out(P(t,c.block,c.block+.4))*120:0);rr(bx,-80,70,70,16,INK);disc(bx-14,-84,7,CREAM);disc(bx+14,-84,7,CREAM);}},
+ lock:(t,c,ls,h)=>{const closed=t>c.rumaal?EZ.out(P(t,c.rumaal,c.rumaal+.4)):0;rr(0,50,210,160,30,CREAM);const sy=-60-(1-closed)*38;ring(0,sy+10,62,22,CREAM,Math.PI,Math.PI*2);bar(-62,sy+10,-62,sy+40,22,CREAM);bar(62,sy+10,62,sy+40,22,CREAM);disc(0,40,18,INK);bar(0,40,0,80,14,INK);const left=clamp(1-(t-c.rumaal)/120);if(t>c.rumaal)ring(0,40,150,10,tone(h,4),-Math.PI/2,-Math.PI/2+Math.PI*2*left);},
+ shard:(t,c,ls,h)=>{const L=[FN.s0(t,c),FN.s1(t,c),FN.s2(t,c),FN.s3(t,c)];for(let i=0;i<4;i++){const x=(i%2?1:-1)*120,y=(i<2?-70:70);caps(x,y,200,64,i===0&&L[0].ratio>.7?INK:tone(h,0));rr(x-100+10+(180*L[i].ratio)/2,y,180*L[i].ratio,36,18,i===0&&L[0].ratio>.7?CREAM:tone(h,4));}if(t>c.replica){const k=EZ.out(P(t,c.replica,c.replica+.5));caps(-120,-150,120*k,36,CREAM);caps(-120,-196,90*k,28,CREAM);}},
+ pay:(t,c,ls,h)=>{disc(-200,-20,70,CREAM);bar(-200,-50,-200,10,14,INK);bar(-225,-20,-175,-20,14,INK);rr(100,-20,240,150,28,tone(h,4));bar(-20+0,-45+0,200,-45,16,INK);bar(-10,40-30,70,40-30,14,tone(h,0));bar(-80,-20,-30,-20,14,CREAM);if(t>c.fail){bar(40,-80,160,40,14,INK);bar(160,-80,40,40,14,INK);}if(t>c.refund){const k=P(t,c.refund,c.refund+.8);ring(0,120,64,16,CREAM,Math.PI*.1,Math.PI*.1+Math.PI*1.6*k);}},
+ outro:(t,c,ls,h)=>{rr(0,0,380,210,34,CREAM);disc(-190,0,32,tone(h,3));disc(190,0,32,tone(h,3));caps(-30,-50,200,26,INK);caps(-60,0,140,22,tone(h,2));caps(-40,50,180,22,tone(h,2));if(t>c.wl){const k=EZ.out(P(t,c.wl,c.wl+.4));caps(110,50,120*k,34,INK);}},
+};
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+function build(sc,idx){
+ const s=SD[sc.id],h=HUES[idx%5],root=mk('scene');
+ root.appendChild(mk('tag',`${String(idx+1).padStart(2,'0')} / ${String(T.scenes.length).padStart(2,'0')} · ${esc(s.head[0].replace(/,$/,''))}`));
+ root.appendChild(mk('ticks',T.scenes.map((_,i)=>`<i class="${i<idx?'done':i===idx?'cur':''}"></i>`).join('')));
+ const title=mk('title',esc(s.head[1]));root.appendChild(title);stage.appendChild(root);root.style.display='block';const w=title.getBoundingClientRect().width;if(w>960)title.style.fontSize=Math.floor(140*960/w)+'px';root.style.display='none';
+ const rows=mk('rows');root.appendChild(rows);const els=[];let ec=null,ecEl=null;
+ s.items.forEach(it=>{if(it.k==='endcard'){ec=it;return;}const e=mk('');rows.appendChild(e);els.push({it,e});});
+ if(ec){ecEl=mk('',`<div class="big" style="font-size:190px">${esc(ec.lines[0])}</div><div style="font-weight:800;font-size:44px;margin-top:14px">${esc(ec.lines[1])}</div><div class="lab" style="margin-top:14px">${esc(ec.lines[2])}</div>`,'position:absolute;left:60px;top:800px;display:none');root.appendChild(ecEl);}
+ return {root,h,idx,pat:pattern(h,idx*131+17),title,rows,els,ec,ecEl};
+}
+function update(b,sc,s,t){
+ const c=sc.cues,ls=t-sc.start,h=b.h;
+ // canvas: pattern with whole rows cut and shifted sideways (in at start, out at end)
+ g.clearRect(0,0,1080,1920);g.fillStyle=tone(h,1);g.fillRect(0,0,1080,1920);
+ for(let y=0;y<ROWS;y++){const inn=EZ.io(P(ls,y*.025,.4+y*.025)),out=EZ.io(P(ls,sc.dur-.36+y*.015,sc.dur));const off=((y%2?1:-1)*(1-inn)*1080)+((y%2?-1:1)*out*1080);
+  g.save();g.beginPath();g.rect(0,y*S,1080,S);g.clip();for(const sh of [0,-1080,1080])for(let x=0;x<COLS;x++)drawCell(b.pat[y][x],x*S+off+sh,y*S,h);g.restore();}
+ g.fillStyle=tone(h,1,.8);g.fillRect(0,572,1080,1348); // low contrast under the type
+ // hero on a sun disc with one light sweep
+ g.save();g.translate(540,330);disc(0,0,235,tone(h,3));g.save();g.beginPath();g.arc(0,0,235,0,7);g.clip();g.fillStyle='rgba(255,255,255,.14)';const sx=-300+((ls*260)%700);g.beginPath();g.moveTo(sx,-300);g.lineTo(sx+90,-300);g.lineTo(sx-60,300);g.lineTo(sx-150,300);g.fill();g.restore();
+ const hp=EZ.out(P(ls,.15,.5));g.scale(.6+.4*hp,.6+.4*hp);HERO[sc.id](t,c,ls,h);g.restore();
+ b.title.style.color=CREAM;b.title.style.transform=`translateX(${-(1-EZ.out(P(ls,.2,.5)))*110}%)`;
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ if(b.ecEl){b.ecEl.style.display=endOn?'block':'none';b.ecEl.style.opacity=P(t,AT(b.ec.at,c),AT(b.ec.at,c)+.15);}
+ b.rows.style.display=endOn?'none':'flex';
+ b.els.forEach(({it,e})=>{
+  const x=RESOLVE(it,t,c);e.style.display=x.vis?'block':'none';if(!x.vis)return;
+  const p=EZ.out(P(t,x.ta,x.ta+.2));e.style.transform=`translateX(${-(1-p)*80}px)`;e.style.opacity=P(t,x.ta,x.ta+.06);
+  const col=x.tone==='alert'?[CREAM,INK]:x.tone==='ok'?[tone(h,3),INK]:x.tone==='accent'?[tone(h,4),INK]:x.tone==='dim'?[tone(h,2,.6),tone(h,4)]:[tone(h,0),CREAM];
+  const st=`background:${col[0]};color:${col[1]}`;
+  if(it.k==='val')e.innerHTML=`<div class="chip" style="${st};display:block;border-radius:30px;padding:12px 28px 14px"><div class="lab">${esc(it.label)}</div><div class="big">${esc(x.text)}</div></div>`;
+  else if(it.k==='meter')e.innerHTML=`<div class="chip" style="${st}">${esc(it.label)}<span class="mini"><i style="width:${clamp(x.ratio)*100}%"></i></span>${esc(x.text)}</div>`;
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.038));e.innerHTML=`<div class="chip" style="${st}">${esc(it.text.slice(0,n))}</div>`;}
+  else e.innerHTML=x.text?`<div class="chip${x.flag==='strike'?' strike':''}" style="${st}">${esc(x.text)}</div>`:'';
+ });
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id];
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t);
+ const cap=CAP(t,T.scenes);
+ if(cap){capEl.style.display='block';capEl.style.background=tone(b.h,0);capEl.style.color=CREAM;capEl.innerHTML=esc(cap.text).replace(/\*([^*]+)\*/g,`<span style="color:${tone(b.h,4)}">$1</span>`);capEl.style.transform=`translateX(${-(1-EZ.out(P(t,cap.t0,cap.t0+.18)))*100}%)`;}else capEl.style.display='none';
+};
+window.ready=Promise.all(['800 40px PG','900 40px PG','500 40px PM','700 40px PM'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach((sc,i)=>{built[sc.id]=build(sc,i);});});
+</script></body></html>

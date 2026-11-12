@@ -1,0 +1,479 @@
+{
+ "music": {
+  "mood": "curious_tech",
+  "seed": 2,
+  "hits": {
+   "breaker": "drop",
+   "once": "chime",
+   "follow": "chime"
+  }
+ },
+ "scenes": [
+  {
+   "id": "hook",
+   "parts": [
+    {
+     "v": "en_in_prabhat_m",
+     "t": "Ten in the morning, on Diwali. Millions of people tap pay at the same time. And almost nobody sees an error."
+    }
+   ],
+   "cues": [
+    [
+     "ten",
+     "Ten"
+    ],
+    [
+     "millions",
+     "Millions"
+    ],
+    [
+     "nobody",
+     "nobody"
+    ]
+   ],
+   "caps": [
+    [
+     "start",
+     "Diwali, 10 AM. *Everyone* taps pay."
+    ],
+    [
+     "nobody",
+     "And *nobody* sees an error."
+    ]
+   ],
+   "visual": {
+    "head": [
+     "Diwali, 10 AM,",
+     "everyone taps pay."
+    ],
+    "items": [
+     {
+      "k": "text",
+      "at": "ten",
+      "text": "DIWALI MORNING  10:00:00",
+      "tone": "dim"
+     },
+     {
+      "k": "val",
+      "at": "millions",
+      "label": "PAYMENTS PER SECOND (ILLUSTRATIVE)",
+      "count": {
+       "from": 0,
+       "to": 100000,
+       "dur": 1.4,
+       "fmt": "intl"
+      }
+     },
+     {
+      "k": "text",
+      "at": "nobody",
+      "text": "ERRORS SEEN BY USERS: ALMOST NONE",
+      "tone": "ok"
+     }
+    ]
+   }
+  },
+  {
+   "id": "switch",
+   "parts": [
+    {
+     "v": "en_in_prabhat_m",
+     "t": "Idea one. Do not connect every bank to every app. Put one switch in the middle."
+    }
+   ],
+   "cues": [
+    [
+     "idea",
+     "Idea"
+    ],
+    [
+     "every",
+     "every"
+    ],
+    [
+     "switch",
+     "switch"
+    ]
+   ],
+   "caps": [
+    [
+     "start",
+     "Idea one: *one switch* in the middle."
+    ]
+   ],
+   "visual": {
+    "head": [
+     "Idea one,",
+     "one switch."
+    ],
+    "items": [
+     {
+      "k": "text",
+      "at": "every",
+      "text": "WITHOUT: 50 APPS x 100 BANKS = 5,000 LINKS",
+      "tone": "alert"
+     },
+     {
+      "k": "text",
+      "at": "switch",
+      "text": "WITH A SWITCH: 50 + 100 = 150 LINKS",
+      "tone": "ok"
+     },
+     {
+      "k": "text",
+      "at": "switch+0.9",
+      "text": "APP > SWITCH > BANK > SWITCH > APP"
+     }
+    ]
+   }
+  },
+  {
+   "id": "refid",
+   "parts": [
+    {
+     "v": "en_in_prabhat_m",
+     "t": "Idea two. Every payment carries a unique id. Retry it ten times, and the money still moves once."
+    }
+   ],
+   "cues": [
+    [
+     "idea",
+     "Idea"
+    ],
+    [
+     "unique",
+     "unique"
+    ],
+    [
+     "retry",
+     "Retry"
+    ],
+    [
+     "once",
+     "once"
+    ]
+   ],
+   "caps": [
+    [
+     "start",
+     "Idea two: a *unique id*."
+    ],
+    [
+     "retry",
+     "Retry ten times, *money moves once*."
+    ]
+   ],
+   "visual": {
+    "head": [
+     "Idea two,",
+     "a unique id."
+    ],
+    "items": [
+     {
+      "k": "cmd",
+      "at": "unique",
+      "text": "> PAY  txn_id=7f3a9c  Rs 499"
+     },
+     {
+      "k": "text",
+      "at": "retry",
+      "text": [
+       [
+        "retry",
+        "RETRY x10  txn_id=7f3a9c",
+        "dim"
+       ],
+       [
+        "once-0.6",
+        "RETRY x10  DUPLICATES IGNORED",
+        "alert"
+       ]
+      ]
+     },
+     {
+      "k": "text",
+      "at": "once",
+      "text": "MONEY MOVED: 1 TIME",
+      "tone": "ok"
+     }
+    ]
+   }
+  },
+  {
+   "id": "pending",
+   "parts": [
+    {
+     "v": "en_in_prabhat_m",
+     "t": "Idea three. If a bank is slow, never say failed. Say pending, and ask again."
+    }
+   ],
+   "cues": [
+    [
+     "idea",
+     "Idea"
+    ],
+    [
+     "slow",
+     "slow"
+    ],
+    [
+     "pending",
+     "pending"
+    ],
+    [
+     "again",
+     "again"
+    ]
+   ],
+   "caps": [
+    [
+     "start",
+     "Idea three: never say *failed*."
+    ],
+    [
+     "pending",
+     "Say *pending*, ask again."
+    ]
+   ],
+   "visual": {
+    "head": [
+     "Idea three,",
+     "pending, not failed."
+    ],
+    "items": [
+     {
+      "k": "text",
+      "at": "start+0.4",
+      "text": "DEBIT REQUEST SENT TO BANK"
+     },
+     {
+      "k": "text",
+      "at": "slow",
+      "text": "NO REPLY IN 30 SECONDS",
+      "tone": "alert"
+     },
+     {
+      "k": "text",
+      "at": "pending",
+      "text": [
+       [
+        "pending",
+        "STATUS: PENDING",
+        "accent"
+       ],
+       [
+        "again+0.5",
+        "STATUS CHECK: SUCCESS",
+        "ok"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "isolate",
+   "parts": [
+    {
+     "v": "en_in_prabhat_m",
+     "t": "Idea four. One slow bank must not slow everyone. Time out, trip a breaker, and route around it."
+    }
+   ],
+   "cues": [
+    [
+     "idea",
+     "Idea"
+    ],
+    [
+     "one",
+     "One"
+    ],
+    [
+     "breaker",
+     "breaker"
+    ]
+   ],
+   "caps": [
+    [
+     "start",
+     "Idea four: *isolate* slow banks."
+    ],
+    [
+     "breaker",
+     "Trip a *breaker*."
+    ]
+   ],
+   "visual": {
+    "head": [
+     "Idea four,",
+     "isolate the slow."
+    ],
+    "items": [
+     {
+      "k": "meter",
+      "at": "one",
+      "label": "BANK A LATENCY",
+      "bar": {
+       "from": 5,
+       "to": 100,
+       "dur": 1.5,
+       "fmt": "pct",
+       "alertAbove": 80
+      }
+     },
+     {
+      "k": "text",
+      "at": "breaker",
+      "text": "TIMEOUT > BREAKER OPEN FOR BANK A",
+      "tone": "alert"
+     },
+     {
+      "k": "meter",
+      "at": "breaker+0.5",
+      "label": "OTHER BANKS",
+      "bar": {
+       "from": 18,
+       "to": 20,
+       "dur": 0.5,
+       "fmt": "pct"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "ledger",
+   "parts": [
+    {
+     "v": "en_in_prabhat_m",
+     "t": "Idea five. Record the money first. Send the alerts and the cashback later."
+    }
+   ],
+   "cues": [
+    [
+     "idea",
+     "Idea"
+    ],
+    [
+     "record",
+     "Record"
+    ],
+    [
+     "later",
+     "later"
+    ]
+   ],
+   "caps": [
+    [
+     "start",
+     "Idea five: *record* the money first, alerts *later*."
+    ]
+   ],
+   "visual": {
+    "head": [
+     "Idea five,",
+     "money first."
+    ],
+    "items": [
+     {
+      "k": "text",
+      "at": "record",
+      "text": "LEDGER WRITE  (MUST SUCCEED)",
+      "tone": "ok"
+     },
+     {
+      "k": "text",
+      "at": "later-0.4",
+      "text": [
+       [
+        "later-0.4",
+        "SMS, EMAIL, CASHBACK: QUEUED",
+        "dim"
+       ],
+       [
+        "later+1.2",
+        "SMS, EMAIL, CASHBACK: SENT",
+        "normal"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "outro",
+   "parts": [
+    {
+     "v": "en_in_prabhat_m",
+     "t": "That is a proposed design, not how N P C I actually builds it. One switch, unique ids, honest pending states, isolation, and a ledger. Follow for part two."
+    }
+   ],
+   "cues": [
+    [
+     "design",
+     "design"
+    ],
+    [
+     "switch",
+     "switch"
+    ],
+    [
+     "follow",
+     "Follow"
+    ]
+   ],
+   "caps": [
+    [
+     "start",
+     "A *proposed design*, not NPCI's blueprint."
+    ],
+    [
+     "follow",
+     "*Follow* for part two."
+    ]
+   ],
+   "visual": {
+    "head": [
+     "Recap,",
+     "five ideas."
+    ],
+    "items": [
+     {
+      "k": "text",
+      "at": "switch",
+      "text": "1  ONE SWITCH"
+     },
+     {
+      "k": "text",
+      "at": "switch+0.5",
+      "text": "2  UNIQUE IDS"
+     },
+     {
+      "k": "text",
+      "at": "switch+1.0",
+      "text": "3  PENDING, NOT FAILED"
+     },
+     {
+      "k": "text",
+      "at": "switch+1.6",
+      "text": "4  ISOLATE SLOW BANKS"
+     },
+     {
+      "k": "text",
+      "at": "switch+2.2",
+      "text": "5  LEDGER FIRST"
+     },
+     {
+      "k": "endcard",
+      "at": "follow",
+      "lines": [
+       "FOLLOW",
+       "NEXT: HOW QR PAYMENTS WORK",
+       "COMMENT YOUR WORST UPI FAIL"
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Swiss Motion</title>
+<style>
+@font-face{font-family:Sw;font-weight:500;src:url(node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2)}
+@font-face{font-family:Sw;font-weight:700;src:url(node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2)}
+@font-face{font-family:Sw;font-weight:800;src:url(node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2)}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#EAE9E5;font-family:Sw,Helvetica,Arial,sans-serif;color:#111}
+.col{position:absolute;top:170px;height:1340px;width:1px;background:#D3D2CD}
+.scene{position:absolute;inset:0;display:none}
+.num{position:absolute;left:66px;top:140px;font-weight:800;font-size:250px;letter-spacing:-.02em;line-height:1}
+.lead{position:absolute;left:72px;top:408px;font-size:30px;font-weight:500;color:#8C8B87;letter-spacing:.01em}
+.hd{position:absolute;left:72px;top:448px;font-weight:800;font-size:100px;letter-spacing:-.025em;line-height:1.02;text-transform:lowercase;white-space:nowrap}
+.rule{position:absolute;left:72px;top:590px;height:6px;background:#111}
+.meta{position:absolute;right:72px;top:176px;text-align:right;font-size:17px;font-weight:500;line-height:1.5;color:#8C8B87;letter-spacing:.04em}
+.rows{position:absolute;left:72px;width:936px;top:626px}
+.row{position:relative;border-top:1px solid rgba(17,17,17,.35);padding:14px 0 12px;display:flex;gap:24px;min-height:62px}
+.row .k{width:296px;flex:none;font-size:19px;font-weight:500;color:#8C8B87;letter-spacing:.06em;text-transform:uppercase;padding-top:11px}
+.row .v{flex:1;font-size:40px;font-weight:700;line-height:1.1;letter-spacing:-.01em}
+.row .v.dim{color:#8C8B87;font-weight:500}.row .v.sig{color:#E30613}.row .v.strike{text-decoration:line-through}
+.bar{height:34px;background:#111;margin-top:6px}.bar.sig{background:#E30613}
+.big{font-size:128px;font-weight:800;letter-spacing:-.03em;line-height:.95}
+.clip{overflow:hidden}
+#cap{position:absolute;left:72px;top:1318px;width:936px}
+#cap .lead2{font-size:19px;font-weight:500;color:#8C8B87;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+#cap .st{font-size:54px;font-weight:700;line-height:1.08;letter-spacing:-.015em}
+#cap em{font-style:normal;font-weight:800;box-shadow:inset 0 -.22em 0 #111}
+#wipe{position:absolute;left:0;top:0;width:1080px;height:1920px;background:#111;transform:translateX(-101%);z-index:9}
+</style></head><body>
+<div id="grid"></div><div id="stage"></div><div id="cap"></div><div id="wipe"></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),capEl=document.getElementById('cap'),wipe=document.getElementById('wipe'),SN=BZ(.7,0,.2,1);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const colX=i=>72+i*160;for(let i=0;i<=6;i++){const c=document.createElement('div');c.className='col';c.style.left=(i<6?colX(i):1008)+'px';document.getElementById('grid').appendChild(c);}
+const KIND={text:'Log',cmd:'Command',val:'Value',meter:'Gauge'};
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+function build(sc,idx){
+ const s=SD[sc.id],root=mk('scene');
+ root.appendChild(mk('num',String(idx+1).padStart(2,'0')));
+ root.appendChild(mk('meta',`TATKAL / 12951<br>SC-${String(idx+1).padStart(2,'0')} / ${String(T.scenes.length).padStart(2,'0')}<br>GRID 6 x 160`));
+ root.appendChild(mk('lead',esc(s.head[0].replace(/,$/,''))));
+ const hd=mk('hd','',''),inner=mk('','<span>'+esc(s.head[1])+'</span>','');hd.appendChild(inner);root.appendChild(hd);
+ stage.appendChild(root);root.style.display='block';const w=inner.firstChild.getBoundingClientRect().width;if(w>930)hd.style.fontSize=Math.floor(100*930/w)+'px';root.style.display='none';
+ root.appendChild(mk('rule'));
+ const rows=mk('rows');root.appendChild(rows);const els=[];let ec=null,ecEl=null;
+ s.items.forEach(it=>{if(it.k==='endcard'){ec=it;return;}const r=mk('row clip','<div class="k"></div><div class="v"></div>');rows.appendChild(r);els.push({it,r,k:r.querySelector('.k'),v:r.querySelector('.v')});});
+ if(ec){ecEl=mk('',`<div class="big" style="font-size:190px">${esc(ec.lines[0].toLowerCase())}</div><div style="font-size:44px;font-weight:700;margin-top:18px">${esc(ec.lines[1])}</div><div style="font-size:30px;font-weight:500;color:#8C8B87;margin-top:12px">${esc(ec.lines[2])}</div>`,'position:absolute;left:72px;top:650px;display:none');root.appendChild(ecEl);}
+ stage.appendChild(root);return {root,hd,inner,rows,els,ec,ecEl,rule:root.querySelector('.rule'),lead:root.querySelector('.lead'),num:root.querySelector('.num')};
+}
+function update(b,sc,s,t){
+ const c=sc.cues,ls=t-sc.start;
+ b.num.style.clipPath=`inset(${(1-SN(P(ls,.0,.3)))*100}% 0 0 0)`;
+ b.lead.style.opacity=P(ls,.1,.2);b.hd.style.clipPath='inset(0 0 -10% 0)';b.inner.style.transform=`translateY(${(1-SN(P(ls,.12,.4)))*110}%)`;b.hd.style.overflow='hidden';
+ b.rule.style.width=(P(ls,.2,.7)*936)+'px'; // linear draw
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ if(b.ecEl){b.ecEl.style.display=endOn?'block':'none';b.ecEl.style.clipPath=`inset(0 ${(1-SN(P(t,AT(b.ec.at,c),AT(b.ec.at,c)+.35)))*100}% 0 0)`;}
+ b.rows.style.display=endOn?'none':'block';
+ // the single signal-colour carrier: the latest visible alert (else accent) item
+ let sig=-1;b.els.forEach(({it},i)=>{const x=RESOLVE(it,t,c);if(x.vis&&(x.tone==='alert'||(sig<0&&x.tone==='accent')))sig=i;});
+ b.els.forEach(({it,r,k,v},i)=>{
+  const x=RESOLVE(it,t,c);r.style.visibility=x.vis?'visible':'hidden';if(!x.vis)return;
+  const p=SN(P(t,x.ta,x.ta+.3));r.style.clipPath=`inset(0 0 ${(1-p)*100}% 0)`;
+  const isSig=i===sig;k.textContent=KIND[it.k]||'';k.style.display=it.k==='val'?'none':'block';
+  if(it.k==='val'){v.innerHTML=`<div style="font-size:22px;font-weight:500;color:#8C8B87;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">${esc(it.label)}</div><div class="big${isSig?' sig':''}" style="${isSig?'color:#E30613':''}">${esc(x.text)}</div>`;}
+  else if(it.k==='meter'){v.innerHTML=`<div style="display:flex;justify-content:space-between;font-size:30px"><span>${esc(it.label.toLowerCase())}</span><span>${esc(x.text)}</span></div><div class="bar${isSig?' sig':''}" style="width:${clamp(x.ratio)*100}%"></div>`;}
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.038));v.textContent=it.text.slice(0,n);v.className='v';}
+  else{v.textContent=x.text||'';v.className='v'+(x.tone==='dim'?' dim':'')+(isSig?' sig':'')+(x.flag==='strike'?' strike':'');}
+ });
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id];
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t);
+ const cap=CAP(t,T.scenes);
+ if(cap){const p=SN(P(t,cap.t0,cap.t0+.25));capEl.style.clipPath=`inset(0 0 ${(1-p)*100}% 0)`;capEl.innerHTML='<div class="lead2">Now</div><div class="st">'+esc(cap.text).replace(/\*([^*]+)\*/g,'<em>$1</em>')+'</div>';}else capEl.innerHTML='';
+ // ink knife wipe at scene start (snaps on the beat, precise ease)
+ const ls=t-sc.start,w=SN(P(ls,-.02,.18));wipe.style.transform=ls<.18?`translateX(${(-101+w*101)}%)`:`translateX(${101*(SN(P(ls,.18,.36)))}%)`;if(ls>.36||sc.start===0&&ls<.0)wipe.style.transform='translateX(-101%)';
+ if(sc.start===0)wipe.style.transform='translateX(-101%)';
+};
+window.ready=Promise.all(['500 40px Sw','700 40px Sw','800 40px Sw'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach((sc,i)=>{built[sc.id]=build(sc,i);});});
+</script></body></html>

@@ -1,0 +1,105 @@
+{
+  "_note": "Curated by hand: which styles fit which kind of reel. ids refer to references/all-styles.json. First pick in each list is the safest default.",
+  "situations": [
+    { "situation": "Tech, system design, apps, startups, product explainers", "picks": [
+      ["ui-cards/clean-ui", "Default. Cheapest, cleanest, works for any app/system topic"],
+      ["lemo/dark-keynote", "Dark stage, one giant number, launch-event feel"],
+      ["lemo/living-screencast", "Rebuilt UI with a moving cursor: tutorials and feature walkthroughs"],
+      ["lemo/ascii-crt", "Retro terminal flavour for infra/logs-heavy topics"] ] },
+    { "situation": "Coding, security, hacking, logs, DevOps", "picks": [
+      ["lemo/ascii-crt", "Phosphor terminal, typed output, the machine speaks"],
+      ["lemo/circuit-board", "Hardware/electronics and signal-path stories"],
+      ["lemo/hologram-hud", "Sci-fi readouts for cyber topics"],
+      ["ui-cards/clean-ui", "Clean log/CLI cards when you want it calm"] ] },
+    { "situation": "Math, algorithms, DSA, ML, proofs", "picks": [
+      ["manim/3b1b", "Shapes transforming, MathTex (needs Python + Manim)"],
+      ["grammar/t1", "3Blue1Brown narration grammar"],
+      ["lemo/chalkboard", "Teacher-at-the-board feel"],
+      ["lemo/whiteboard", "Marker drawn live as you speak"] ] },
+    { "situation": "Finance, markets, numbers, data stories", "picks": [
+      ["grammar/t3", "Axes first, data grows, one highlight"],
+      ["lemo/dataviz", "One chart per scene, numbers only from the source"],
+      ["lemo/dark-keynote", "Giant figure on a dark stage"],
+      ["ui-cards/clean-ui", "Dashboard cards and status chips"] ] },
+    { "situation": "Real places with open data: city growth, floods, pollution, metro, transport", "picks": [
+      ["lemo/white-model", "Data projected as light on a white city model"],
+      ["lemo/transit-map", "Metro/rail maps and routes"],
+      ["lemo/satellite-briefing", "Map-and-imagery briefing look"],
+      ["lemo/lidar-survey", "Scanned terrain and point-cloud look"] ] },
+    { "situation": "Stories, folklore, Panchatantra, kids, bedtime", "picks": [
+      ["lemo/paper-lantern", "Backlit paper-cut box, warm and quiet"],
+      ["lemo/shadow-puppet", "Lamp-lit hide puppets (Tholu Bommalata feel)"],
+      ["anidoodle/folk-tale-storybook", "Painted foreground dissolving into pencil"],
+      ["anidoodle/mid-century-gouache", "Opaque matte shapes, picture-book warmth"] ] },
+    { "situation": "Festivals and devotional mood: Diwali, aarti, Navratri, Ramlila", "picks": [
+      ["lemo/paper-lantern", "Diya-glow night scenes"],
+      ["lemo/shadow-puppet", "Epic-story staging with lamps"],
+      ["anidoodle/cut-paper-collage", "Bold paper-cut festival graphics"],
+      ["lemo/risograph", "Two-ink poster look for greetings"] ] },
+    { "situation": "Mystery, scams, fraud, heists, trailers and teasers", "picks": [
+      ["lemo/spy-titles", "60s cut-paper title sequence"],
+      ["lemo/halftone-dossier", "Redacted case-file look"],
+      ["lemo/visual-investigation", "Evidence-board and timeline investigation"],
+      ["lemo/newsreel", "Old-newsreel urgency"] ] },
+    { "situation": "News, current affairs, event explainers", "picks": [
+      ["lemo/caption-news", "Fast caption-driven news cut"],
+      ["lemo/news-package", "Broadcast package: lower thirds, bumpers"],
+      ["grammar/y2", "Vox-style collage with highlighter lines"],
+      ["lemo/telestrator", "Sports/news telestrator drawing on footage"] ] },
+    { "situation": "History, records, fact-checks, RTI (needs real scans)", "picks": [
+      ["lemo/archive-lighttable", "Loupe over real archive objects"],
+      ["lemo/printed-long-take", "One long printed-page camera move"],
+      ["lemo/newsreel", "Period newsreel framing"],
+      ["grammar/y2", "Collage + red-line annotation"] ] },
+    { "situation": "Biology, health, science up close (needs real specimen image)", "picks": [
+      ["lemo/microscope", "Dive from slide to cell and measure"],
+      ["grammar/y1", "Kurzgesagt-style glowing object world"],
+      ["lemo/teardown", "Exploded view of how a thing is built"],
+      ["lemo/engraving", "Museum-plate anatomy"] ] },
+    { "situation": "Nature, animals, museum objects, botanical plates", "picks": [
+      ["lemo/engraving", "Copperplate with hand colour"],
+      ["anidoodle/scratchboard", "White lines scratched from black"],
+      ["anidoodle/woodcut-ukiyo-e", "Carved blocks, washi colour"],
+      ["lemo/watercolor", "Soft wet colour"] ] },
+    { "situation": "Philosophy, meditation, calm mood, one decisive action, myth", "picks": [
+      ["lemo/ink-wash", "Ink painting with silence and empty paper"],
+      ["anidoodle/sumi-e", "One loaded brush"],
+      ["lemo/one-line", "A single drawn line becomes the story"],
+      ["huashu/17", "Chinese ink wash recipe (huashu)"] ] },
+    { "situation": "Luxury, brand launch, cinema palace, grand reveal, glamour", "picks": [
+      ["lemo/art-deco", "Gold, lacquer and symmetry"],
+      ["lemo/glass-product", "Glass product hero shots"],
+      ["lemo/swiss-motion", "Grid + kinetic type brand opener"],
+      ["lemo/dark-keynote", "Launch-stage minimalism"] ] },
+    { "situation": "Comedy, cartoon fun, kids' shows", "picks": [
+      ["lemo/rubber-hose", "1930s bendy cartoon"],
+      ["lemo/midcentury-toon", "Flat mid-century cartoon"],
+      ["lemo/cel-anime-80s", "80s cel anime"],
+      ["claude-animation-base/painted-cartoon", "Painted cartoon with acted emotions"] ] },
+    { "situation": "Nostalgia and retro: 80s/90s, DD era, arcade, cassette", "picks": [
+      ["lemo/silent-film", "Silent-era title cards and iris"],
+      ["lemo/pixel-rpg", "Pixel RPG world"],
+      ["anidoodle/pixel-art", "16-colour pixel art"],
+      ["huashu/26", "Vaporwave / neon"] ] },
+    { "situation": "Art history, painters, culture lessons", "picks": [
+      ["huashu/09", "Van Gogh flow-field strokes"],
+      ["huashu/20", "Dunhuang mural look"],
+      ["huashu/08", "Impressionist dabs"],
+      ["huashu/13", "Lichtenstein pop dots"] ] },
+    { "situation": "Typography-first teasers, hooks, listicles, countdowns", "picks": [
+      ["grammar/y5", "Kinetic type: keywords slam in"],
+      ["lemo/swiss-motion", "Swiss grid, wipes, one signal colour"],
+      ["lemo/countdown", "Countdown rhythm"],
+      ["lemo/silkscreen-poster", "Poster-print type"] ] },
+    { "situation": "How-to tutorials and app walkthroughs", "picks": [
+      ["lemo/living-screencast", "Rebuilt UI + cursor"],
+      ["ui-cards/clean-ui", "Clean steps with status chips"],
+      ["lemo/telestrator", "Draw over the screen"],
+      ["lemo/whiteboard", "Hand-drawn steps"] ] },
+    { "situation": "Games, quizzes, interactive-feel reels", "picks": [
+      ["lemo/game-show", "Quiz show staging"],
+      ["lemo/pixel-rpg", "Retro RPG"],
+      ["lemo/microgame", "Tiny arcade game beats"],
+      ["lemo/hd-2d", "Modern pixel-in-3D diorama"] ] }
+  ]
+}

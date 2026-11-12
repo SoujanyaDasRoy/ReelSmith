@@ -1,0 +1,214 @@
+{
+  "_note": "Registry of third-party animation engines this skill can route to. Nothing here is vendored: `node engines.mjs install <name>` does a shallow git clone into ./engines/<name> and records the commit. Licenses were read from each repo's LICENSE file on 2026-11-12; re-check before redistributing.",
+  "engines": {
+    "ui-cards": {
+      "title": "Clean UI cards (built in)",
+      "repo": null,
+      "license": "this skill",
+      "best_for": "System design, tech and product explainers, Figma-tutorial look, Hindi voice + Hinglish captions",
+      "needs": [
+        "node>=18",
+        "ffmpeg"
+      ],
+      "doc": "references/engines/ui-cards.md"
+    },
+    "anidoodle": {
+      "title": "anidoodle (alexgreensh)",
+      "repo": "https://github.com/alexgreensh/anidoodle",
+      "skill_path": "skills/anidoodle",
+      "license": "Apache-2.0",
+      "best_for": "Hand-drawn / painted illustration, loops, stickers, storybook and 3D motion graphics in 32 art styles; deterministic code art; scored films",
+      "needs": [
+        "node>=20",
+        "ffmpeg",
+        "playwright-core chromium"
+      ],
+      "doc": "references/engines/anidoodle.md",
+      "warnings": [
+        "Optional sound pack is ~373 MB; never download without asking the user",
+        "Narration providers send text to a third-party voice service (we use our own Hindi TTS instead)",
+        "plugin.json, package.json and shell scripts were not audited"
+      ]
+    },
+    "huashu-art-motion": {
+      "title": "huashu-art-motion (alchaincyf)",
+      "repo": "https://github.com/alchaincyf/huashu-art-motion",
+      "skill_path": ".",
+      "license": "MIT (with exceptions for some fonts and character art, see repo README)",
+      "best_for": "Art-history and era styles (Van Gogh, ink wash, ukiyo-e-like, pop art...) and 9 explainer narration grammars (Kurzgesagt, Vox, whiteboard, kinetic type, 3Blue1Brown, keynote, finance chart)",
+      "needs": [
+        "uv",
+        "python3",
+        "ffmpeg",
+        "playwright chromium"
+      ],
+      "doc": "references/engines/huashu-art-motion.md",
+      "warnings": [
+        "Do not enable its voice cloning (calls a third-party API); we use our own TTS",
+        "Its version check runs git ls-remote and writes .last-update-check in its folder",
+        "Its agent is told to write lessons back into its own reference files; review those diffs",
+        "Character artwork and Clawd are not MIT; do not reuse them",
+        "No Windows setup guide; Python tooling untested here"
+      ]
+    },
+    "claude-animation-base": {
+      "title": "ClaudeAnimationBase (JohnHeibel)",
+      "repo": "https://github.com/JohnHeibel/ClaudeAnimationBase",
+      "skill_path": ".",
+      "license": "MIT",
+      "best_for": "Hand-painted 2D cartoon (p5.js + p5.brush), painted characters with acted emotions, no on-screen text; storyboard-first process",
+      "needs": [
+        "node",
+        "Google Chrome",
+        "ffmpeg"
+      ],
+      "doc": "references/engines/claude-animation-base.md",
+      "warnings": [
+        "Its mascot character (Clawd) is Anthropic's; use the engine and guide, not the character, in public work",
+        "Render launches Chrome with --allow-file-access-from-files and loads a Google Fonts stylesheet",
+        "src/ was not audited"
+      ]
+    },
+    "manim": {
+      "title": "Manim best practices + composer (adithya-s-k)",
+      "repo": "https://github.com/adithya-s-k/manim_skill",
+      "skill_path": "skills",
+      "license": "MIT (covers the repo's notes/examples, not Manim itself)",
+      "best_for": "Math, algorithms, graphs, data-structure and ML visuals in 3Blue1Brown style (Python Manim Community)",
+      "needs": [
+        "python3",
+        "pip install manim",
+        "ffmpeg",
+        "LaTeX (MiKTeX/TeX Live) for MathTex",
+        "Cairo/Pango (manimpango) on Windows can be painful"
+      ],
+      "doc": "references/engines/manim.md",
+      "warnings": [
+        "Python was NOT installed on the machine this skill was built on; Manim output was never rendered here",
+        "Notes on 9:16 are from general Manim knowledge, not the repo; verify with `manim cfg show`"
+      ]
+    },
+    "lemo-opuscar": {
+      "title": "lemo-opuscar (LemoLab)",
+      "repo": "https://github.com/lemomo-ai/lemo-opuscar",
+      "skill_path": "plugin/skills/lemo-opuscar",
+      "license": "MIT (demo films CC BY 4.0)",
+      "best_for": "66 film styles incl. paper-lantern, white-model, spy-titles, ink-wash, shadow-puppet, microscope, ascii-crt, engraving, archive-lighttable, art-deco; deterministic canvas/three.js/WebGL renders",
+      "needs": [
+        "node>=20",
+        "ffmpeg>=7",
+        "python>=3.11 or uv",
+        "playwright-core chromium",
+        "Git Bash or WSL on Windows"
+      ],
+      "doc": "references/engines/lemo-opuscar.md",
+      "warnings": [
+        "setup.sh hard-resets its clone to main on every run and downloads npm/pip/Chromium/model/sample packs: do not run it blindly",
+        "Its agent installs per-style packages and may fetch voices, data and fonts from the network at render time",
+        ".claude-plugin/plugin.json, plugin hooks, core/ and tools/ were not audited",
+        "Use its style specs, not its demo stories; do not use its narration or sample libraries (we use our own Hindi voice and mix)"
+      ]
+    },
+    "bang-motion": {
+      "title": "Bang Motion (bangtutorial)",
+      "repo": "https://github.com/bangtutorial/bang-motion",
+      "license": "MIT",
+      "best_for": "Browser motion graphics as one index.html: 10 style directions, 19 opener concepts, 6 explainer styles with starters (16:9 or 9:16); strong anti-slide rules (continuous motion, deterministic timeline)",
+      "needs": [
+        "node>=18",
+        "chromium (playwright)",
+        "ffmpeg"
+      ],
+      "doc": "references/engines/bang-motion.md",
+      "warnings": [
+        "Its docs are written in Indonesian",
+        "Its own scripts (export-frames, snap) were read but not run",
+        "Use its style/structure specs; we keep our own Hindi/English voice, music and mix and mux over its silent render"
+      ]
+    },
+    "vox-explainer": {
+      "title": "Vox explainer (CK42BB)",
+      "repo": "https://github.com/CK42BB/vox-explainer-skill",
+      "license": "MIT",
+      "best_for": "The Vox look (editorial paper collage) and the Vox narrative arc / beat budgeting",
+      "needs": [
+        "node>=18",
+        "ffmpeg"
+      ],
+      "doc": "references/engines/vox-explainer.md",
+      "warnings": [
+        "Its pipeline calls the paid Atlas Cloud API (image, video, voice, music models) with an API key: NOT used here. Only its writing arc and visual grammar are adopted",
+        "Ask before any third-party generation API is used"
+      ]
+    },
+    "claude-drawing": {
+      "title": "Claude Drawing (cloveric)",
+      "repo": "https://github.com/cloveric/claude-drawing-skill",
+      "license": "MIT",
+      "best_for": "83 procedural painting styles drawn with code (numpy + Pillow, no image model), draw-on GIFs: ink wash, watercolour, oil impasto, ukiyo-e, clay, cyanotype, stained glass, isometric, synthwave ...",
+      "needs": [
+        "python>=3.10",
+        "numpy",
+        "Pillow",
+        "ffmpeg"
+      ],
+      "doc": "references/engines/claude-drawing.md",
+      "warnings": [
+        "Python is not installed on this machine, so these styles are blocked until it is",
+        "Upstream SKILL.md is ~740 KB and was not vendored; only README + docs/ are",
+        "Its image output is stills/GIFs: animate by sequencing draw-on frames, then mux our voice over"
+      ]
+    },
+    "earshot": {
+      "title": "earshot (Leonxlnx): ears for coding agents",
+      "repo": "https://github.com/Leonxlnx/earshot",
+      "license": "MIT",
+      "best_for": "Lets the agent HEAR: describe a sound, score it against a description, rank candidate downloads, find moments, check sync of sound to picture cuts, measure loudness/tempo/key, detect code-synthesized vs real recordings, critique a film soundtrack; also a bank of 252 synthesized sounds",
+      "needs": [
+        "uv or Python 3.10+",
+        "ffmpeg + ffprobe",
+        "CPU only (no GPU)",
+        "~1.1 GB of two open models (CLAP, AST) downloaded on first use"
+      ],
+      "doc": "references/engines/earshot.md",
+      "warnings": [
+        "Not installed here. Installing downloads ~1.1 GB: ask the user first",
+        "Each CLI call loads the models (20-40 s); use its MCP server for many calls",
+        "It cannot judge taste, emotion, licences or speech content; hints only for events inside a busy mix",
+        "Optional paths (llm critique) send audio to Gemini with the user own key: never use without explicit consent"
+      ]
+    },
+    "real-sfx": {
+      "title": "Real SFX (Clipwing/skills) - link only",
+      "repo": "https://github.com/Clipwing/skills/tree/main/skills/real-sfx",
+      "license": "NONE DECLARED (repo has no LICENSE file): do not copy or vendor",
+      "best_for": "Sound-designing a finished motion video with real recorded effects from the user own library, placed on the exact frame, with a verify/critique loop",
+      "needs": [
+        "Python 3.9+",
+        "ffmpeg with drawtext + rubberband",
+        "a sound library the user owns"
+      ],
+      "doc": "references/engines/real-sfx.md",
+      "warnings": [
+        "Not vendored: no licence. Use it only if the user installs it themselves",
+        "Reelsmith implements the same idea natively for our pipeline: sfx.mjs + cue-timed files in audio.mjs"
+      ]
+    },
+    "openverse": {
+      "title": "Openverse API (built in as scripts/sfx.mjs)",
+      "repo": "https://api.openverse.org/v1/",
+      "license": "service; every sound carries its own Creative Commons licence",
+      "best_for": "Finding CC0 / public-domain / CC BY sound effects (mostly Freesound) without an API key",
+      "needs": [
+        "internet",
+        "node>=18",
+        "ffmpeg"
+      ],
+      "doc": "references/sound-effects.md",
+      "warnings": [
+        "Anonymous use only (page size 20); licence data may be incomplete: verify the landing page",
+        "Downloads need the user OK; CC BY needs credits in the post; never NC/ND"
+      ]
+    }
+  }
+}

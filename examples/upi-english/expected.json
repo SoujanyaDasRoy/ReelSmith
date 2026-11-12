@@ -1,0 +1,9 @@
+{
+  "_note": "Ranges, not exact values: the self-test must pass on any machine with Node 18+ and ffmpeg, in Claude Code, Antigravity or anywhere else. Update only when a change to the pipeline is intended and reviewed.",
+  "scenes": 7, "total_s": [52.2, 52.8],
+  "build_sd_warnings": 0,
+  "compose": { "align_mean_ms_max": 120, "lufs": [-24, -14], "true_peak_max": -0.3 },
+  "mix": { "lufs": [-17.5, -12.5], "true_peak_max": -1.0 },
+  "qa": { "fails": 0, "max_warnings": 4 },
+  "edit": { "segments": [3, 5], "out_s": [8, 20] }
+}

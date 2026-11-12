@@ -1,0 +1,82 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Risograph</title>
+<style>
+@font-face{font-family:RB;font-weight:800;src:url(node_modules/@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-800-normal.woff2)}
+@font-face{font-family:RJ;font-weight:600;src:url(node_modules/@fontsource/jost/files/jost-latin-600-normal.woff2)}
+@font-face{font-family:RJ;font-weight:700;src:url(node_modules/@fontsource/jost/files/jost-latin-700-normal.woff2)}
+:root{--paper:#F4EEE2;--blue:#0078BF;--pink:#FF48B0}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--paper);font-family:RJ,sans-serif;font-weight:600}
+.plate{position:absolute;inset:0;mix-blend-mode:multiply}
+.scene{position:absolute;inset:0;display:none}
+.p-blue{color:var(--blue)}.p-pink{color:var(--pink)}
+.tag{position:absolute;left:70px;top:206px;font-size:30px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.h0{position:absolute;left:70px;top:250px;font-size:44px;font-weight:600}
+.h1{position:absolute;left:66px;top:300px;font-family:RB;font-weight:800;font-size:128px;line-height:.96;letter-spacing:-.03em;white-space:nowrap}
+.disc{position:absolute;left:560px;top:150px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,var(--pink) 36%,transparent 38%) 0 0/11px 11px;-webkit-mask-image:radial-gradient(circle,#000 0 36%,rgba(0,0,0,.65) 56%,rgba(0,0,0,.25) 70%,transparent 72%);mask-image:radial-gradient(circle,#000 0 36%,rgba(0,0,0,.65) 56%,rgba(0,0,0,.25) 70%,transparent 72%)}
+.rows{position:absolute;left:70px;width:940px;top:520px;display:flex;flex-direction:column;gap:12px}
+.rowc{position:relative;font-size:41px;line-height:1.1;align-self:flex-start;max-width:940px;min-height:1.1em}
+.rowc.dim{opacity:.42}.rowc.strike{text-decoration:line-through}
+.chip{display:inline-block;padding:4px 16px 4px;background:var(--pink);color:#000}
+.big{font-family:RB;font-weight:800;font-size:150px;line-height:.95;letter-spacing:-.03em}
+.mt{display:flex;align-items:center;gap:18px;font-size:38px}.mt .bar{width:380px;height:34px;border:5px solid currentColor;position:relative}.mt .bar i{position:absolute;left:0;top:0;bottom:0;background:currentColor}
+.dotbar{background:radial-gradient(circle,currentColor 32%,transparent 34%) 0 0/9px 9px}
+#cap{position:absolute;left:60px;top:1296px;max-width:960px;padding:14px 30px 12px;background:#FBF8F0;border-radius:10px;font-size:42px;font-weight:700;color:var(--blue);text-shadow:2px 1px 0 rgba(255,72,176,.55)}
+#cap em{font-style:normal;background:var(--pink);color:#fff;padding:0 8px;text-shadow:none}
+#grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.34;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' seed='6'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .45 0 0 0 0 .4 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")}
+#streak{position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.18;background:repeating-linear-gradient(90deg,transparent 0 37px,rgba(0,120,191,.35) 37px 39px,transparent 39px 91px)}
+</style></head><body>
+<div id="stage"></div><div id="streak"></div><div id="grain"></div><div id="cap"></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),capEl=document.getElementById('cap');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const rnd=i=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x);};
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+function build(sc,idx){
+ const s=SD[sc.id],root=mk('scene');
+ // two plates, each an overprinted layer; registration is fixed per scene (+-1..3px), never jittered per frame
+ const A=mk('plate p-blue'),B=mk('plate p-pink');
+ const offB=[(rnd(idx)-.5)*6+3,(rnd(idx+4)-.5)*5+2,(rnd(idx+9)-.5)*.3];B.dataset.off=offB.join(',');
+ A.appendChild(mk('tag',`${String(idx+1).padStart(2,'0')} / ${String(T.scenes.length).padStart(2,'0')}`));A.appendChild(mk('h0',esc(s.head[0].replace(/,$/,''))));
+ const h1=mk('h1',esc(s.head[1]));const h1b=mk('h1',esc(s.head[1]));h1b.style.cssText='opacity:.9;transform:translate(7px,6px)';A.appendChild(h1);B.appendChild(h1b);
+ stage.appendChild(root);root.appendChild(A);root.appendChild(B);root.style.display='block';const w=h1.getBoundingClientRect().width;if(w>950){const f=Math.floor(128*950/w)+'px';h1.style.fontSize=f;h1b.style.fontSize=f;}root.style.display='none';
+ B.appendChild(mk('disc'));
+ const rowsA=mk('rows'),rowsB=mk('rows');A.appendChild(rowsA);B.appendChild(rowsB);const els=[];let ec=null,ecA=null,ecB=null;
+ s.items.forEach(it=>{if(it.k==='endcard'){ec=it;return;}const a=mk('rowc'),b=mk('rowc');rowsA.appendChild(a);rowsB.appendChild(b);els.push({it,a,b});});
+ if(ec){ecA=mk('',`<div class="big" style="font-size:190px">${esc(ec.lines[0].toLowerCase())}</div><div style="font-size:48px;margin-top:16px">${esc(ec.lines[1])}</div><div class="chip" style="font-size:36px;margin-top:20px;opacity:0">${esc(ec.lines[2])}</div>`,'position:absolute;left:70px;top:560px;display:none');ecB=mk('',`<div class="big" style="font-size:190px;transform:translate(8px,7px)">${esc(ec.lines[0].toLowerCase())}</div><div style="font-size:48px;margin-top:16px;opacity:0">${esc(ec.lines[1])}</div><div class="chip" style="font-size:36px;margin-top:20px;transform:translate(0,0)">${esc(ec.lines[2])}</div>`,'position:absolute;left:70px;top:560px;display:none');A.appendChild(ecA);B.appendChild(ecB);}
+ return {root,A,B,els,rowsA,rowsB,ec,ecA,ecB,off:offB};
+}
+function update(b,sc,s,t){
+ const c=sc.cues,ls=t-sc.start;
+ // plates arrive with a roller sweep: blue first, pink a beat later; a kick shifts the pink plate on the turn cues
+ const pa=EZ.io(P(ls,0,.32)),pb=EZ.io(P(ls,.14,.48));
+ b.A.style.clipPath=`inset(0 0 ${(1-pa)*100}% 0)`;b.B.style.clipPath=`inset(0 0 ${(1-pb)*100}% 0)`;
+ let kick=0;for(const k of ['crash','dup','kismat']){if(c[k]!==undefined){const d=t-c[k];if(d>=0&&d<.4)kick=Math.exp(-d*9)*Math.cos(d*34)*12;}}
+ b.B.style.transform=`translate(${b.off[0]+kick}px,${b.off[1]+kick*.4}px) rotate(${b.off[2]}deg)`;b.A.style.transform=`translate(${-b.off[0]*.2}px,0)`;
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ if(b.ecA){b.ecA.style.display=endOn?'block':'none';b.ecB.style.display=endOn?'block':'none';const w=EZ.io(P(t,AT(b.ec.at,c),AT(b.ec.at,c)+.35));b.ecA.style.clipPath=b.ecB.style.clipPath=`inset(0 0 ${(1-w)*100}% 0)`;}
+ b.rowsA.style.display=b.rowsB.style.display=endOn?'none':'flex';
+ b.els.forEach(({it,a,b:bb})=>{
+  const x=RESOLVE(it,t,c);const vis=x.vis;a.style.visibility=bb.style.visibility=vis?'visible':'hidden';if(!vis){return;}
+  const pink=x.tone==='alert'||x.tone==='accent',dim=x.tone==='dim',w=EZ.io(P(t,x.ta,x.ta+.18));
+  a.style.clipPath=bb.style.clipPath=`inset(0 0 ${(1-w)*100}% 0)`;
+  a.className='rowc'+(dim?' dim':'')+(x.flag==='strike'?' strike':'');bb.className='rowc';
+  let ha='',hb='';
+  if(it.k==='val'){ha=`<div style="font-size:30px;letter-spacing:.12em;text-transform:uppercase">${esc(it.label)}</div><div class="big">${esc(x.text)}</div>`;hb=`<div style="font-size:30px;opacity:0">${esc(it.label)}</div><div class="big dotbar" style="-webkit-background-clip:text;background-clip:text;color:transparent;transform:translate(8px,7px)">${esc(x.text)}</div>`;}
+  else if(it.k==='meter'){const r=clamp(x.ratio)*100;ha=`<div class="mt"><span style="width:230px">${esc(it.label.toLowerCase())}</span><div class="bar"><i style="width:${r}%"></i></div><span>${esc(x.text)}</span></div>`;hb=`<div class="mt" style="opacity:${pink?1:0}"><span style="width:230px;opacity:0">${esc(it.label.toLowerCase())}</span><div class="bar" style="border-color:transparent"><i class="dotbar" style="width:${r}%;background-color:transparent"></i></div></div>`;}
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.04));ha=esc(it.text.slice(0,n))||'&nbsp;';hb='<span style="opacity:0">&nbsp;</span>';}
+  else{const tx=esc(x.text||'');if(pink){ha=`<span style="opacity:0">${tx}</span>`;hb=`<span class="chip">${tx}</span>`;}else{ha=tx||'&nbsp;';hb=`<span style="opacity:0">${tx||'&nbsp;'}</span>`;}}
+  a.innerHTML=ha;bb.innerHTML=hb;
+ });
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id];
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t);
+ const cap=CAP(t,T.scenes);
+ if(cap){capEl.style.display='block';capEl.innerHTML=esc(cap.text).replace(/\*([^*]+)\*/g,'<em>$1</em>');capEl.style.clipPath=`inset(0 ${(1-EZ.out(P(t,cap.t0,cap.t0+.12)))*100}% 0 0)`;}else capEl.style.display='none';
+};
+window.ready=Promise.all(['800 40px RB','600 40px RJ','700 40px RJ'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach((sc,i)=>{built[sc.id]=build(sc,i);});});
+</script></body></html>

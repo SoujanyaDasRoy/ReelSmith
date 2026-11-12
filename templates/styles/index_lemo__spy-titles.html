@@ -1,0 +1,85 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Spy Titles</title>
+<style>
+@font-face{font-family:LG;src:url(node_modules/@fontsource/league-gothic/files/league-gothic-latin-400-normal.woff2)}
+@font-face{font-family:LS;font-weight:600;src:url(node_modules/@fontsource/league-spartan/files/league-spartan-latin-600-normal.woff2)}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#1b1714;font-family:LG,Impact,sans-serif}
+.scene{position:absolute;inset:0;display:none;overflow:hidden}
+.cut{filter:url(#cut) drop-shadow(3px 4px 3px rgba(0,0,0,.32))}
+.circle{position:absolute;width:660px;height:660px;border-radius:50%}
+.h0{position:absolute;left:96px;top:300px;padding:2px 28px;font-size:78px;text-transform:uppercase;letter-spacing:.03em;transform:rotate(-3deg)}
+.h1{position:absolute;left:60px;top:400px;padding:0 40px;font-size:190px;line-height:1.02;text-transform:uppercase;white-space:nowrap;transform:rotate(-1.5deg)}
+.h1 span{display:inline-block}
+.items{position:absolute;left:80px;width:900px;top:780px;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.st{display:inline-block;padding:4px 22px 2px;font-size:50px;line-height:1.1;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;max-width:900px}
+.st.big{padding:4px 28px 0}
+.st small{display:block;font-size:34px;letter-spacing:.12em;opacity:.85}
+.st b{display:block;font-weight:normal;font-size:128px;line-height:.95}
+.mt{display:flex;align-items:center;gap:18px}.mt .bar{width:330px;height:22px;border:3px solid currentColor;position:relative}.mt .bar i{position:absolute;left:0;top:0;bottom:0;background:currentColor}
+.strike{text-decoration:line-through}
+#paper{position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.55;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .42 0 0 0 .45 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
+#vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.35))}
+#cap{position:absolute;left:84px;top:1300px;max-width:840px;padding:10px 30px 8px 52px;font-family:LS;font-weight:600;font-size:44px;line-height:1.15;transform:rotate(-1deg)}
+#cap:before{content:"";position:absolute;left:20px;top:22px;width:16px;height:16px;border-radius:50%;background:#d23a22}
+#cap em{font-style:normal;background:#d23a22;color:#efe4c9;padding:0 8px}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><filter id="cut" x="-4%" y="-6%" width="108%" height="112%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<div id="stage"></div><div id="paper"></div><div id="vig"></div><div id="cap" class="cut"></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),capEl=document.getElementById('cap');
+const INK='#1b1714',CREAM='#efe4c9',RED='#d23a22',MUST='#e2a52a';
+const G=[ // grounds: bg, circle, strip bg/text, alert, accent, dim
+ {bg:CREAM,circle:RED,st:[INK,CREAM],alert:[RED,CREAM],accent:[MUST,INK],dim:['#cfc19f',INK]},
+ {bg:RED,circle:INK,st:[CREAM,INK],alert:[INK,CREAM],accent:[MUST,INK],dim:['#9a2a18',CREAM]},
+ {bg:INK,circle:MUST,st:[CREAM,INK],alert:[RED,CREAM],accent:[MUST,INK],dim:['#3a322b',CREAM]},
+ {bg:MUST,circle:INK,st:[INK,CREAM],alert:[RED,CREAM],accent:[CREAM,INK],dim:['#b07e1c',INK]}];
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const rnd=(i)=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x);};
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+function build(sc,idx){
+ const s=SD[sc.id],g=G[idx%4],root=mk('scene','', 'background:'+g.bg);
+ const circle=mk('circle cut','','background:'+g.circle+';left:210px;top:560px');root.appendChild(circle);
+ const h0=mk('h0 cut',esc(s.head[0].replace(/,$/,'')),`background:${g.accent[0]};color:${g.accent[1]}`);root.appendChild(h0);
+ const word=s.head[1];
+ const h1=mk('h1 cut','',`background:${g.st[0]};color:${g.st[1]}`);
+ h1.innerHTML=[...word].map((ch,i)=>`<span style="transform:translateY(${(rnd(i)-.5)*12}px) rotate(${(rnd(i+9)-.5)*3}deg)">${ch===' '?'&nbsp;':esc(ch)}</span>`).join('');
+ root.appendChild(h1);stage.appendChild(root);
+ root.style.display='block';const w=h1.getBoundingClientRect().width;if(w>960)h1.style.fontSize=Math.floor(190*940/w)+'px';root.style.display='none';
+ const items=mk('items');root.appendChild(items);const els=[];let ec=null,ecEl=null;
+ s.items.forEach((it,i)=>{if(it.k==='endcard'){ec=it;return;}const e=mk('',null,`margin-left:${(i%3)*34}px`);items.appendChild(e);els.push({it,e,i});});
+ if(ec){ecEl=mk('cut st big',`<small>${esc(ec.lines[1])}</small><b>${esc(ec.lines[0])}</b><small>${esc(ec.lines[2])}</small>`,`position:absolute;left:90px;top:760px;background:${g.st[0]};color:${g.st[1]};display:none;transform:rotate(-2deg);padding:20px 40px`);root.appendChild(ecEl);}
+ return {root,g,circle,h0,h1,els,ec,ecEl};
+}
+function update(b,sc,s,t,idx){
+ const c=sc.cues,ls=t-sc.start,t12=Math.floor(t*12)/12; // puppets on twos
+ b.circle.style.transform=`translate(${Math.sin(t12*.7)*14}px,${Math.cos(t12*.5)*10}px)`;
+ const slide=(p)=>-(1-EZ.out(p))*120;
+ b.h0.style.transform=`rotate(-3deg) translateX(${slide(P(ls,.1,.3))}%)`;b.h1.style.transform=`rotate(-1.5deg) translateX(${slide(P(ls,.18,.4))}%)`;
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ if(b.ecEl){b.ecEl.style.display=endOn?'block':'none';b.ecEl.style.transform=`rotate(-2deg) translateX(${slide(P(t,AT(b.ec.at,c),AT(b.ec.at,c)+.25))}%)`;}
+ b.els.forEach(({it,e,i})=>{
+  const x=RESOLVE(it,t,c);
+  e.style.visibility=(x.vis&&!endOn)?'visible':'hidden';if(!x.vis)return;
+  const tone=x.tone==='alert'?b.g.alert:(x.tone==='accent'?b.g.accent:(x.tone==='dim'?b.g.dim:b.g.st));
+  const rot=(i%2?1.1:-1.3);
+  const sl=slide(P(t12,x.ta,x.ta+.2));
+  let h='';
+  if(it.k==='val'){h=`<div class="st big cut" style="background:${tone[0]};color:${tone[1]}"><small>${esc(it.label)}</small><b>${esc(x.text)}</b></div>`;}
+  else if(it.k==='meter'){h=`<div class="st cut mt" style="background:${tone[0]};color:${tone[1]}"><span style="width:250px">${esc(it.label)}</span><div class="bar"><i style="width:${clamp(x.ratio)*100}%"></i></div><span>${esc(x.text)}</span></div>`;}
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.038));h=`<div class="st cut" style="background:${INK};color:${CREAM};text-transform:none;font-size:42px">${esc(it.text.slice(0,n))}${n<it.text.length?'|':''}</div>`;}
+  else{const tx=x.text||'';h=tx?`<div class="st cut${x.flag==='strike'?' strike':''}" style="background:${tone[0]};color:${tone[1]}">${esc(tx)}</div>`:'';}
+  e.innerHTML=h;e.style.transform=`rotate(${rot}deg) translateX(${sl}%)`;
+ });
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id];
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t,idx);
+ const cap=CAP(t,T.scenes);
+ if(cap){const cc=b.g.st;capEl.innerHTML=esc(cap.text).replace(/\*([^*]+)\*/g,'<em>$1</em>');capEl.style.background=cc[0]==INK?CREAM:INK;capEl.style.color=cc[0]==INK?INK:CREAM;if(b.g.bg===CREAM){capEl.style.background=INK;capEl.style.color=CREAM;}capEl.style.display='block';const sl=-(1-EZ.out(P(t,cap.t0,cap.t0+.18)))*60;capEl.style.transform=`rotate(-1deg) translateX(${sl}%)`;}else capEl.style.display='none';
+};
+window.ready=Promise.all(['40px LG','600 40px LS'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach((sc,i)=>{built[sc.id]=build(sc,i);});});
+</script></body></html>

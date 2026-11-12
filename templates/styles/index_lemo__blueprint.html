@@ -1,0 +1,99 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Blueprint</title>
+<style>
+@font-face{font-family:AD;src:url(node_modules/@fontsource/architects-daughter/files/architects-daughter-latin-400-normal.woff2)}
+@font-face{font-family:B6;src:url(node_modules/@fontsource/b612/files/b612-latin-400-normal.woff2)}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0D1116;color:#E7F0F9;font-family:AD,cursive}
+#sheet{position:absolute;left:30px;top:160px;width:1020px;height:1340px;background:radial-gradient(900px 700px at 40% 30%,#2A58A6,#1d4189 55%,#18336B);box-shadow:0 30px 60px rgba(0,0,0,.65),0 0 0 2px rgba(231,240,249,.12)}
+#noise{position:absolute;inset:0;mix-blend-mode:soft-light;opacity:.55;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .04' numOctaves='4' seed='9'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E")}
+#grain{position:absolute;inset:0;mix-blend-mode:overlay;opacity:.5;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}
+.fold{position:absolute;pointer-events:none}.fv{left:510px;top:0;width:4px;height:100%;background:linear-gradient(90deg,rgba(255,255,255,.2),rgba(0,0,0,.28))}.fh{left:0;top:470px;width:100%;height:4px;background:linear-gradient(rgba(255,255,255,.16),rgba(0,0,0,.24))}
+.scene{position:absolute;inset:0;display:none}
+.title{position:absolute;left:60px;top:44px;font-size:72px;line-height:1;white-space:nowrap}
+.meta{position:absolute;right:50px;top:50px;text-align:right;font-family:B6;font-size:17px;line-height:1.6;letter-spacing:.06em;color:rgba(231,240,249,.85)}
+.r1,.r2{position:absolute;left:50px;right:50px;height:2px;background:rgba(231,240,249,.9)}.r1{top:132px}.r2{top:139px;height:1px}
+svg.dw{position:absolute;left:50px;top:160px;width:920px;height:460px}
+svg.dw *{fill:none;stroke:#E7F0F9;stroke-linecap:round;stroke-linejoin:round}
+svg.dw text{fill:#E7F0F9;stroke:none;font-family:AD}
+.notes{position:absolute;left:60px;width:900px;top:660px;display:flex;flex-direction:column;gap:10px}
+.nrow{position:relative;display:flex;align-items:flex-start;gap:16px;min-height:44px}
+.bal{flex:none;width:34px;height:34px;border:2px solid #E7F0F9;border-radius:50%;text-align:center;font-size:20px;line-height:30px;margin-top:3px}
+.nt{font-size:31px;line-height:1.15;white-space:nowrap;max-width:840px}.nt.dim{opacity:.55}.nt.alert{border-bottom:5px double #E7F0F9}.nt.strike{text-decoration:line-through}.nt.ok:before{content:"\2713  "}.nt.accent{border:2px dashed #E7F0F9;padding:0 12px;border-radius:6px}
+.cell{border:3px double #E7F0F9;padding:8px 18px 10px;display:inline-block}.cell small{display:block;font-family:B6;font-size:15px;letter-spacing:.14em;text-transform:uppercase}.cell b{font-weight:normal;font-size:80px;line-height:1}
+.mt{display:flex;align-items:center;gap:14px;font-size:27px}.mt .bar{width:360px;height:18px;border:2px solid #E7F0F9;position:relative}.mt .bar i{position:absolute;left:0;top:0;bottom:0;background:rgba(231,240,249,.88)}
+#note{position:absolute;left:60px;width:900px;top:1112px;border:3px double #E7F0F9;background:rgba(231,240,249,.07);padding:12px 18px 14px 100px;font-size:34px;line-height:1.15;min-height:80px}
+#note small{position:absolute;left:0;top:0;bottom:0;width:80px;border-right:2px solid #E7F0F9;font-family:B6;font-size:16px;letter-spacing:.1em;display:flex;align-items:center;justify-content:center;text-align:center}
+#note em{font-style:normal;border-bottom:3px solid #E7F0F9}
+#tb{position:absolute;left:60px;right:60px;bottom:30px;height:56px;display:flex;border:2px solid #E7F0F9;font-family:B6;font-size:16px;letter-spacing:.1em}
+#tb div{flex:1;padding:8px 14px;border-right:2px solid #E7F0F9;line-height:1.5}#tb div:last-child{border:0}
+#stamp{position:absolute;left:470px;top:470px;border:6px double #FF5A47;color:#FF5A47;font-size:60px;padding:6px 26px;transform:rotate(-8deg);opacity:0;letter-spacing:.04em;background:rgba(10,24,60,.6);text-shadow:0 0 6px rgba(255,90,71,.35);mix-blend-mode:normal;z-index:5}
+</style></head><body>
+<div id="sheet"><div id="noise"></div><div id="grain"></div><div class="fold fv"></div><div class="fold fh"></div><div id="stage"></div><div id="note"></div><div id="tb"></div><div id="stamp">STILL WAITING</div></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),noteEl=document.getElementById('note'),tb=document.getElementById('tb'),stamp=document.getElementById('stamp');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const NS='http://www.w3.org/2000/svg';
+// drawing ops, drafting order: centre lines -> outlines -> detail -> dimensions -> labels
+const L=(x1,y1,x2,y2,d)=>({t:'line',x1,y1,x2,y2,d}),C=(x,y,r)=>({t:'circle',cx:x,cy:y,r}),Rc=(x,y,w,h,rx=0)=>({t:'rect',x,y,width:w,height:h,rx}),E=(x,y,rx,ry)=>({t:'ellipse',cx:x,cy:y,rx,ry}),Pa=d=>({t:'path',d}),X=(x,y,s,size=22,a='start')=>({t:'text',x,y,s,size,a});
+const tickMarks=()=>[...Array(12)].map((_,i)=>{const a=i*Math.PI/6,c=Math.cos(a),s=Math.sin(a);return L(480+c*155,235+s*155,480+c*135,235+s*135);});
+const hatch=(x,y,w,h)=>{const o=[];for(let i=-h;i<w;i+=22){const x1=Math.max(0,i),y1=i<0?-i:0,x2=Math.min(w,i+h),y2=Math.min(h,h-(i+h-w)>0?h:h);o.push(L(x+x1,y+y1,x+Math.min(w,i+h),y+Math.min(h,h-(Math.max(0,i+h-w)))));}return o;};
+const DIAG={
+ hook:()=>[L(300,235,660,235,1),L(480,50,480,420,1),C(480,235,175),C(480,235,155),...tickMarks(),L(480,235,480,115),L(480,235,405,195),C(480,235,9),L(305,440,655,440),L(305,428,305,452),L(655,428,655,452),X(480,470,'DIA 340   (10:00:00)',22,'middle'),C(760,80,24),X(760,89,'1',26,'middle'),L(738,94,640,150)],
+ question:()=>[Rc(40,60,520,130,26),X(64,118,'INTERVIEWER: design Tatkal booking',24),L(120,190,150,232),L(150,232,190,190),Rc(400,250,520,130,26),X(424,308,'YOU: pehle server ko chai?',24),L(800,380,830,420),L(830,420,860,380),C(90,320,16),C(140,320,16),C(190,320,16),X(480,455,'FIG. 1  -  THE QUESTION',20,'middle')],
+ naive:()=>[L(480,90,480,430,1),...[0,1,2,3,4].map(i=>C(200+i*140,70,28)),...[0,1,2,3,4].map(i=>L(200+i*140,98,480+(i-2)*60,196)),E(480,230,150,40),L(330,230,330,380),L(630,230,630,380),Pa('M330 380 A150 40 0 0 0 630 380'),X(480,335,'1 DATABASE',32,'middle'),L(670,230,670,380),L(658,230,682,230),L(658,380,682,380),X(700,312,'ALL',22),X(480,455,'FIG. 2  -  SINGLE POINT OF FAILURE',20,'middle')],
+ race:()=>[L(480,60,480,420,1),Rc(400,175,160,160,16),Rc(400,140,160,34,10),C(150,255,40),C(810,255,40),L(192,255,385,255),L(373,243,390,255),L(373,267,390,255),L(768,255,575,255),L(587,243,570,255),L(587,267,570,255),X(480,375,'SEAT 42',30,'middle'),X(150,325,'sharma_a',22,'middle'),X(810,325,'sharma_b',22,'middle')],
+ wait:()=>[...[0,1,2,3,4,5,6].map(i=>C(90+i*62,260,22)),L(430,260,540,260),L(528,248,545,260),L(528,272,545,260),L(580,170,580,230),L(580,290,580,350),L(600,260,700,260),Rc(720,160,190,200,18),Rc(745,205,140,26),Rc(745,255,140,26),X(470,400,'WAITING ROOM',24,'middle'),X(815,400,'BOOKING',22,'middle'),L(80,200,500,200),L(80,188,80,212),L(500,188,500,212),X(290,184,'TOKEN QUEUE',20,'middle')],
+ lock:()=>[...[0,1,2,3,4,5,6,7].map(i=>Rc(60+(i%4)*220,100+Math.floor(i/4)*160,180,120,14)),...hatch(60+220,100+160,180,120).slice(0,0),...[0,1,2,3,4,5].map(i=>L(280+i*28,260+0,280+i*28+0,260+120)).map((l,i)=>L(280+10+i*30,262,280+10+i*30-0,262)),...[0,1,2,3,4,5,6].map(i=>L(280+i*28,380,280+i*28+90,262)),X(150,172,'S1',22,'middle'),X(150,332,'S5',22,'middle'),X(370,332,'42',30,'middle'),L(60,440,940,440),L(60,428,60,452),L(940,428,940,452),X(500,468,'TTL = 120 s  (EX 120)',22,'middle')],
+ shard:()=>[...[0,1,2,3].flatMap(i=>{const x=130+i*230;return [E(x,140,80,24),L(x-80,140,x-80,290),L(x+80,140,x+80,290),Pa(`M${x-80} 290 A80 24 0 0 0 ${x+80} 290`),X(x,350,['RAJDHANI','HOWRAH','SHATABDI','DURONTO'][i],22,'middle')];}),E(130,60,50,14),L(80,60,80,100),L(180,60,180,100),X(130,35,'+ REPLICAS',20,'middle'),L(80,420,880,420),L(80,408,80,432),L(880,408,880,432),X(480,452,'hash(train, date) % N',22,'middle')],
+ pay:()=>[Rc(40,160,230,130,16),X(155,232,'USER',28,'middle'),Rc(365,160,230,130,16),X(480,232,'GATEWAY',28,'middle'),Rc(690,160,230,130,16),X(805,232,'TICKET',28,'middle'),L(275,225,360,225),L(348,213,365,225),L(348,237,365,225),L(600,225,685,225),L(673,213,690,225),L(673,237,690,225),Rc(365,350,230,90,16),X(480,404,'RECONCILER',26,'middle'),L(805,290,805,395),L(805,395,600,395),L(365,395,155,395),L(155,395,155,296),X(480,130,'IDEMPOTENCY-KEY 7f3a9c',20,'middle')],
+ outro:()=>[Rc(200,90,560,270,24),C(200,225,32),C(760,225,32),X(250,160,'PNR 4521098873',28),X(250,215,'12951  MUMBAI RAJDHANI  3A',24),X(250,285,'STATUS:  WL',34),L(230,320,730,320,1),L(200,410,760,410),L(200,398,200,422),L(760,398,760,422),X(480,445,'SAME STATUS SINCE 10:00:00',20,'middle')],
+};
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+function build(sc,idx){
+ const s=SD[sc.id],root=mk('scene');
+ const title=mk('title',esc(s.head[1]));root.appendChild(title);
+ root.appendChild(mk('meta',`SHEET ${String(idx+1).padStart(2,'0')} / ${String(T.scenes.length).padStart(2,'0')}<br>TATKAL BOOKING  12951<br>SCALE 1 : 1`));
+ root.appendChild(mk('r1'));root.appendChild(mk('r2'));
+ const svg=document.createElementNS(NS,'svg');svg.setAttribute('class','dw');svg.setAttribute('viewBox','0 0 920 460');
+ const ops=DIAG[sc.id]();const els=ops.map((o,i)=>{const e=document.createElementNS(NS,o.t);for(const k in o){if(k==='t'||k==='s'||k==='size'||k==='a'||k==='d')continue;e.setAttribute(k==='width'||k==='height'?k:k,o[k]);}
+  if(o.t==='text'){e.textContent=o.s;e.setAttribute('font-size',o.size);e.setAttribute('text-anchor',o.a);}else{e.setAttribute('pathLength','1');e.setAttribute('stroke-width',o.t==='circle'||o.t==='rect'||o.t==='ellipse'||o.t==='path'?2.6:1.6);if(o.d){e.setAttribute('stroke-dasharray','14 7 3 7');}else e.setAttribute('stroke-dasharray','1');}
+  svg.appendChild(e);return {e,o};});
+ root.appendChild(svg);
+ const notes=mk('notes');root.appendChild(notes);const rows=[];let ec=null,ecEl=null;let n=0;
+ s.items.forEach(it=>{if(it.k==='endcard'){ec=it;return;}n++;const r=mk('nrow',`<div class="bal">${n}</div><div class="body"></div>`);notes.appendChild(r);rows.push({it,r,body:r.querySelector('.body')});});
+ if(ec){ecEl=mk('',`<div style="font-size:150px;line-height:1">${esc(ec.lines[0])}</div><div style="font-size:40px;margin-top:10px">${esc(ec.lines[1])}</div><div style="font-family:B6;font-size:18px;letter-spacing:.1em;margin-top:14px">${esc(ec.lines[2])}</div>`,'position:absolute;left:60px;top:700px;display:none;border:3px double #E7F0F9;padding:24px 34px');root.appendChild(ecEl);}
+ stage.appendChild(root);root.style.display='block';const w=title.getBoundingClientRect().width;if(w>640)title.style.fontSize=Math.floor(72*640/w)+'px';root.style.display='none';
+ return {root,els,rows,ec,ecEl,svg,idx,notes};
+}
+function update(b,sc,s,t){
+ const c=sc.cues,ls=t-sc.start;
+ b.els.forEach(({e,o},i)=>{const p=EZ.out(P(ls,.25+Math.min(i*.085,1.9),.25+Math.min(i*.085,1.9)+.5));
+  if(o.t==='text'){e.style.opacity=p;}else if(o.d){e.style.opacity=p;}else{e.setAttribute('stroke-dashoffset',String(1-p));e.style.opacity=p>0?1:0;}});
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ if(b.ecEl){b.ecEl.style.display=endOn?'block':'none';b.ecEl.style.clipPath=`inset(0 ${(1-EZ.out(P(t,AT(b.ec.at,c),AT(b.ec.at,c)+.4)))*100}% 0 0)`;}
+ b.notes.style.display=endOn?'none':'flex';
+ b.rows.forEach(({it,r,body})=>{
+  const x=RESOLVE(it,t,c);r.style.visibility=x.vis?'visible':'hidden';if(!x.vis)return;
+  const p=EZ.out(P(t,x.ta,x.ta+.4));r.style.clipPath=`inset(0 ${(1-p)*100}% 0 0)`;
+  if(it.k==='val')body.innerHTML=`<div class="cell"><small>${esc(it.label)}</small><b>${esc(x.text)}</b></div>`;
+  else if(it.k==='meter')body.innerHTML=`<div class="mt"><span style="width:190px">${esc(it.label.toLowerCase())}</span><div class="bar"><i style="width:${clamp(x.ratio)*100}%"></i></div><span>${esc(x.text)}</span></div>`;
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.038));body.innerHTML=`<div class="nt" style="font-family:B6;font-size:25px">${esc(it.text.slice(0,n))}</div>`;}
+  else body.innerHTML=x.text?`<div class="nt ${x.tone==='dim'?'dim':x.tone==='alert'?'alert':x.tone==='ok'?'ok':x.tone==='accent'?'accent':''}${x.flag==='strike'?' strike':''}">${esc(x.text)}</div>`:'';
+ });
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id];
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t);
+ const cap=CAP(t,T.scenes);
+ if(cap){noteEl.style.display='block';const p=EZ.out(P(t,cap.t0,cap.t0+.35));noteEl.innerHTML=`<small>NOTE<br>${idx+1}</small><div style="clip-path:inset(0 ${(1-p)*100}% 0 0)">${esc(cap.text).replace(/\*([^*]+)\*/g,'<em>$1</em>')}</div>`;}else noteEl.style.display='none';
+ tb.innerHTML=`<div>PROJECT: TATKAL</div><div>SHEET ${idx+1}/${T.scenes.length}</div><div>STATUS: ${sc.id==='outro'?'NO CHANGE':'DRAFT'}</div>`;
+ // the one non-blue colour, used once: the rubber stamp
+ const o=SD.outro&&T.scenes.find(x=>x.id==='outro');let sp=0;if(sc.id==='outro'&&t>=o.cues.kismat){sp=P(t,o.cues.kismat,o.cues.kismat+.15);}
+ stamp.style.opacity=sp>0?1:0;stamp.style.transform=`rotate(-8deg) scale(${1+(1-EZ.out(sp))*.7})`;
+};
+window.ready=Promise.all(['40px AD','40px B6'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach((sc,i)=>{built[sc.id]=build(sc,i);});});
+</script></body></html>

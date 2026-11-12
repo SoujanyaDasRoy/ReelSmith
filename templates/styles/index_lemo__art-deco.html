@@ -1,0 +1,96 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Art Deco</title>
+<style>
+@font-face{font-family:Lime;src:url(node_modules/@fontsource/limelight/files/limelight-latin-400-normal.woff2)}
+@font-face{font-family:Poi;src:url(node_modules/@fontsource/poiret-one/files/poiret-one-latin-400-normal.woff2)}
+@font-face{font-family:Jos;font-weight:400;src:url(node_modules/@fontsource/josefin-sans/files/josefin-sans-latin-400-normal.woff2)}
+@font-face{font-family:Jos;font-weight:600;src:url(node_modules/@fontsource/josefin-sans/files/josefin-sans-latin-600-normal.woff2)}
+:root{--gold:linear-gradient(100deg,#6F5220 0%,#C9A24B 28%,#F3D98B 44%,#FFF4D2 50%,#F3D98B 56%,#C9A24B 72%,#6F5220 100%);--ivory:#F2E8D5;--burg:#8E1B2E;--emer:#1D6B57}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0d0b09;font-family:Jos,sans-serif;color:var(--ivory)}
+#bg{position:absolute;inset:0;background:radial-gradient(900px 700px at 50% 22%,#1c1608,#0d0b09 70%),linear-gradient(#0a0e16,#0d0b09 55%,#10231f)}
+#rays{position:absolute;left:-210px;top:60px;width:1500px;height:1500px;background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(201,162,75,.15) 0 3deg,transparent 3deg 9deg);-webkit-mask-image:radial-gradient(circle,#000 8%,transparent 62%);mask-image:radial-gradient(circle,#000 8%,transparent 62%)}
+.scene{position:absolute;inset:0;display:none}
+.gold{background:var(--gold);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
+.frame{position:absolute;left:90px;top:300px;width:900px;height:880px;background:var(--gold);clip-path:polygon(0 56px,28px 56px,28px 28px,56px 28px,56px 0,calc(100% - 56px) 0,calc(100% - 56px) 28px,calc(100% - 28px) 28px,calc(100% - 28px) 56px,100% 56px,100% 100%,0 100%)}
+.frame i{position:absolute;inset:7px;background:#0b0907;clip-path:polygon(0 52px,26px 52px,26px 26px,52px 26px,52px 0,calc(100% - 52px) 0,calc(100% - 52px) 26px,calc(100% - 26px) 26px,calc(100% - 26px) 52px,100% 52px,100% 100%,0 100%)}
+.h0{position:absolute;left:0;width:1080px;text-align:center;top:350px;font-family:Poi;font-size:46px;letter-spacing:.32em;text-transform:uppercase;color:#C9A24B}
+.h1{position:absolute;left:0;width:1080px;text-align:center;top:410px;font-family:Lime;font-size:86px;white-space:nowrap;line-height:1.1}
+.orn{position:absolute;left:240px;width:600px;top:540px;height:20px}
+.orn b{position:absolute;top:9px;height:2px;width:255px;background:var(--gold)}
+.orn b:first-child{left:0}.orn b:nth-child(2){right:0}
+.orn u{position:absolute;left:290px;top:0;width:20px;height:20px;background:var(--gold);transform:rotate(45deg)}
+.rows{position:absolute;left:150px;width:780px;top:590px;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center}
+.r{width:100%;min-height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.t{font-size:34px;font-weight:400;line-height:1.25}
+.t.dim{opacity:.5}.t.accent{color:#F3D98B;font-weight:600}
+.pl{display:inline-block;font-size:30px;line-height:1.25;padding:6px 26px;font-weight:600;letter-spacing:.04em;border:2px solid #C9A24B}
+.pl.alert{background:var(--burg)}.pl.ok{background:var(--emer)}
+.strike{text-decoration:line-through}
+.lab{font-family:Poi;font-size:30px;letter-spacing:.3em;color:#E3C77A;text-transform:uppercase}
+.big{font-family:Lime;font-size:128px;line-height:1.05}
+.mt{width:100%;display:flex;align-items:center;gap:16px;justify-content:space-between}
+.mt .lab{width:200px;text-align:left;letter-spacing:.12em;font-size:27px}.mt .vv{width:120px;text-align:right;font-family:Poi;font-size:32px;color:#F3D98B}
+.bar{flex:1;height:22px;border:2px solid #C9A24B;position:relative}.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--gold)}
+.bar::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 17px,rgba(11,9,7,.85) 17px 19px)}
+.door{position:absolute;top:0;height:1920px;width:540px;background:#0b0907;z-index:5}
+.door.l{left:0;border-right:3px solid #C9A24B}.door.r{right:0;border-left:3px solid #C9A24B}
+#bulbs{position:absolute;left:0;width:1080px;top:256px;height:26px;z-index:2}
+#bulbs i{position:absolute;top:0;width:22px;height:22px;border-radius:50%}
+#cap{position:absolute;left:60px;width:960px;top:1290px;min-height:120px;padding:26px 30px;text-align:center;background:rgba(6,5,4,.9);border-top:2px solid #C9A24B;border-bottom:2px solid #C9A24B;font-size:40px;font-weight:600;line-height:1.2}
+#cap em{font-style:normal;font-family:Lime;font-weight:400;color:#F3D98B}
+</style></head><body>
+<div id="bg"></div><div id="rays"></div><div id="bulbs"></div><div id="stage"></div>
+<div id="cap"></div><div class="door l" id="dl"></div><div class="door r" id="dr"></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),capEl=document.getElementById('cap'),bulbs=document.getElementById('bulbs');
+const NB=13;for(let i=0;i<NB;i++){const b=document.createElement('i');b.style.left=(540-(NB*44)/2+i*44+11)+'px';bulbs.appendChild(b);}
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const built={};
+function mk(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+function buildScene(sc){
+ const s=SD[sc.id],root=mk('div','scene');
+ root.appendChild(mk('div','frame','<i></i>'));
+ const h0=mk('div','h0',esc(s.head[0].replace(/,$/,'')));const h1=mk('div','h1 gold',esc(s.head[1]));root.appendChild(h0);root.appendChild(h1);
+ root.appendChild(mk('div','orn','<b></b><b></b><u></u>'));
+ const rows=mk('div','rows');root.appendChild(rows);const els=[];
+ let ec=null;
+ for(const it of s.items){ if(it.k==='endcard'){ec=it;continue;} const r=mk('div','r');rows.appendChild(r);els.push({it,r}); }
+ const end=mk('div','');end.style.cssText='position:absolute;left:150px;width:780px;top:640px;text-align:center;display:none';
+ if(ec){end.innerHTML=`<div class="big gold" style="font-size:120px">${esc(ec.lines[0])}</div><div class="t" style="margin-top:36px">${esc(ec.lines[1])}</div><div class="t accent" style="margin-top:22px">${esc(ec.lines[2])}</div>`;root.appendChild(end);}
+ stage.appendChild(root);
+ // fit the big title to width
+ root.style.display='block';const w=h1.scrollWidth;if(w>860)h1.style.fontSize=Math.floor(86*860/w)+'px';root.style.display='none';
+ return {root,h0,h1,els,end,ec};
+}
+function update(b,sc,s,t){
+ const c=sc.cues,ls=t-sc.start;
+ b.h0.style.opacity=P(ls,.15,.45);b.h1.style.opacity=P(ls,.25,.6);b.h1.style.backgroundPosition=(100-((t*35)%260))+'% 0';
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ b.end.style.display=endOn?'block':'none';
+ b.els.forEach(({it,r})=>{
+  r.style.display=endOn?'none':'flex';
+  const x=RESOLVE(it,t,c);r.style.opacity=x.vis?x.p:0;r.style.transform=`translateY(${(1-x.p)*18}px)`;if(!x.vis){return;}
+  let h='';
+  if(it.k==='val'){h=`<div class="lab">${esc(it.label)}</div><div class="big gold" style="background-position:${100-((t*60)%260)}% 0;${x.tone==='alert'?'filter:drop-shadow(0 0 12px #8E1B2E)':''}">${esc(x.text)}</div>`;}
+  else if(it.k==='meter'){h=`<div class="mt"><span class="lab">${esc(it.label)}</span><div class="bar"><i style="width:${clamp(x.ratio)*100}%"></i></div><span class="vv">${esc(x.text)}</span></div>`;}
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.038));h=`<div class="t accent" style="font-family:Poi;font-size:38px;letter-spacing:.06em">${esc(it.text.slice(0,n))}${n<it.text.length?'|':''}</div>`;}
+  else{const tx=x.text||'';const cls=x.tone==='alert'||x.tone==='ok'?'pl '+x.tone:'t '+(x.tone==='dim'?'dim':(x.tone==='accent'?'accent':''));h=tx?`<div class="${cls}${x.flag==='strike'?' strike':''}">${esc(tx)}</div>`:'';}
+  r.innerHTML=h;
+ });
+}
+window.renderAt=function(t){
+ const sc=SCENE_AT(t,T.scenes),s=SD[sc.id],ls=t-sc.start;
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t);
+ // bulbs counted across the scene
+ const lit=Math.floor(clamp(ls/(sc.dur*.85))*NB+.0001);[...bulbs.children].forEach((e,i)=>{const on=i<lit,f=on?clamp((ls/(sc.dur*.85))*NB-i,0,1):0;e.style.background=on?'radial-gradient(circle,#FFF4D2,#C9A24B 60%,#6F5220)':'transparent';e.style.border=on?'none':'2px solid #6F5220';e.style.boxShadow=on?`0 0 ${10+10*(1.6-Math.min(1.6,f*1.6+0.0))}px rgba(243,217,139,.85)`:'none';});
+ // symmetric door split at scene edges
+ const open=EZ.io(P(ls,.05,.45)),close=EZ.io(P(ls,sc.dur-.3,sc.dur));const w=540*(1-open+close>1?1:1-open+close);
+ document.getElementById('dl').style.width=w+'px';document.getElementById('dr').style.width=w+'px';
+ const cap=CAP(t,T.scenes);
+ if(cap){capEl.innerHTML=esc(cap.text).replace(/\*([^*]+)\*/g,'<em>$1</em>');capEl.style.opacity=P(t,cap.t0,cap.t0+.15);}else{capEl.innerHTML='';capEl.style.opacity=0;}
+};
+window.ready=Promise.all(['40px Lime','40px Poi','400 40px Jos','600 40px Jos'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{for(const sc of T.scenes)built[sc.id]=buildScene(sc);});
+</script></body></html>

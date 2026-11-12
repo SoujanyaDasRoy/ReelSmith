@@ -1,0 +1,85 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Silent Film</title>
+<style>
+@font-face{font-family:PF;font-weight:700;src:url(node_modules/@fontsource/playfair-display-sc/files/playfair-display-sc-latin-700-normal.woff2)}
+@font-face{font-family:PF;font-weight:900;src:url(node_modules/@fontsource/playfair-display-sc/files/playfair-display-sc-latin-900-normal.woff2)}
+@font-face{font-family:OS;font-style:italic;src:url(node_modules/@fontsource/old-standard-tt/files/old-standard-tt-latin-400-italic.woff2)}
+@font-face{font-family:OS;font-weight:700;src:url(node_modules/@fontsource/old-standard-tt/files/old-standard-tt-latin-700-normal.woff2)}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0a0606;font-family:OS,serif}
+#theatre{position:absolute;inset:0;background:radial-gradient(900px 900px at 50% 40%,#2a1111,#0a0606 70%)}
+.curtain{position:absolute;top:0;bottom:0;width:62px;background:repeating-linear-gradient(90deg,#4a0f14 0 10px,#2a070a 10px 20px,#5c1419 20px 30px);box-shadow:inset 0 0 40px rgba(0,0,0,.8)}.curtain.l{left:0}.curtain.r{right:0}
+#screen{position:absolute;left:62px;top:150px;width:956px;height:1350px;border-radius:44px;overflow:hidden;background:#b9b19d;filter:grayscale(1) sepia(.33) contrast(1.12) brightness(.98)}
+#world{position:absolute;inset:0}
+.scene{position:absolute;inset:0;display:none}
+.hatch{position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(40,35,30,.07) 0 2px,transparent 2px 7px)}
+.sign{position:absolute;left:46px;top:46px;right:46px;text-align:center;border:5px double #1c1816;padding:14px 20px 10px;background:#c4bca7}
+.sign .a{font-family:OS;font-style:italic;font-size:30px;color:#4a423a}.sign .b{font-family:PF;font-weight:900;font-size:78px;line-height:1;color:#1c1816;white-space:nowrap}
+.sheets{position:absolute;left:56px;width:844px;top:290px;display:flex;flex-direction:column;gap:14px}
+.sheet{position:relative;background:#d9d2bd;border:3px solid #26211c;box-shadow:6px 6px 0 rgba(30,25,20,.35);padding:8px 18px 6px;font-family:OS;font-style:italic;font-size:38px;line-height:1.12;color:#1c1816}
+.sheet:before{content:"";position:absolute;inset:4px;border:1px solid rgba(30,25,20,.55);pointer-events:none}
+.sheet.alert{background:#1c1816;color:#ece5d2}.sheet.dim{opacity:.55}.sheet.accent{font-weight:700;font-style:normal;letter-spacing:.02em}
+.sheet.strike .tx{text-decoration:line-through}
+.sheet .big{font-family:PF;font-weight:900;font-style:normal;font-size:130px;line-height:1.02;text-shadow:3px 3px 0 rgba(30,25,20,.3)}
+.mt{display:flex;align-items:center;gap:14px;font-style:normal;font-family:PF;font-weight:700;font-size:30px;letter-spacing:.05em}.mt .bar{width:340px;height:26px;border:3px solid #1c1816;position:relative;background:#d9d2bf}.mt .bar i{position:absolute;left:0;top:0;bottom:0;background:repeating-linear-gradient(135deg,#1c1816 0 3px,transparent 3px 8px)}
+#flicker{position:absolute;inset:0;pointer-events:none;background:#fff;mix-blend-mode:soft-light;opacity:.2}
+#dust{position:absolute;inset:0;pointer-events:none}
+#vig{position:absolute;inset:0;pointer-events:none;border-radius:44px;box-shadow:inset 0 0 120px rgba(0,0,0,.72);background:radial-gradient(ellipse at center,transparent 62%,rgba(0,0,0,.35))}
+#inter{position:absolute;left:100px;width:880px;top:1296px;padding:14px 10px;background:#0c0a09;border:3px solid #cfc7b2;outline:2px solid #cfc7b2;outline-offset:-12px;text-align:center;color:#ece5d2;font-family:OS;font-style:italic;font-size:42px;line-height:1.15;display:none}
+#inter em{font-style:normal;font-family:PF;font-weight:700;letter-spacing:.04em}
+#inter:before,#inter:after{content:"\2766";position:absolute;top:50%;margin-top:-22px;font-style:normal;color:#cfc7b2;font-size:34px}#inter:before{left:18px}#inter:after{right:18px;transform:scaleX(-1)}
+</style></head><body>
+<div id="theatre"></div><div class="curtain l"></div><div class="curtain r"></div>
+<div id="screen"><div id="world"><div class="hatch"></div><div id="stage"></div></div><canvas id="dust" width="956" height="1350"></canvas><div id="flicker"></div><div id="vig"></div></div>
+<div id="inter"></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),inter=document.getElementById('inter'),world=document.getElementById('world'),flick=document.getElementById('flicker'),dust=document.getElementById('dust'),dg=dust.getContext('2d'),screenEl=document.getElementById('screen');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const rnd=i=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x);};
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+function build(sc,idx){
+ const s=SD[sc.id],root=mk('scene');
+ const sign=mk('sign',`<div class="a">${esc(s.head[0].replace(/,$/,''))}</div><div class="b">${esc(s.head[1])}</div>`);root.appendChild(sign);
+ stage.appendChild(root);root.style.display='block';const b=sign.querySelector('.b');b.style.display='inline-block';const w=b.getBoundingClientRect().width;b.style.display='';if(w>840)b.style.fontSize=Math.floor(78*840/w)+'px';root.style.display='none';
+ const sheets=mk('sheets');root.appendChild(sheets);const els=[];let ec=null,ecEl=null;
+ s.items.forEach((it,i)=>{if(it.k==='endcard'){ec=it;return;}const e=mk('sheet','<div class="in"></div>');e.style.transform=`rotate(${(rnd(idx*9+i)-.5)*1.6}deg)`;sheets.appendChild(e);els.push({it,e,inn:e.querySelector('.in'),rot:(rnd(idx*9+i)-.5)*1.6});});
+ if(ec){ecEl=mk('sheet',`<div class="big">${esc(ec.lines[0])}</div><div style="font-size:40px;margin-top:6px">${esc(ec.lines[1])}</div><div style="font-size:26px;margin-top:8px;opacity:.8">${esc(ec.lines[2])}</div>`,'position:absolute;left:56px;top:340px;width:844px;display:none;text-align:center');root.appendChild(ecEl);}
+ return {root,els,ec,ecEl,sheets,sign};
+}
+function update(b,sc,s,t){
+ const c=sc.cues,ls=t-sc.start,t16=Math.floor(t*16)/16; // hand-cranked: motion sampled at 16 fps
+ b.sign.style.transform=`translateY(${-(1-EZ.out(P(Math.floor(ls*16)/16,.1,.6)))*160}px)`;
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ if(b.ecEl){b.ecEl.style.display=endOn?'block':'none';b.ecEl.style.opacity=P(t16,AT(b.ec.at,c),AT(b.ec.at,c)+.3);}
+ b.sheets.style.display=endOn?'none':'flex';
+ b.els.forEach(({it,e,inn,rot})=>{
+  const x=RESOLVE(it,t,c);e.style.display=x.vis?'block':'none';if(!x.vis)return;
+  const p=EZ.out(P(t16,x.ta,x.ta+.3));e.style.transform=`rotate(${rot}deg) translateX(${(1-p)*-900}px)`;
+  e.className='sheet '+(x.tone||'')+(x.flag==='strike'?' strike':'');
+  let h='';
+  if(it.k==='val')h=`<div style="font-family:PF;font-weight:700;font-style:normal;font-size:24px;letter-spacing:.16em">${esc(it.label)}</div><div class="big">${esc(x.text)}</div>`;
+  else if(it.k==='meter')h=`<div class="mt"><span style="width:220px">${esc(it.label)}</span><div class="bar"><i style="width:${clamp(x.ratio)*100}%"></i></div><span>${esc(x.text)}</span></div>`;
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.04));h=`<span class="tx" style="font-style:normal;font-family:OS;font-weight:700">${esc(it.text.slice(0,n))}</span>`;}
+  else{h=`<span class="tx">${esc(x.text||'')}</span>`;e.style.display=x.text?'block':'none';}
+  inn.innerHTML=h;
+ });
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id],ls=t-sc.start,f=Math.floor(t*24);
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t);
+ // print pass: flicker, gate weave (with a rare perforation jump), scratches, dust; every output frame changes
+ world.style.transform=`translate(${(rnd(f)-.5)*4}px,${(rnd(f+9)-.5)*3+(rnd(Math.floor(f/37))>.97?10:0)}px)`;
+ flick.style.opacity=.1+rnd(f+3)*.3;screenEl.style.filter=`grayscale(1) sepia(${.28+.1*rnd(Math.floor(f/48))}) contrast(${1.08+.08*rnd(f+5)}) brightness(${.94+.07*rnd(f+11)})`;
+ dg.clearRect(0,0,956,1350);for(let i=0;i<3;i++){if(rnd(f*3+i)>.45){const x=rnd(f*7+i*13)*956;dg.fillStyle=`rgba(${rnd(f+i)>.5?'235,230,215':'30,26,22'},${.25+rnd(f+i*2)*.4})`;dg.fillRect(x,rnd(f+i*5)*400,1.5,300+rnd(f+i*9)*900);}}
+ for(let i=0;i<14;i++){dg.fillStyle=`rgba(30,26,22,${.25+rnd(f+i*17)*.5})`;dg.beginPath();dg.arc(rnd(f*11+i)*956,rnd(f*13+i*3)*1350,.8+rnd(f+i)*2.4,0,7);dg.fill();}
+ // iris in / out between scenes
+ const open=EZ.io(P(ls,0,.5)),close=EZ.io(P(ls,sc.dur-.4,sc.dur)),r=(sc.start===0?1:open)*(1-close)*1.15;
+ world.style.clipPath=`circle(${Math.max(0,r)*100}% at 50% 42%)`;
+ const cap=CAP(t,T.scenes);
+ if(cap){inter.style.display='block';inter.innerHTML=esc(cap.text).replace(/\*([^*]+)\*/g,'<em>$1</em>');inter.style.transform=`translate(${(rnd(f+21)-.5)*(cap.text.length<24?3:0)}px,0)`;}else inter.style.display='none';
+};
+window.ready=Promise.all(['700 40px PF','900 40px PF','italic 40px OS','700 40px OS'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach((sc,i)=>{built[sc.id]=build(sc,i);});});
+</script></body></html>

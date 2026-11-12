@@ -1,0 +1,78 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Dark Keynote</title>
+<style>
+@font-face{font-family:KI;font-weight:500;src:url(node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2)}
+@font-face{font-family:KI;font-weight:600;src:url(node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2)}
+@font-face{font-family:KI;font-weight:700;src:url(node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2)}
+@font-face{font-family:KT;font-weight:700;src:url(node_modules/@fontsource/inter-tight/files/inter-tight-latin-700-normal.woff2)}
+@font-face{font-family:KM;font-weight:500;src:url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2)}
+:root{--acc:#B7F34A;--bad:#FF5A5A}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#06080B;font-family:KI,sans-serif;color:#E8ECF2}
+#stagebg{position:absolute;inset:0;background:radial-gradient(900px 700px at 50% 22%,#101722,transparent 70%),radial-gradient(700px 600px at 85% 70%,rgba(110,140,255,.07),transparent 70%),#06080B}
+#grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:48px 48px,48px 48px,192px 192px,192px 192px}
+#vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.55))}
+.scene{position:absolute;inset:0;display:none}
+.lab{font-family:KM;font-weight:500;font-size:22px;letter-spacing:.16em;text-transform:uppercase;color:#7C8696}
+.h0{position:absolute;left:90px;top:300px}
+.h1{position:absolute;left:90px;top:342px;font-weight:700;font-size:100px;letter-spacing:-.03em;line-height:1.02;white-space:nowrap}
+.rows{position:absolute;left:90px;width:900px;top:520px;display:flex;flex-direction:column;gap:12px}
+.card{position:relative;min-height:74px;padding:14px 26px 12px 62px;border-radius:22px;background:linear-gradient(#141A22,#10151C);border:1px solid rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 40px rgba(0,0,0,.45)}
+.card .dot{position:absolute;left:26px;top:29px;width:16px;height:16px;border-radius:50%;background:#556070}
+.card.ok .dot,.card.accent .dot{background:var(--acc);box-shadow:0 0 14px rgba(183,243,74,.7)}.card.alert .dot{background:var(--bad);box-shadow:0 0 14px rgba(255,90,90,.7)}
+.card .t{font-size:34px;font-weight:600;line-height:1.15;letter-spacing:-.01em}.card.dim .t{color:#7C8696;font-weight:500}.card.accent .t{color:var(--acc)}.card.alert .t{color:#FFB3B3}
+.card .t.strike{text-decoration:line-through}
+.card.cmd .t{font-family:KM;font-size:30px;font-weight:500}
+.mbar{height:14px;border-radius:7px;background:#1B222C;margin-top:12px;overflow:hidden}.mbar i{display:block;height:100%;border-radius:7px;background:var(--acc);box-shadow:0 0 16px rgba(183,243,74,.6)}.mbar.alert i{background:var(--bad);box-shadow:0 0 16px rgba(255,90,90,.6)}
+.giant{font-family:KT;font-weight:700;font-size:150px;letter-spacing:-.045em;line-height:.95;background:linear-gradient(100deg,#fff 0%,#fff 40%,var(--acc) 50%,#fff 60%,#fff 100%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
+#cap{position:absolute;left:50%;top:1330px;transform:translateX(-50%);padding:20px 38px 20px 56px;border-radius:999px;background:rgba(18,23,31,.82);border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 50px rgba(0,0,0,.55);font-size:38px;font-weight:500;white-space:nowrap}
+#cap:before{content:"";position:absolute;left:24px;top:50%;margin-top:-8px;width:16px;height:16px;border-radius:50%;background:var(--acc);box-shadow:0 0 12px var(--acc)}
+#cap em{font-style:normal;color:var(--acc);font-weight:700}
+</style></head><body>
+<div id="stagebg"></div><div id="grid"></div><div id="vig"></div><div id="stage"></div><div id="cap"></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),capEl=document.getElementById('cap');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+function build(sc,idx){
+ const s=SD[sc.id],root=mk('scene');
+ root.appendChild(mk('lab h0',esc(s.head[0].replace(/,$/,'')).toUpperCase()));
+ const h1=mk('h1',esc(s.head[1]));root.appendChild(h1);
+ h1.innerHTML='<span>'+esc(s.head[1])+'</span>';stage.appendChild(root);root.style.display='block';const w=h1.firstChild.getBoundingClientRect().width;if(w>900)h1.style.fontSize=Math.floor(100*900/w)+'px';root.style.display='none';
+ const rows=mk('rows');root.appendChild(rows);const els=[];let ec=null,ecEl=null;
+ s.items.forEach(it=>{if(it.k==='endcard'){ec=it;return;}const r=mk('card','<div class="dot"></div><div class="body"></div>');rows.appendChild(r);els.push({it,r,body:r.querySelector('.body')});});
+ if(ec){ecEl=mk('',`<div class="giant" style="font-size:230px">${esc(ec.lines[0])}</div><div style="font-size:42px;font-weight:600;margin-top:22px">${esc(ec.lines[1])}</div><div class="lab" style="margin-top:18px">${esc(ec.lines[2])}</div>`,'position:absolute;left:90px;top:620px;display:none');root.appendChild(ecEl);}
+ stage.appendChild(root);return {root,h1,rows,els,ec,ecEl};
+}
+function update(b,sc,s,t){
+ const c=sc.cues,ls=t-sc.start;
+ // UI expand / collapse transition: the scene is a window that opens from a small rounded rect and closes into one
+ const open=BACK(P(ls,0,.38),1.3),close=P(ls,sc.dur-.28,sc.dur);
+ const inset=(1-clamp(open,0,1.02))*44,cl=close*44;
+ b.root.style.clipPath=`inset(${inset+cl}% ${inset*.9+cl*.9}% ${inset+cl}% ${inset*.9+cl*.9}% round ${40}px)`;
+ b.root.style.transform=`scale(${1+(1-clamp(open,0,1))*-.06})`;
+ b.h1.style.opacity=P(ls,.15,.35);b.h1.style.transform=`translateY(${(1-BACK(P(ls,.15,.45)))*26}px)`;
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ if(b.ecEl){b.ecEl.style.display=endOn?'block':'none';b.ecEl.style.opacity=P(t,AT(b.ec.at,c),AT(b.ec.at,c)+.25);const g=b.ecEl.querySelector('.giant');g.style.backgroundPosition=(100-((t*70)%300))+'% 0';}
+ b.rows.style.display=endOn?'none':'flex';
+ b.els.forEach(({it,r,body})=>{
+  const x=RESOLVE(it,t,c);r.style.display=x.vis?'block':'none';if(!x.vis)return;
+  const p=BACK(P(t,x.ta,x.ta+.3),1.3);r.style.transform=`translateY(${(1-p)*30}px) scale(${.96+.04*clamp(p,0,1.05)})`;r.style.opacity=clamp(P(t,x.ta,x.ta+.12));
+  r.className='card '+(it.k==='cmd'?'cmd ':'')+(x.tone||'');
+  if(it.k==='val'){r.style.padding='26px 30px 24px';r.querySelector('.dot').style.display='none';body.innerHTML=`<div class="lab">${esc(it.label)}</div><div class="giant" style="margin-top:8px;background-position:${100-((t*60)%300)}% 0">${esc(x.text)}</div>`;}
+  else if(it.k==='meter'){body.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lab">${esc(it.label)}</span><span style="font-family:KM;font-size:28px">${esc(x.text)}</span></div><div class="mbar ${x.tone==='alert'?'alert':''}"><i style="width:${clamp(x.ratio)*100}%"></i></div>`;}
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.038));body.innerHTML=`<div class="t">${esc(it.text.slice(0,n))}${n<it.text.length?'<span style="color:var(--acc)">|</span>':''}</div>`;}
+  else{body.innerHTML=`<div class="t${x.flag==='strike'?' strike':''}">${esc(x.text||'')}</div>`;r.style.display=x.text?'block':'none';}
+ });
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id];
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t);
+ const cap=CAP(t,T.scenes);
+ if(cap){const p=BACK(P(t,cap.t0,cap.t0+.16),1.3);capEl.style.display='block';capEl.innerHTML=esc(cap.text).replace(/\*([^*]+)\*/g,'<em>$1</em>');capEl.style.opacity=clamp(p);capEl.style.transform=`translateX(-50%) translateY(${(1-p)*14}px)`;}else capEl.style.display='none';
+};
+window.ready=Promise.all(['500 40px KI','600 40px KI','700 40px KI','700 40px KT','500 40px KM'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach((sc,i)=>{built[sc.id]=build(sc,i);});});
+</script></body></html>

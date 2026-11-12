@@ -1,0 +1,88 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - One Line</title>
+<style>
+@font-face{font-family:CV;font-weight:600;src:url(node_modules/@fontsource/caveat/files/caveat-latin-600-normal.woff2)}
+@font-face{font-family:IB;font-weight:800;src:url(node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2)}
+:root{--ink:#1D1A17;--paper:#F4EFE4}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--paper);font-family:CV,cursive;font-weight:600;color:var(--ink)}
+#mott{position:absolute;inset:0;mix-blend-mode:soft-light;opacity:.7;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006 .01' numOctaves='3' seed='3'/%3E%3C/filter%3E%3Crect width='500' height='500' filter='url(%23n)'/%3E%3C/svg%3E")}
+#tooth{position:absolute;inset:0;mix-blend-mode:multiply;opacity:.3;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='5'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .45 0 0 0 0 .38 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")}
+.scene{position:absolute;inset:0;display:none}
+svg.line{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visible}
+.txt{position:absolute;left:104px;white-space:nowrap;font-size:48px;line-height:1;color:var(--ink)}
+.txt.dim{opacity:.5}.txt.strike .tx{text-decoration:line-through}
+.h0{position:absolute;left:100px;top:204px;font-size:44px;color:#6d655b}.h1{position:absolute;left:96px;top:250px;font-size:132px;line-height:1;white-space:nowrap}
+.outline{color:transparent;-webkit-text-stroke:3px var(--ink);font-family:IB;font-weight:800;font-size:84px;letter-spacing:-.02em;line-height:1}
+.mt{display:flex;align-items:center;gap:18px}.mt .bx{position:relative;width:330px;height:40px;border:3px solid var(--ink);border-radius:6px}.mt .bx i{position:absolute;left:0;top:0;bottom:0}.mt .bx b{position:absolute;top:0;bottom:0;width:2px;background:var(--ink)}
+#pen{position:absolute;left:0;top:0;width:90px;height:90px;pointer-events:none;display:none}
+#cap{position:absolute;left:70px;right:70px;top:1298px;font-size:54px;line-height:1.05;text-align:center}
+#cap em{font-style:normal;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:6px}
+</style></head><body>
+<div id="mott"></div><div id="stage"></div><div id="pen"><div style="position:absolute;left:16px;top:20px;width:60px;height:30px;border-radius:50%;background:rgba(40,30,20,.20);filter:blur(10px);transform:rotate(35deg)"></div><div style="position:absolute;left:5px;top:5px;width:9px;height:9px;border-radius:50%;background:#1D1A17"></div></div><div id="tooth"></div><div id="cap"></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),capEl=document.getElementById('cap'),pen=document.getElementById('pen');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const NS='http://www.w3.org/2000/svg',XL=96,XR=984,SP=110,Y0=392;
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+function rowsPath(n){ // one boustrophedon line: along each row, U-turn at the page edge, back along the next
+ const ys=[...Array(n)].map((_,k)=>Y0+k*SP);let d=`M${XL} ${ys[0]}`;const ends=[];
+ for(let k=0;k<n;k++){const right=k%2===0,xEnd=right?XR:XL;d+=` L${xEnd} ${ys[k]}`;if(k<n-1)d+=` A${SP/2} ${SP/2} 0 0 1 ${xEnd} ${ys[k+1]}`;ends.push(d);}
+ return {ys,ends,d};
+}
+function build(sc,idx){
+ const s=SD[sc.id],root=mk('scene');
+ const items=s.items.filter(i=>i.k!=='endcard'),ec=s.items.find(i=>i.k==='endcard'),n=items.length+1;
+ const rp=rowsPath(n);
+ const svg=document.createElementNS(NS,'svg');svg.setAttribute('class','line');svg.setAttribute('viewBox','0 0 1080 1920');
+ const base=document.createElementNS(NS,'path');base.setAttribute('d',rp.d);base.setAttribute('fill','none');base.setAttribute('stroke','#1D1A17');base.setAttribute('stroke-width','4.5');base.setAttribute('stroke-linecap','round');base.setAttribute('stroke-linejoin','round');svg.appendChild(base);
+ const red=document.createElementNS(NS,'path');red.setAttribute('d',rp.d);red.setAttribute('fill','none');red.setAttribute('stroke','#D2352B');red.setAttribute('stroke-width','5');red.setAttribute('stroke-linecap','round');svg.appendChild(red);
+ root.appendChild(svg);stage.appendChild(root);const total=base.getTotalLength();
+ // length at the end of each row (measured on partial paths)
+ const lens=rp.ends.map(d=>{const p=document.createElementNS(NS,'path');p.setAttribute('d',d);svg.appendChild(p);const l=p.getTotalLength();svg.removeChild(p);return l;});
+ base.setAttribute('stroke-dasharray',total);red.setAttribute('stroke-dasharray','0 '+total);
+ root.appendChild(mk('h0',esc(s.head[0].replace(/,$/,''))));const h1=mk('h1',esc(s.head[1]));root.appendChild(h1);root.style.display='block';const w=h1.getBoundingClientRect().width;if(w>900)h1.style.fontSize=Math.floor(132*900/w)+'px';root.style.display='none';
+ const els=items.map((it,i)=>{const e=mk('txt');e.style.top=(rp.ys[i+1]-58)+'px';root.appendChild(e);return {it,e,row:i+1,y:rp.ys[i+1]};});
+ let ecEl=null;if(ec){ecEl=mk('',`<div class="outline" style="font-size:190px">${esc(ec.lines[0])}</div><div style="font-size:60px;margin-top:6px">${esc(ec.lines[1])}</div><div style="font-size:38px;color:#6d655b">${esc(ec.lines[2])}</div>`,'position:absolute;left:100px;top:640px;display:none');root.appendChild(ecEl);}
+ return {root,base,red,total,lens,rp,els,ec,ecEl,h1,idx};
+}
+function update(b,sc,s,t){
+ const c=sc.cues,ls=t-sc.start;
+ // the nib is where the line ends: it travels row by row, each row starting just as its words appear
+ let drawn=0;const starts=[sc.start+.1,...b.els.map(({it})=>AT(it.at,c)-.12)];
+ for(let k=0;k<b.lens.length;k++){const a=k?b.lens[k-1]:0,z=b.lens[k],ts=starts[k],dur=Math.min(.95,.25+(z-a)/1700);if(t>=ts)drawn=Math.max(drawn,lerp(a,z,EZ.io(P(t,ts,ts+dur))));}
+ b.base.setAttribute('stroke-dashoffset',String(b.total-drawn));
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ // one accent, used once: the stretch of line under the 503 status turns red when the server dies
+ if(sc.id==='naive'&&c.crash!==undefined){const row=b.els[1]?b.els[1].row:2,a=b.lens[row-1],z=b.lens[row],p=EZ.out(P(t,c.crash,c.crash+.35));b.red.setAttribute('stroke-dasharray',`${(z-a)*p} ${b.total}`);b.red.setAttribute('stroke-dashoffset',String(-a));}else b.red.setAttribute('stroke-dasharray','0 '+b.total);
+ const rv=(e,p)=>{e.style.clipPath=`inset(-10px ${(1-p)*100}% -10px -6px)`;};
+ rv(b.root.querySelector('.h0'),EZ.io(P(ls,.1,.4)));rv(b.h1,EZ.io(P(ls,.2,.9)));
+ if(b.ecEl){b.ecEl.style.display=endOn?'block':'none';rv(b.ecEl,EZ.io(P(t,AT(b.ec.at,c),AT(b.ec.at,c)+.9)));}
+ b.els.forEach(({it,e,y})=>{
+  const x=RESOLVE(it,t,c);e.style.visibility=(x.vis&&!endOn)?'visible':'hidden';if(!x.vis)return;
+  const len=(x.text||it.text||it.label||'xxxxxxxx').length;rv(e,it.k==='val'||it.k==='meter'?EZ.io(P(t,x.ta,x.ta+.6)):EZ.io(P(t,x.ta,x.ta+Math.min(.8,.14+len*.02))));
+  e.className='txt'+(x.tone==='dim'?' dim':'')+(x.flag==='strike'?' strike':'');
+  let h='';
+  if(it.k==='val'){e.style.top=(y-86)+'px';h=`<div class="outline">${esc(x.text)}</div>`;}
+  else{e.style.top=(y-58)+'px';
+   if(it.k==='meter'){const r=clamp(x.ratio),ticks=[...Array(19)].map((_,i)=>`<b style="left:${(i+1)*5}%"></b>`).join('');h=`<div class="mt"><span style="width:260px">${esc(it.label.toLowerCase())}</span><div class="bx"><i style="width:${r*100}%;background:repeating-linear-gradient(135deg,#1D1A17 0 2px,transparent 2px 8px)"></i></div><span>${esc(x.text)}</span></div>`;}
+   else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.045));h=`<span class="tx">${esc(it.text.slice(0,n))}</span>`;}
+   else h=`<span class="tx">${esc(x.text||'')}</span>`;}
+  e.innerHTML=h;let fs=48,i=0;e.style.fontSize='48px';if(it.k!=='val'){while(e.scrollWidth>880&&fs>26){fs-=2;e.style.fontSize=fs+'px';}}
+ });
+ // pen: a soft shadow wedge and a contact dot at the nib; the pen itself is never drawn
+ const pt=b.base.getPointAtLength(Math.max(1,Math.min(drawn,b.total)));pen.style.display=(ls<sc.dur-.2&&drawn>2)?'block':'none';pen.style.transform=`translate(${pt.x-8}px,${pt.y-8}px)`;pen.style.opacity=drawn<b.total-2?1:.0;
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id],ls=t-sc.start;
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t);
+ // scenes don't cut, they morph: the page releases the line by sliding the whole drawing up and away
+ const m=EZ.io(P(ls,sc.dur-.3,sc.dur));b.root.style.transform=`translateY(${-m*120}px)`;b.root.style.opacity=1-m;
+ const cap=CAP(t,T.scenes);
+ if(cap){capEl.style.display='block';capEl.innerHTML=esc(cap.text).replace(/\*([^*]+)\*/g,'<em>$1</em>');capEl.style.clipPath=`inset(-4px ${(1-EZ.io(P(t,cap.t0,cap.t0+.35)))*100}% -4px 0)`;}else capEl.style.display='none';
+};
+window.ready=Promise.all(['600 40px CV','800 40px IB'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach((sc,i)=>{built[sc.id]=build(sc,i);});});
+</script></body></html>

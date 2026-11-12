@@ -1,0 +1,95 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Halftone Dossier</title>
+<style>
+@font-face{font-family:HS;src:url(node_modules/@fontsource/alfa-slab-one/files/alfa-slab-one-latin-400-normal.woff2)}
+@font-face{font-family:HI;font-weight:800;src:url(node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2)}
+@font-face{font-family:HM;font-weight:800;src:url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-800-normal.woff2)}
+:root{--ink:#14213D;--cob:#2457D6;--pink:#FF3D7F;--yel:#FFC93C;--red:#D7261E;--paper:#F2E8D0}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--paper);font-family:HI,sans-serif;font-weight:800;color:var(--ink)}
+#paper{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 55%,rgba(90,60,20,.22)),linear-gradient(90deg,transparent 49.6%,rgba(80,50,20,.16) 50%,rgba(255,255,255,.35) 50.4%,transparent 51%)}
+#mott{position:absolute;inset:0;mix-blend-mode:multiply;opacity:.5;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.02 .03' numOctaves='3' seed='2'/%3E%3CfeColorMatrix values='0 0 0 0 .62 0 0 0 0 .5 0 0 0 0 .34 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='360' height='360' filter='url(%23n)'/%3E%3C/svg%3E")}
+.scene{position:absolute;inset:0;display:none;overflow:hidden}
+.dots{position:absolute;mix-blend-mode:multiply}
+.hud{position:absolute;top:190px;font-family:HM;font-weight:800;font-size:21px;letter-spacing:.08em;color:var(--paper);background:var(--ink);padding:6px 14px}
+.hud.r{right:50px;background:none;color:var(--ink)}.hud.l{left:50px}
+.hud b{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--red);margin-right:8px;vertical-align:-1px}
+.h0{position:absolute;left:56px;top:250px;font-family:HM;font-size:26px;letter-spacing:.12em;text-transform:uppercase;color:var(--cob)}
+.h1{position:absolute;left:52px;top:288px;font-family:HS;font-weight:400;font-size:112px;line-height:1.02;white-space:nowrap;text-transform:uppercase;letter-spacing:-.01em}
+.h1 span{display:inline-block;text-shadow:7px 7px 0 rgba(255,61,127,.78)}
+.cards{position:absolute;left:50px;width:980px;top:470px;display:flex;flex-direction:column;gap:18px}
+.card{position:relative;align-self:flex-start;max-width:980px;background:#FBF5E4;border:5px solid var(--ink);border-radius:14px;padding:8px 20px 8px 20px;font-size:36px;line-height:1.12;box-shadow:8px 8px 0 rgba(255,61,127,.55)}
+.card .ex{position:absolute;left:-5px;top:-22px;background:var(--ink);color:var(--paper);font-family:HM;font-size:15px;letter-spacing:.1em;padding:2px 10px;border-radius:6px 6px 0 0}
+.card.dim{opacity:.5}.card.accent .tx{color:var(--cob)}.card.ok .tx{background:linear-gradient(transparent 55%,var(--yel) 55%)}
+.card.alert{background:rgba(251,245,228,.6);border:6px double var(--red);color:var(--red);font-family:HS;font-weight:400;text-transform:uppercase;box-shadow:none;font-size:34px}
+.card.strike .tx{text-decoration:line-through}
+.bignum{font-family:HS;font-weight:400;font-size:176px;line-height:.98;position:relative;display:inline-block;-webkit-text-stroke:3px var(--ink);color:var(--yel)}
+.bignum i{position:absolute;left:0;top:0;font-style:normal;color:transparent;-webkit-text-stroke:0;background:radial-gradient(circle,var(--cob) 38%,transparent 40%) 0 0/11px 11px;-webkit-background-clip:text;background-clip:text}
+.mt{display:flex;align-items:center;gap:16px;font-size:34px}.mt .bar{position:relative;width:360px;height:34px;border:5px solid var(--ink);background:repeating-linear-gradient(90deg,transparent 0 17px,rgba(20,33,61,.45) 17px 19px)}.mt .bar i{position:absolute;left:0;top:0;bottom:0;background:radial-gradient(circle,var(--cob) 38%,transparent 40%) 0 0/9px 9px}
+#cap{position:absolute;left:60px;top:1298px;max-width:960px;padding:16px 36px;border-radius:60px;background:var(--ink);color:var(--paper);font-size:40px;box-shadow:7px 7px 0 var(--pink)}
+#cap em{font-style:normal;color:var(--yel)}
+#wipe{position:absolute;inset:0;pointer-events:none;z-index:8}
+</style></head><body>
+<div id="paper"></div><div id="mott"></div><div id="stage"></div><canvas id="wipe" width="1080" height="1920"></canvas><div id="cap"></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),capEl=document.getElementById('cap'),wp=document.getElementById('wipe'),wg=wp.getContext('2d');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const rnd=i=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x);};
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+function build(sc,idx){
+ const s=SD[sc.id],root=mk('scene');
+ // halftone: dot size follows a density field (a radial bloom), screen rotated 15 degrees
+ const bloomCol=['#2457D6','#FF3D7F','#2457D6','#FFC93C','#2457D6','#FF3D7F','#2457D6','#FFC93C','#2457D6'][idx%9];
+ root.appendChild(mk('dots',null,`left:${idx%2?-260:520}px;top:-120px;width:800px;height:800px;background:radial-gradient(circle,${bloomCol} 40%,transparent 42%) 0 0/20px 20px;transform:rotate(15deg);-webkit-mask-image:radial-gradient(circle,#000 0,rgba(0,0,0,.7) 30%,transparent 62%);mask-image:radial-gradient(circle,#000 0,rgba(0,0,0,.7) 30%,transparent 62%);opacity:.55`));
+ root.appendChild(mk('dots',null,`left:${idx%2?480:-300}px;top:1060px;width:900px;height:900px;background:radial-gradient(circle,#FF3D7F 36%,transparent 38%) 0 0/22px 22px;transform:rotate(-15deg);-webkit-mask-image:radial-gradient(circle,#000 0,transparent 60%);mask-image:radial-gradient(circle,#000 0,transparent 60%);opacity:.28`));
+ root.appendChild(mk('hud l',`CASE 4521-TK  //  EXHIBIT ${String(idx+1).padStart(2,'0')}`));
+ const rec=mk('hud r','',null);root.appendChild(rec);
+ root.appendChild(mk('h0',esc(s.head[0].replace(/,$/,''))));
+ const h1=mk('h1');h1.innerHTML=[...s.head[1]].map(ch=>`<span>${ch===' '?'&nbsp;':esc(ch)}</span>`).join('');root.appendChild(h1);
+ stage.appendChild(root);root.style.display='block';const w=h1.getBoundingClientRect().width;if(w>970){h1.style.fontSize=Math.floor(112*970/w)+'px';}root.style.display='none';
+ const cards=mk('cards');root.appendChild(cards);const els=[];let ec=null,ecEl=null;let n=0;
+ s.items.forEach((it,i)=>{if(it.k==='endcard'){ec=it;return;}n++;const e=mk('card',`<span class="ex">EX-${n}</span><div class="in"></div>`);e.style.transform=`rotate(${(rnd(idx*13+i)-.5)*2.4}deg)`;cards.appendChild(e);els.push({it,e,in:e.querySelector('.in'),rot:(rnd(idx*13+i)-.5)*2.4});});
+ if(ec){ecEl=mk('',`<div class="bignum" style="font-size:150px">${esc(ec.lines[0])}<i>${esc(ec.lines[0])}</i></div><div class="card" style="margin-top:34px;display:inline-block;font-size:44px">${esc(ec.lines[1])}</div><div class="hud l" style="position:static;display:inline-block;margin-top:24px">${esc(ec.lines[2])}</div>`,'position:absolute;left:54px;top:560px;display:none');root.appendChild(ecEl);}
+ return {root,rec,h1,els,ec,ecEl,cards};
+}
+function update(b,sc,s,t){
+ const c=sc.cues,ls=t-sc.start;
+ b.rec.innerHTML=`<b style="opacity:${Math.floor(t*2)%2?1:.25}"></b>REC 12951  10${Math.floor(t*2)%2?':':' '}00`;
+ [...b.h1.children].forEach((sp,i)=>{const p=P(ls,.15+i*.05,.15+i*.05+.35),k=BACK(p,1.7);sp.style.opacity=p>0?1:0;sp.style.transform=`translateY(${(1-k)*-90}px) scale(${1+(1-k)*.0},${1-Math.max(0,(1-k))*.35*0+Math.max(0,Math.sin(p*Math.PI))*-.0})`;});
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ if(b.ecEl){b.ecEl.style.display=endOn?'block':'none';const p=BACK(P(t,AT(b.ec.at,c),AT(b.ec.at,c)+.4),1.6);b.ecEl.style.transform=`scale(${Math.max(.01,p)})`;b.ecEl.style.transformOrigin='left top';}
+ b.cards.style.display=endOn?'none':'flex';
+ b.els.forEach(({it,e,in:inn,rot})=>{
+  const x=RESOLVE(it,t,c);e.style.display=x.vis?'block':'none';if(!x.vis)return;
+  const alert=x.tone==='alert';const d=t-x.ta;
+  // stamps slam from 2.6x to 1x in 0.09 s, then a damped bounce; other cards enter with back overshoot, never fade
+  let sc2=1,rt=rot;if(alert){sc2=d<.09?lerp(2.6,1,EZ.out(d/.09)):1+Math.exp(-(d-.09)*14)*Math.sin((d-.09)*40)*.08;rt=-5+rot;}else sc2=Math.max(.01,BACK(P(t,x.ta,x.ta+.34),1.7));
+  e.style.transform=`rotate(${rt}deg) scale(${sc2})`;e.style.transformOrigin='left center';
+  e.className='card '+(x.tone||'')+(x.flag==='strike'?' strike':'');
+  let h='';
+  if(it.k==='val')h=`<div style="font-family:HM;font-size:18px;letter-spacing:.14em">${esc(it.label)}</div><div class="bignum">${esc(x.text)}<i>${esc(x.text)}</i></div>`;
+  else if(it.k==='meter')h=`<div class="mt"><span style="width:200px">${esc(it.label)}</span><div class="bar"><i style="width:${clamp(x.ratio)*100}%"></i></div><span>${esc(x.text)}</span></div>`;
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.04));h=`<span class="tx" style="font-family:HM;font-size:30px">${esc(it.text.slice(0,n))}</span>`;}
+  else{h=`<span class="tx">${esc(x.text||'')}</span>`;e.style.display=x.text?'block':'none';}
+  inn.innerHTML=h;
+  if(!e.querySelector('.ex')){const ex=document.createElement('span');ex.className='ex';ex.textContent='EX';e.insertBefore(ex,inn);}
+ });
+}
+function wipe(t,sc){
+ wg.clearRect(0,0,1080,1920);const ls=t-sc.start,left=sc.start+sc.dur-t;let cover=0;
+ if(sc.start>0&&ls<.24)cover=1-ls/.24;else if(left<.24)cover=1-left/.24;
+ if(cover<=0)return;wg.fillStyle='#14213D';const cell=60;
+ for(let y=0;y<=1920/cell+1;y++)for(let x=0;x<=1080/cell+1;x++){const delay=((x+y)/(1080/cell+1920/cell))*.45;const k=clamp((cover-delay*.8)/(.55));const r=cell*.78*EZ.out(k);if(r>.5){wg.beginPath();wg.arc(x*cell,y*cell,r,0,7);wg.fill();}}
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id];
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t);
+ const cap=CAP(t,T.scenes);
+ if(cap){capEl.style.display='block';capEl.innerHTML=esc(cap.text).replace(/\*([^*]+)\*/g,'<em>$1</em>');const p=BACK(P(t,cap.t0+.12,cap.t0+.45),1.5);capEl.style.transform=`scale(${Math.max(.01,p)})`;capEl.style.transformOrigin='left center';}else capEl.style.display='none';
+ wipe(t,sc);
+};
+window.ready=Promise.all(['40px HS','800 40px HI','800 40px HM'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach((sc,i)=>{built[sc.id]=build(sc,i);});});
+</script></body></html>

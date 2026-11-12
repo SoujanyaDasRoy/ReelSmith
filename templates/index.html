@@ -1,0 +1,171 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal Reel v4</title>
+<style>
+@font-face{font-family:Inter;font-weight:500;src:url(node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2)}
+@font-face{font-family:Inter;font-weight:600;src:url(node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2)}
+@font-face{font-family:Inter;font-weight:700;src:url(node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2)}
+@font-face{font-family:Instr;font-style:italic;font-weight:400;src:url(node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2)}
+@font-face{font-family:Mono;font-weight:700;src:url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-700-normal.woff2)}
+:root{--ink:#17171F;--mute:#7A7A8A;--line:#EEEEF2;--coral:#D9604C;--blue:#3B6EF5;--green:#1FA463;--red:#D93B3B;--amber:#C98A0B}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#F3F3F5;font-family:Inter,sans-serif;font-weight:500;color:var(--ink)}
+.a{position:absolute;left:0;top:0;transform-origin:center;white-space:nowrap}
+.p{position:absolute;white-space:nowrap}
+.mono{font-family:Mono,monospace;font-weight:700}
+#bg{position:absolute;inset:0}#stage{position:absolute;inset:0;transform-origin:540px 800px}
+.scene{position:absolute;inset:0;display:none}
+.card{background:#fff;border-radius:30px;box-shadow:0 18px 50px rgba(20,20,40,.08);border:1px solid #E8E8EE;padding:34px 40px;font-size:30px}
+.dark{background:#17171F;color:#fff;border-color:#17171F}
+.row{display:flex;justify-content:space-between;align-items:center;padding:17px 0;border-top:1px solid var(--line);font-size:30px}
+.chip{display:inline-block;padding:6px 20px;border-radius:999px;font-size:26px;font-weight:600}
+.g{background:#E6F6EC;color:var(--green)}.r{background:#FDECEC;color:var(--red)}.am{background:#FFF4D6;color:var(--amber)}.b{background:#E8EEFF;color:var(--blue)}.gr{background:#EDEDF1;color:#55556A}
+.btn{display:inline-block;height:68px;line-height:68px;padding:0 44px;border-radius:18px;background:var(--blue);color:#fff;font-size:30px;font-weight:600}
+.mute{color:var(--mute)}
+.bar{height:10px;border-radius:6px;background:#EEEEF3;overflow:hidden}.bar>i{display:block;height:10px;border-radius:6px;background:var(--blue)}
+.h1{font-size:50px;font-weight:500}.h2{font-family:Instr;font-style:italic;color:var(--coral);font-size:112px;line-height:1}
+#cap{position:absolute;left:100px;width:880px;top:1290px;height:140px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:42px;font-weight:600;line-height:1.25;color:#2B2B37}
+#cap em{font-family:Instr;font-style:italic;font-weight:400;color:var(--coral);font-size:54px}
+</style></head><body>
+<div id="bg"></div><div id="stage"></div><div id="cap"></div>
+<script>
+const T=window.T;
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),P=(t,a,b)=>clamp((t-a)/(b-a)),lerp=(a,b,u)=>a+(b-a)*u;
+const E={out:x=>1-Math.pow(1-x,3),io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const indian=n=>{let s=String(Math.round(n));if(s.length<=3)return s;return s.slice(0,-3).replace(/\B(?=(\d{2})+(?!\d))/g,',')+','+s.slice(-3)};
+const $=(p,css,html='',cls='a')=>{const e=document.createElement('div');e.className=cls;e.style.cssText=css;e.innerHTML=html;p.appendChild(e);return e};
+const place=(e,x,y,o=1,s=1,dy=0)=>{e.style.transform=`translate(-50%,-50%) translate(${x}px,${y+dy}px) scale(${s})`;e.style.opacity=o};
+const rise=(e,t,t0,x,y,d=.5)=>{const p=E.out(P(t,t0,t0+d));place(e,x,y,p,.985+.015*p,(1-p)*26)};
+const rs=(e,t,t0,d=.4)=>{const p=E.out(P(t,t0,t0+d));e.style.opacity=p;e.style.transform=`translateY(${(1-p)*18}px)`};
+const card=(r,w,h,html='',cls='')=>{const e=$(r,`width:${w}px;height:${h}px`,html,'a card '+cls);return e};
+const q=(e,s)=>e.querySelector(s);
+function head(r,l1,l2){const a=$(r,'','','a h1'),b=$(r,'','','a h2');a.textContent=l1;b.textContent=l2;const d=r.style.display;r.style.display='block';const w=b.getBoundingClientRect().width;r.style.display=d;if(w>880)b.style.fontSize=Math.floor(112*880/w)+'px';return {a,b}}
+const putHead=(h,t,t0)=>{rise(h.a,t,t0,540,330,.5);rise(h.b,t,t0+.12,540,440,.55)};
+const S={};
+// ---------- hook ----------
+S.hook=(r,s)=>{const L=s.cues,h=head(r,'10:00 AM,','baarah lakh log. ek seat.');
+ const c=card(r,900,560,`<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:36px;font-weight:700">12951 · Mumbai Rajdhani</div><div class="mute" style="font-size:26px;margin-top:6px">NDLS → MMCT · Tatkal · 3A</div></div><span class="chip g mono ck">09:59:57</span></div>
+ <div class="row" style="margin-top:30px"><span class="mute">Seats left</span><span class="sl" style="font-size:88px;font-weight:700;line-height:1">1</span></div>
+ <div class="row"><span class="mute">Trying right now</span><span class="ct" style="font-size:50px;font-weight:700;color:var(--coral)">0</span></div>
+ <div style="display:flex;justify-content:flex-end;margin-top:26px"><span class="btn bk">Book now</span></div>`);
+ const ck=q(c,'.ck'),ct=q(c,'.ct'),sl=q(c,'.sl'),bk=q(c,'.bk');
+ return (t,l)=>{putHead(h,t,s.start+.15);rise(c,t,s.start+.35,540,930);
+  const hit=t>=L.clock;ck.textContent=hit?'10:00:00':'09:59:'+(57+Math.min(2,Math.floor(P(t,.3,L.clock)*3)));ck.className='chip mono ck '+(hit?'r':'g');
+  ct.textContent=indian(1200000*E.out(P(t,L.users,L.users+.9)));
+  const k=E.out(P(t,L.seat,L.seat+.4));sl.style.color=t>=L.seat?'var(--coral)':'';sl.style.transform=`scale(${1+.18*Math.sin(k*Math.PI)})`;
+  bk.style.opacity=P(t,L.users,L.users+.3)*.9+.1;}};
+// ---------- question ----------
+S.question=(r,s)=>{const L=s.cues,h=head(r,'Sawal,','interview wala.');
+ const ph=$(r,'width:560px;height:700px;border-radius:70px;background:#fff;border:12px solid #17171F;box-shadow:0 30px 60px rgba(20,20,40,.18)','','a');
+ ph.innerHTML=`<div class="p" style="left:50%;top:14px;width:120px;height:30px;margin-left:-60px;border-radius:20px;background:#17171F"></div>
+ <div class="p" style="left:0;top:0;width:536px;height:140px;background:#F7F7F9;border-radius:58px 58px 0 0;border-bottom:1px solid #E8E8EE"></div>
+ <div class="p" style="left:50%;top:56px;margin-left:-26px;width:52px;height:52px;border-radius:50%;background:#9AA0AE;color:#fff;text-align:center;line-height:52px;font-size:26px;font-weight:600">I</div>
+ <div class="p" style="left:0;width:536px;top:112px;text-align:center;font-size:20px;color:var(--mute)">Interviewer</div>`;
+ const bub=(txt,right,top)=>{const e=$(ph,`top:${top}px;${right?'right:22px;background:var(--blue);color:#fff':'left:22px;background:#EDEDF1'};padding:14px 22px;border-radius:26px;font-size:28px;max-width:400px;white-space:normal;line-height:1.25`,txt,'p');return e};
+ const m1=bub('Design Tatkal booking.',0,170),m2=bub('12 lakh users. 1 seat. 10:00:00 sharp.',0,262),m3=bub('Sir, pehle server ko chai pila doon?',1,410);
+ const ty=$(ph,'top:410px;right:22px;background:#EDEDF1;padding:14px 26px;border-radius:26px;font-size:34px;letter-spacing:4px;color:#9a9aaa','•••','p');
+ return (t,l)=>{putHead(h,t,s.start+.15);rise(ph,t,s.start+.3,540,960);rs(m1,t,s.start+.55);rs(m2,t,L.q);
+  ty.style.opacity=(t>L.cry-.9&&t<L.cry+.1)?1:0;rs(m3,t,L.cry+.1)}};
+// ---------- naive ----------
+S.naive=(r,s)=>{const L=s.cues,h=head(r,'Idea one,','ek database.');
+ const c=card(r,900,430,`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:34px;font-weight:700">Database · primary</span><span class="chip g st">Healthy</span></div>
+ <div class="row"><span class="mute">Requests / sec</span><span class="v1 mono">0</span></div><div class="bar" style="margin:-4px 0 10px"><i class="f1" style="width:0"></i></div>
+ <div class="row"><span class="mute">CPU</span><span class="v2 mono">12%</span></div><div class="bar" style="margin:-4px 0 10px"><i class="f2" style="width:12%"></i></div>
+ <div class="row"><span class="mute">Connections</span><span class="v3 mono">0</span></div>`);
+ const toast=$(r,'padding:18px 32px;border-radius:30px;background:#EDEDF1;font-size:30px;color:#2B2B37','Server: “Abhi aata hoon…”');
+ return (t,l)=>{putHead(h,t,s.start+.15);rise(c,t,s.start+.3,540,850);
+  const u=E.out(P(t,L.rush,L.rush+1.2)),cr=t>=L.crash;
+  q(c,'.v1').textContent=indian(1200000*u);q(c,'.f1').style.width=(u*100)+'%';
+  const cpu=cr?100:12+88*u*.97;q(c,'.v2').textContent=Math.round(cpu)+'%';q(c,'.f2').style.width=cpu+'%';q(c,'.v3').textContent=indian(1200000*u);
+  q(c,'.f1').style.background=q(c,'.f2').style.background=cr?'var(--red)':'var(--blue)';
+  const st=q(c,'.st');st.className='chip st '+(cr?'r':'g');st.textContent=cr?'503 Unavailable':'Healthy';
+  rise(toast,t,L.msg,540,1130,.45)}};
+// ---------- race ----------
+S.race=(r,s)=>{const L=s.cues,h=head(r,'Problem,','race condition.');
+ const rows=[['10:00:00.412','sharma_a'],['10:00:00.412','sharma_b']];
+ const c=card(r,900,400,`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><span style="font-size:34px;font-weight:700">Booking log · Seat 42</span><span class="chip gr">live</span></div>
+ ${rows.map((x,i)=>`<div class="row rw" style="font-size:28px"><span class="mono" style="font-size:24px;color:var(--mute)">${x[0]}</span><span>${x[1]}</span><span class="chip g sc">Confirmed</span></div>`).join('')}
+ <div class="bn" style="margin-top:22px;text-align:center"><span class="chip r" style="font-size:30px;padding:10px 28px">2 tickets · 1 seat</span></div>`);
+ const rw=[...c.querySelectorAll('.rw')],bn=q(c,'.bn'),sc=[...c.querySelectorAll('.sc')];
+ return (t,l)=>{putHead(h,t,s.start+.15);rise(c,t,s.start+.3,540,800);rw.forEach((e,i)=>rs(e,t,s.start+.6+i*.2));
+  const d=t>=L.dup;sc.forEach(e=>{e.className='chip sc '+(d?'r':'g');e.textContent=d?'Duplicate':'Confirmed'});rs(bn,t,L.dup+.1)}};
+// ---------- wait ----------
+S.wait=(r,s)=>{const L=s.cues,h=head(r,'Ek,','waiting room.');
+ const c1=card(r,900,310,`<div style="font-size:36px;font-weight:700">You’re in line</div><div class="mute" style="font-size:26px;margin:4px 0 16px">Please keep this page open</div>
+ <div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div class="mute" style="font-size:24px">Position</div><div class="pos mono" style="font-size:64px">#4,81,203</div></div><span class="chip am">Est. wait 02:10</span></div>
+ <div class="bar" style="margin-top:20px"><i class="pf" style="width:6%"></i></div>`);
+ const c2=card(r,900,370,`<div style="font-size:30px;font-weight:700;margin-bottom:6px">Gate</div>
+ <div class="row r1"><span>Batch #1 · 1,000 admitted</span><span class="chip g">Open</span></div>
+ <div class="row r2"><span class="mono" style="font-size:26px">bot-7731</span><span class="chip r">Blocked · rate limit</span></div>
+ <div class="row r3"><span>New sessions</span><span class="chip am">CAPTCHA required</span></div>`);
+ const [r1,r2,r3]=['.r1','.r2','.r3'].map(x=>q(c2,x));
+ return (t,l)=>{putHead(h,t,s.start+.15);rise(c1,t,s.start+.3,540,780);rise(c2,t,L.token+.1,540,1110);
+  q(c1,'.pos').textContent='#'+indian(481203-Math.max(0,t-L.token)*14000);q(c1,'.pf').style.width=(6+Math.max(0,t-L.token)*14)+'%';
+  rs(r1,t,L.batch);rs(r2,t,L.bots);rs(r3,t,L.block)}};
+// ---------- lock ----------
+S.lock=(r,s)=>{const L=s.cues,h=head(r,'Do,','seat lock.');
+ const c=card(r,900,290,`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px"><span style="font-size:32px;font-weight:700">Coach S4</span><span class="chip gr tm" style="opacity:0">2:00</span></div>
+ <div style="display:flex;gap:12px;justify-content:center">${[37,38,39,40,41,42,43,44].map(n=>`<div class="st" style="width:84px;height:96px;border-radius:18px;background:#F0F1F5;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--mute);border:2px solid transparent">${n}</div>`).join('')}</div>
+ <div class="mute lb" style="margin-top:20px;text-align:center;font-size:26px;opacity:0">Seat 42 · held for sharma</div>`);
+ const cli=card(r,900,150,'<div class="cm mono" style="font-size:28px"></div><div class="ok mono" style="font-size:28px;color:#4ADE80;margin-top:6px;opacity:0">OK</div>','dark');cli.style.padding='28px 40px';
+ const uq=card(r,900,92,`<div style="display:flex;align-items:center;gap:16px"><span class="chip g">✓</span><span class="mono" style="font-size:26px">UNIQUE (train, date, seat)</span></div>`);uq.style.padding='0 40px';uq.style.display='flex';uq.style.alignItems='center';
+ const cmd='> SET seat:12951:42 sharma NX EX 120',st=[...c.querySelectorAll('.st')];
+ return (t,l)=>{putHead(h,t,s.start+.15);rise(c,t,s.start+.3,540,720);
+  const n=Math.floor(clamp((t-L.redis)/.9)*cmd.length);q(cli,'.cm').innerHTML=t>L.ttl?'&gt; SET seat:12951:42 sharma NX <span style="background:#FFD31F;color:#17171F;padding:0 8px;border-radius:6px">EX 120</span>':cmd.slice(0,n).replace('>','&gt;')+(t>L.redis?'▌':'');
+  rise(cli,t,L.redis-.1,540,980,.35);q(cli,'.ok').style.opacity=t>L.rumaal?1:0;
+  const held=t>=L.rumaal,done=t>=L.unique,sx=st[5];sx.style.background=done?'#E6F6EC':(held?'#FFF4D6':'#F0F1F5');sx.style.borderColor=done?'var(--green)':(held?'#E8A317':'transparent');sx.style.color=held?'var(--ink)':'';
+  const tm=q(c,'.tm'),left=Math.max(0,120-(t-L.rumaal));tm.style.opacity=held?1:0;tm.textContent=Math.floor(left/60)+':'+String(Math.floor(left%60)).padStart(2,'0');tm.className='chip tm '+(done?'g':'am');
+  const lb=q(c,'.lb');lb.style.opacity=held?1:0;lb.textContent=done?'Seat 42 · booked, protected by DB':'Seat 42 · held for sharma';
+  rise(uq,t,L.unique,540,1141,.4)}};
+// ---------- shard ----------
+S.shard=(r,s)=>{const L=s.cues,h=head(r,'Teen,','sharding.');
+ const f=card(r,820,76,'<span class="mono" style="font-size:28px">shard = hash(train, date) % N</span>','dark');f.style.padding='0';f.style.display='flex';f.style.alignItems='center';f.style.justifyContent='center';
+ const nm=['Rajdhani','Howrah Mail','Shatabdi','Duronto'];
+ const cs=nm.map((n,i)=>card(r,430,230,`<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:32px;font-weight:700">${n}</span><span class="chip gr" style="font-size:22px;padding:4px 14px">shard ${i+1}</span></div><div class="bar" style="margin:26px 0 10px"><i class="f" style="width:24%;background:var(--green)"></i></div><div style="display:flex;justify-content:space-between;font-size:26px"><span class="mute">load</span><span class="v mono">24%</span></div><div class="tg" style="margin-top:12px;font-size:24px;font-weight:600;height:30px"></div>`));
+ const pos=i=>[320+(i%2)*440,790+Math.floor(i/2)*270];
+ return (t,l)=>{putHead(h,t,s.start+.15);rise(f,t,L.hash-.5,540,630,.4);
+  cs.forEach((c,i)=>{const [x,y]=pos(i);rise(c,t,L.hash-.1+i*.1,x,y,.4);const f=q(c,'.f'),v=q(c,'.v'),tg=q(c,'.tg');let w=22+5*Math.sin(t*2+i*2);
+   if(i===0){const u=E.out(P(t,L.hot,L.hot+1)),d=E.out(P(t,L.replica,L.replica+.9));w=22+72*u-46*d;f.style.background=w>70?'var(--red)':(d>0?'var(--green)':'#E8A317');tg.textContent=d>.4?'+2 replicas · smaller batches':(u>.5?'Hot shard':'');tg.style.color=d>.4?'var(--green)':'var(--red)'}
+   f.style.width=w+'%';v.textContent=Math.round(w)+'%'})}};
+// ---------- pay ----------
+S.pay=(r,s)=>{const L=s.cues,h=head(r,'Chaar,','payment.');
+ const c=card(r,900,590,`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:32px;font-weight:700">Order TK-48213</span><span class="mono" style="font-size:28px">₹1,245</span></div>
+ <div class="row r1"><span class="mono" style="font-size:24px">Idempotency-Key 7f3a9c</span><span class="chip b">Duplicate ignored</span></div>
+ <div class="row r2"><span>Payment</span><span class="chip g">Success</span></div>
+ <div class="row r3"><span>Ticket</span><span class="chip r">Failed</span></div>
+ <div class="row r4"><span>Reconciler<div class="sub mute" style="font-size:23px;margin-top:2px">Bank refund: <s class="old">5–7 working days</s></div></span><span class="chip am rf">Refund queued</span></div>
+ <div class="row r5"><span>Refund</span><span class="chip g">Done in 7s</span></div>`);
+ const rr=['.r1','.r2','.r3','.r4','.r5'].map(x=>q(c,x));
+ return (t,l)=>{putHead(h,t,s.start+.15);rise(c,t,s.start+.3,540,900);
+  const act=[L.idem,L.idem+.9,L.fail,L.refund,L.fast],fin=[['b','Duplicate ignored'],['g','Success'],['r','Failed'],['am','Refund queued'],['g','Done in 7s']];rr.forEach((e,i)=>{const on=t>=act[i],ch=e.querySelector('.chip');ch.className='chip '+(on?fin[i][0]:'gr');ch.textContent=on?fin[i][1]:'Pending';e.style.opacity=on?1:.4});
+  q(c,'.old').style.textDecoration=t>L.old?'line-through':'none';q(c,'.old').style.opacity=t>L.old+.4?.5:1;
+  const nr=rr[2];nr.style.background=t>L.fail?'#FFF7F7':'';}};
+// ---------- outro ----------
+S.outro=(r,s)=>{const L=s.cues,h=head(r,'Aakhir mein,','kismat.');
+ const c=card(r,900,380,`<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:30px;font-weight:700">PNR 4521098873</div><div class="mute" style="font-size:24px;margin-top:4px">12951 · Mumbai Rajdhani · 3A</div></div><span class="chip am">Waiting list</span></div>
+ <div style="margin-top:30px"><div class="mute" style="font-size:24px">Current status</div><div class="wl mono" style="font-size:96px;color:var(--coral);line-height:1.1">Still WL</div><div class="mute" style="font-size:26px;margin-top:6px">No change since 10:00 AM</div></div>`);
+ const b1=$(r,'padding:16px 28px;border-radius:26px;background:#EDEDF1;font-size:28px','Bhaiya, confirm hua?'),b2=$(r,'padding:16px 28px;border-radius:26px;background:var(--blue);color:#fff;font-size:28px','Humesha same halat.');
+ const end=card(r,900,360,'<div style="font-family:Instr;font-style:italic;font-size:110px;color:var(--coral);line-height:1.05">Follow</div><div style="font-size:34px;margin-top:10px">Next: UPI, ₹10 chai edition</div><div class="mute" style="font-size:26px;margin-top:8px">Comment your worst Tatkal story</div>');end.style.textAlign='center';
+ return (t,l)=>{const fo=P(t,L.follow-.05,L.follow+.25);putHead(h,t,s.start+.15);h.a.style.opacity=h.b.style.opacity=1-fo;
+  rise(c,t,s.start+.3,540,830);c.style.opacity*=1-fo;rise(b1,t,L.wl+.4,330,1120,.4);rise(b2,t,L.wl+1.2,760,1200,.4);b1.style.opacity*=1-fo;b2.style.opacity*=1-fo;
+  rise(end,t,L.follow+.1,540,800,.5);}};
+// ---------- build ----------
+let sceneEls=[],capsAll=[],hits=[];
+function build(){
+ const stage=document.getElementById('stage');
+ sceneEls=T.scenes.map(sc=>{const r=document.createElement('div');r.className='scene';stage.appendChild(r);return {sc,r,upd:S[sc.id](r,sc)}});
+ capsAll=T.scenes.flatMap(sc=>sc.caps.map((c,i)=>({t0:c.t,t1:i+1<sc.caps.length?sc.caps[i+1].t:sc.start+sc.dur-.05,text:c.text,sc})));
+}
+const capEl=document.getElementById('cap');let lastCap=null;
+function renderCap(t){const c=capsAll.find(c=>t>=c.t0&&t<c.t1);if(!c){capEl.innerHTML='';lastCap=null;return}
+ if(lastCap!==c){lastCap=c;capEl.innerHTML='<span>'+c.text.replace(/\*([^*]+)\*/g,'<em>$1</em>')+'</span>'}
+ const a=P(t,c.t0,c.t0+.2),o=1-P(t,c.t1-.15,c.t1);capEl.style.opacity=Math.min(a,o+0);capEl.style.transform=`translateY(${(1-E.out(a))*14}px)`}
+window.renderAt=function(t){
+ let cur=sceneEls[sceneEls.length-1];for(const s of sceneEls)if(t>=s.sc.start&&t<s.sc.start+s.sc.dur){cur=s;break}
+ sceneEls.forEach(s=>s.r.style.display=s===cur?'block':'none');
+ const sc=cur.sc,ls=t-sc.start;cur.upd(t,ls,sc);
+ cur.r.style.opacity=Math.min(P(ls,0,.2),1-P(ls,sc.dur-.22,sc.dur));
+ document.getElementById('stage').style.transform=`scale(${1+.012*P(ls,0,sc.dur)})`;
+ document.getElementById('bg').style.background=`radial-gradient(900px 900px at 50% 40%,#fff,transparent 70%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cpath d='M70 63v14M63 70h14' stroke='%23d4d4dc' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") ${(t*4)%140}px ${(t*6)%140}px,#F1F1F4`;
+ renderCap(t)};
+window.ready=document.fonts.ready.then(()=>Promise.all(['700 40px Inter','italic 40px Instr','700 40px Mono'].map(f=>document.fonts.load(f,'A').catch(()=>[])))).catch(()=>{}).then(build);
+</script></body></html>

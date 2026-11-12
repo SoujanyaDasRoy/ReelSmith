@@ -1,0 +1,85 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - News Package</title>
+<style>
+@font-face{font-family:NP;font-weight:500;src:url(node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2)}
+@font-face{font-family:NP;font-weight:700;src:url(node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2)}
+@font-face{font-family:NP;font-weight:800;src:url(node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2)}
+@font-face{font-family:NM;font-weight:500;src:url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2)}
+@font-face{font-family:NM;font-weight:700;src:url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-700-normal.woff2)}
+:root{--acc:#E5322D;--ink:#0C1424;--gold:#E8B94A;--paper:#F2EEE3}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0A1426;font-family:NP,sans-serif;font-weight:700;color:#fff}
+#bg{position:absolute;inset:0;background:radial-gradient(1000px 800px at 70% 20%,#17306a,transparent 70%),radial-gradient(900px 700px at 10% 80%,#0f2352,transparent 70%),#0A1426}
+#bgl{position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.035) 0 2px,transparent 2px 60px)}
+.scene{position:absolute;inset:0;display:none}
+.tag{position:absolute;left:56px;top:196px;font-family:NM;font-size:17px;letter-spacing:.14em;padding:6px 14px;border:2px solid rgba(255,255,255,.7);transform-origin:left}
+.dateline{position:absolute;left:56px;top:262px;font-family:NM;font-weight:500;font-size:20px;letter-spacing:.16em;color:var(--gold)}
+.cards{position:absolute;left:56px;width:968px;top:310px;display:flex;flex-direction:column;gap:14px}
+.card{position:relative;background:var(--ink);border-top:6px solid var(--acc);padding:14px 24px 12px;font-size:36px;line-height:1.12;box-shadow:0 14px 30px rgba(0,0,0,.35);align-self:flex-start;max-width:968px}
+.card.dim{opacity:.55;border-top-color:#566}.card.ok{border-top-color:#3BC47A}.card.accent{border-top-color:var(--gold)}.card.alert{background:var(--acc)}
+.card .lab{font-family:NM;font-weight:500;font-size:17px;letter-spacing:.16em;color:#9fb0d6;margin-bottom:6px}
+.card.alert .lab{color:#ffd6d3}.card.strike .tx{text-decoration:line-through}
+.flap{display:flex;gap:8px;margin-top:6px}.tile{position:relative;width:76px;height:110px;background:#0b1020;border-radius:8px;font-family:NM;font-weight:700;font-size:78px;line-height:110px;text-align:center;box-shadow:inset 0 0 0 2px #1d2748;overflow:hidden}.tile:after{content:"";position:absolute;left:0;right:0;top:54px;height:3px;background:#05070f}.tile.c{width:34px}
+.mt{display:flex;align-items:center;gap:16px;font-size:30px}.mt .bar{position:relative;width:420px;height:26px;background:#14213f}.mt .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--gold)}.mt .bar u{position:absolute;top:-8px;bottom:-8px;width:0;border-left:3px dashed #fff;left:88%}
+.plate{position:absolute;right:50px;top:176px;width:230px;height:76px;background:linear-gradient(90deg,#c01f1a,var(--acc));transform:skewX(-14deg);display:flex;align-items:center;justify-content:center;box-shadow:inset 8px 0 0 var(--gold)}.plate span{transform:skewX(14deg);font-weight:800;font-size:28px;letter-spacing:.06em}
+#strap{position:absolute;left:56px;width:968px;top:1150px;height:210px}
+#strap .t{position:absolute;left:0;top:0;height:46px;background:var(--acc);color:#fff;font-family:NM;font-weight:700;font-size:20px;letter-spacing:.14em;padding:0 22px;line-height:46px}
+#strap .p{position:absolute;left:0;top:46px;right:100px;height:140px;background:var(--paper);color:var(--ink);padding:12px 26px;overflow:hidden}
+#strap .p .h{font-size:46px;line-height:1.05;font-weight:800;white-space:nowrap}#strap .p .e{font-size:27px;font-weight:500;margin-top:8px;color:#3a4358;white-space:nowrap;overflow:hidden}
+#strap .p .e em{font-style:normal;background:var(--acc);color:#fff;padding:0 8px}
+#strap .end{position:absolute;right:0;top:46px;width:100px;height:140px;background:var(--ink)}
+#src{position:absolute;right:56px;top:1372px;font-family:NM;font-size:17px;letter-spacing:.12em;opacity:.75;text-align:right}
+#sting{position:absolute;inset:0;display:none;z-index:6;background:#0A1426}
+#sting .pl{position:absolute;left:50%;top:50%;width:620px;height:200px;margin:-100px 0 0 -310px;background:linear-gradient(90deg,#c01f1a,var(--acc));transform:skewX(-14deg);display:flex;align-items:center;justify-content:center;box-shadow:inset 14px 0 0 var(--gold)}#sting .pl span{transform:skewX(14deg);font-weight:800;font-size:78px;letter-spacing:.05em}
+</style></head><body>
+<div id="bg"></div><div id="bgl"></div><div id="stage"></div>
+<div class="plate"><span>TATKAL NEWS</span></div>
+<div id="strap"><div class="t" id="st"></div><div class="p"><div class="h" id="sh"></div><div class="e" id="se"></div></div><div class="end"></div></div>
+<div id="src"></div><div id="sting"><div class="pl"><span>TATKAL NEWS</span></div></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),st=document.getElementById('st'),sh=document.getElementById('sh'),se=document.getElementById('se'),src=document.getElementById('src'),sting=document.getElementById('sting');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const SRC={hook:'IRCTC · TATKAL WINDOW',question:'INTERVIEW BOARD',naive:'DB METRICS · PRIMARY',race:'BOOKING LOG · SEAT 42',wait:'QUEUE SERVICE',lock:'REDIS · seat:12951:42',shard:'SHARD MAP',pay:'PAYMENT LEDGER',outro:'PNR 4521098873'};
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+function build(sc,idx){
+ const s=SD[sc.id],root=mk('scene');
+ root.appendChild(mk('tag',`SCHEMATIC / ILLUSTRATION · ITEM ${idx+1} OF ${T.scenes.length}`));
+ root.appendChild(mk('dateline',`12 NOV 2026 · 10:00 IST · TATKAL DESK`));
+ const cards=mk('cards');root.appendChild(cards);const els=[];let ec=null,ecEl=null;
+ s.items.forEach(it=>{if(it.k==='endcard'){ec=it;return;}const e=mk('card');cards.appendChild(e);els.push({it,e});});
+ if(ec){ecEl=mk('card',`<div class="lab">SIGN-OFF</div><div style="font-size:120px;font-weight:800;line-height:1">${esc(ec.lines[0])}</div><div class="tx" style="margin-top:14px;font-size:42px">${esc(ec.lines[1])}</div><div class="lab" style="margin-top:16px">${esc(ec.lines[2])}</div>`,'position:absolute;left:56px;top:340px;display:none;width:968px;padding:30px 32px');root.appendChild(ecEl);}
+ stage.appendChild(root);return {root,els,ec,ecEl,cards};
+}
+let lastScene=null,flipT=-9;
+function update(b,sc,s,t,idx){
+ const c=sc.cues,ls=t-sc.start;
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ if(b.ecEl){b.ecEl.style.display=endOn?'block':'none';b.ecEl.style.transform=`rotateX(${(1-BACK(P(t,AT(b.ec.at,c),AT(b.ec.at,c)+.4),1.5))*90}deg)`;}
+ b.cards.style.display=endOn?'none':'flex';
+ b.els.forEach(({it,e})=>{
+  const x=RESOLVE(it,t,c);e.style.display=x.vis?'block':'none';if(!x.vis)return;
+  const p=BACK(P(t,x.ta,x.ta+.3),1.5);e.style.transform=`rotateX(${(1-Math.min(p,1))*80}deg)`;e.style.transformOrigin='top';e.style.opacity=P(t,x.ta,x.ta+.08);
+  e.className='card '+(x.tone||'')+(x.flag==='strike'?' strike':'');
+  let h='';
+  if(it.k==='val'){const tx=x.text;h=`<div class="lab">${esc(it.label)} · NOW</div><div class="flap">${[...tx].map(ch=>`<div class="tile${/[0-9A-Z#]/.test(ch)?'':' c'}">${esc(ch)}</div>`).join('')}</div>`;}
+  else if(it.k==='meter')h=`<div class="mt"><span style="width:230px">${esc(it.label)}</span><div class="bar"><i style="width:${clamp(x.ratio)*100}%"></i><u></u></div><span>${esc(x.text)}</span></div>`;
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.038));h=`<span class="tx" style="font-family:NM;font-weight:500;font-size:30px">${esc(it.text.slice(0,n))}</span>`;}
+  else{h=`<span class="tx">${esc(x.text||'')}</span>`;e.style.display=x.text?'block':'none';}
+  e.innerHTML=h;
+ });
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id],ls=t-sc.start;
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t,idx);
+ // strap: category tab + headline + one English line; words flip vertically when the item changes
+ const flip=EZ.io(P(ls,0,.32));st.textContent=SD[sc.id].head[0].replace(/,$/,'').toUpperCase()+'  ·  '+(idx+1)+'/'+T.scenes.length;
+ sh.textContent=SD[sc.id].head[1];sh.style.transform=`translateY(${(1-flip)*60}px)`;sh.style.opacity=flip;st.style.background=ls<.32&&ls>.1?'#fff':'';st.style.color=ls<.32&&ls>.1?'#0C1424':'';
+ const cap=CAP(t,T.scenes);se.innerHTML=cap?esc(cap.text).replace(/\*([^*]+)\*/g,'<em>$1</em>'):'';src.textContent='SOURCE: '+(SRC[sc.id]||'');src.style.opacity=ls>.4?.75:0;
+ // sting at the very start: the plate slams in, then flies to the bug
+ if(t<1.1){sting.style.display='block';const p=BACK(P(t,0,.3),2),fly=EZ.io(P(t,.6,1.05));sting.style.opacity=1-fly;sting.firstChild.style.transform=`skewX(-14deg) scale(${Math.max(.01,p)*(1-fly*.62)}) translate(${fly*700}px,${-fly*820}px)`;if(t>.3&&t<.45){sting.firstChild.style.marginLeft=(-310+Math.sin(t*120)*8)+'px';}else sting.firstChild.style.marginLeft='-310px';}else sting.style.display='none';
+};
+window.ready=Promise.all(['500 40px NP','700 40px NP','800 40px NP','500 40px NM','700 40px NM'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach((sc,i)=>{built[sc.id]=build(sc,i);});});
+</script></body></html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Live Countdown</title>
+<style>
+@font-face{font-family:CD;font-weight:500;src:url(node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2)}
+@font-face{font-family:CD;font-weight:700;src:url(node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2)}
+@font-face{font-family:CDM;font-weight:500;src:url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2)}
+@font-face{font-family:CDM;font-weight:700;src:url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-700-normal.woff2)}
+:root{--or:#FF5B1F;--red:#FF3B30;--panel:#0B0E11;--line:rgba(222,232,238,.16);--tx:#F2F5F7;--mut:#7C878D}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#06080A;font-family:CD,sans-serif;color:var(--tx)}
+#clock{position:absolute;left:24px;top:190px;width:1032px;height:196px;background:var(--panel);border:1px solid var(--line);padding:18px 26px;display:flex;align-items:center;gap:22px}
+#clock .sign{font-weight:700;font-size:100px;color:var(--or);line-height:1}
+#clock .digits{font-family:CDM;font-weight:700;font-size:150px;line-height:1;display:flex;letter-spacing:0}
+#clock .d{display:inline-block;width:.62em;text-align:center;overflow:visible}#clock .c{display:inline-block;width:.34em;text-align:center}
+#clock .side{margin-left:auto;text-align:right;font-family:CDM;font-size:20px;letter-spacing:.14em;color:var(--mut);line-height:1.6}
+#clock .seg{display:flex;gap:4px;margin-top:6px;justify-content:flex-end}#clock .seg i{width:20px;height:8px;background:#1b2126}#clock .seg i.on{background:var(--or)}
+#clock.zero{background:var(--or);color:#0A0B0C;border-color:var(--or)}#clock.zero .sign{color:#0A0B0C}#clock.zero .side{color:#2a1306}#clock.zero .seg i{background:#7a2c0f}#clock.zero .seg i.on{background:#0A0B0C}
+#cells{position:absolute;left:24px;top:406px;width:1032px;height:850px}
+.cell{position:absolute;background:var(--panel);border:1px solid var(--line);overflow:hidden;padding:56px 22px 14px}
+.cell:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.36));pointer-events:none}
+.chip{position:absolute;left:0;top:0;display:flex;align-items:center;gap:10px;height:40px;padding:0 14px;background:rgba(6,8,10,.84);font-family:CDM;font-size:18px;letter-spacing:.1em;z-index:2}
+.chip b{width:11px;height:11px;background:var(--mut)}.chip.on b{background:var(--or)}.chip em{font-style:normal;color:var(--mut);letter-spacing:.06em}
+.cell.flag{background:var(--or);color:#0A0B0C;border-color:var(--or)}.cell.flag .chip{background:rgba(10,11,12,.9);color:var(--tx)}
+.cell .tx{font-weight:500;line-height:1.14}.cell.dimc .tx{color:var(--mut)}.cell .tx.strike{text-decoration:line-through}
+.cell .num{font-weight:700;letter-spacing:-.02em;line-height:1}
+.cell .bar{height:12px;background:#1b2126;margin-top:12px}.cell .bar i{display:block;height:100%;background:var(--or)}
+.cell.new{box-shadow:inset 0 0 0 3px var(--or)}
+#tr{position:absolute;left:24px;top:1286px;width:1032px;min-height:150px;padding:16px 22px;background:rgba(6,8,10,.86);border:1px solid var(--line)}
+#tr .hd{display:flex;align-items:center;gap:12px;font-family:CDM;font-size:18px;letter-spacing:.14em;color:var(--mut);margin-bottom:8px}
+#tr .hd b{width:12px;height:12px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red)}#tr .hd em{font-style:normal;color:var(--or)}
+#tr .tx{font-size:44px;font-weight:500;line-height:1.12}#tr .tx u{text-decoration:none;color:var(--or)}
+</style></head><body>
+<div id="clock"><div class="sign">T+</div><div class="digits" id="dg"></div><div class="side">MISSION CLOCK<br>REEL TIME<div class="seg" id="seg"></div></div></div>
+<div id="cells"></div>
+<div id="tr"><div class="hd"><b></b>LIVE TRANSCRIPT<em>NARRATOR</em></div><div class="tx" id="trt"></div></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,cells=document.getElementById('cells'),clockEl=document.getElementById('clock'),dg=document.getElementById('dg'),seg=document.getElementById('seg'),trt=document.getElementById('trt');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+for(let i=0;i<10;i++)seg.appendChild(document.createElement('i'));
+const CODE={text:'LOG',cmd:'CMD',val:'DATA',meter:'GAUGE'};
+const pool=[];function cell(i){if(!pool[i]){const e=document.createElement('div');e.className='cell';cells.appendChild(e);pool[i]=e;}return pool[i];}
+function layout(n){ // more cells as the moment nears
+ const W=1032,H=850,g=8;let cols=n<=2?1:2,rows=Math.ceil(n/cols);const cw=(W-g*(cols-1))/cols,ch=(H-g*(rows-1))/rows;const out=[];
+ for(let i=0;i<n;i++){const r=Math.floor(i/cols),c=i%cols;let w=cw,x=c*(cw+g);if(cols===2&&i===n-1&&n%2===1){w=W;x=0;}out.push({x,y:r*(ch+g),w,h:ch});}return out;}
+window.renderAt=function(t){
+ const sc=SCENE_AT(t,T.scenes),s=SD[sc.id],c=sc.cues,ls=t-sc.start;
+ // clock: whole-second ticks, digits drop 14px in 0.12 s
+ const sec=Math.floor(t),fr=t-sec,mm=String(Math.floor(sec/60)).padStart(2,'0'),ss=String(sec%60).padStart(2,'0');
+ const drop=(1-EZ.out(P(fr,0,.12)))*-14;
+ dg.innerHTML=[mm[0],mm[1],':',ss[0],ss[1]].map((ch,i)=>{const last=i===4||(i===3&&ss[1]==='0');return ch===':'?'<span class="c">:</span>':`<span class="d" style="transform:translateY(${last?drop:0}px)">${ch}</span>`;}).join('');
+ [...seg.children].forEach((e,i)=>e.className=i<Math.floor(fr*10)?'on':'');
+ const ec=s.items.find(i=>i.k==='endcard'),endOn=ec&&t>=AT(ec.at,c);
+ clockEl.classList.toggle('zero',!!endOn);
+ let list=[];
+ if(endOn){list=[{k:'endcard',it:ec}];}
+ else s.items.forEach(it=>{if(it.k==='endcard')return;const x=RESOLVE(it,t,c);if(x.vis)list.push({it,x,k:it.k});});
+ const L=layout(Math.max(1,list.length));
+ for(let i=0;i<pool.length;i++)if(pool[i])pool[i].style.display='none';
+ list.forEach((o,i)=>{
+  const e=cell(i),g=L[i];e.style.display='block';e.style.left=g.x+'px';e.style.top=g.y+'px';e.style.width=g.w+'px';e.style.height=g.h+'px';
+  const fs=clamp(g.h*.15,26,46);
+  if(o.k==='endcard'){e.className='cell flag';e.innerHTML=`<div class="chip on"><b></b>ZERO<em>ONE PICTURE</em></div><div class="num" style="font-size:150px;margin-top:40px">${esc(ec.lines[0])}</div><div class="tx" style="font-size:44px;margin-top:20px">${esc(ec.lines[1])}</div><div class="tx" style="font-size:28px;margin-top:14px;opacity:.8">${esc(ec.lines[2])}</div>`;return;}
+  const x=o.x,it=o.it,isNew=(t-x.ta)<.18;
+  const done=x.tone!=='dim',flag=x.tone==='alert'&&it.k==='text';
+  e.className='cell'+(flag?' flag':'')+(x.tone==='dim'?' dimc':'')+(isNew?' new':'');
+  const chip=`<div class="chip ${done?'on':''}"><b></b>${CODE[it.k]}<em>${flag?'EVENT':(done?'SYNCED':'PENDING')}</em></div>`;
+  let body='';
+  if(it.k==='val')body=`<div class="tx" style="font-size:24px;color:var(--mut);letter-spacing:.1em">${esc(it.label)}</div><div class="num" style="font-size:${Math.min(clamp(g.h*.4,60,170),(g.w-44)/(x.text.length*.62))}px;margin-top:8px">${esc(x.text)}</div>`;
+  else if(it.k==='meter')body=`<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="tx" style="font-size:26px;letter-spacing:.08em">${esc(it.label)}</span><span class="num" style="font-size:${fs+8}px">${esc(x.text)}</span></div><div class="bar"><i style="width:${clamp(x.ratio)*100}%"></i></div>`;
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.038));body=`<div class="tx" style="font-family:CDM;font-size:${fs-6}px">${esc(it.text.slice(0,n))}</div>`;}
+  else body=`<div class="tx${x.flag==='strike'?' strike':''}" style="font-size:${fs}px">${esc(x.text||'')}</div>`;
+  e.innerHTML=chip+body;
+ });
+ // live transcript: typed word by word, narrator marked orange
+ const cap=CAP(t,T.scenes);
+ if(cap){const plain=cap.text.replace(/\*/g,'');const n=Math.floor((t-cap.t0)/.028);const shown=plain.slice(0,n);let h=esc(shown);const m=cap.text.match(/\*([^*]+)\*/);if(m)h=h.replace(esc(m[1]),'<u>'+esc(m[1])+'</u>');trt.innerHTML=h;}else trt.innerHTML='';
+};
+window.ready=Promise.all(['500 40px CD','700 40px CD','500 40px CDM','700 40px CDM'].map(f=>document.fonts.load(f,'A').catch(()=>[])));
+</script></body></html>

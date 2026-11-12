@@ -1,0 +1,60 @@
+{
+  "anidoodle": {
+    "commit": "4ae27d2c281fcfd01bce87ab13dc5ad4df81a795",
+    "files": 81,
+    "bytes": 608218,
+    "synced": "2026-11-12T04:59:31.507Z"
+  },
+  "huashu-art-motion": {
+    "commit": "1468196505a51728686db118d52561aa27a25124",
+    "files": 97,
+    "bytes": 691623,
+    "synced": "2026-11-12T04:59:31.636Z"
+  },
+  "ClaudeAnimationBase": {
+    "commit": "0ac8bf2b31942376cb6b8c4074715595d512acd2",
+    "files": 3,
+    "bytes": 41406,
+    "synced": "2026-11-12T04:59:31.679Z"
+  },
+  "manim_skill": {
+    "commit": "cef045011722d285692e3381d12d4d637da56e18",
+    "files": 149,
+    "bytes": 1025889,
+    "synced": "2026-11-12T04:59:31.851Z"
+  },
+  "lemo-opuscar": {
+    "commit": "9eb7739a0fca4c6990fe966cb8b87b1930f7193a",
+    "files": 142,
+    "bytes": 1937474,
+    "synced": "2026-11-12T04:59:32.054Z"
+  },
+  "bang-motion": {
+    "commit": "c1aa65e921c970d858705fcb4a53a8294d1a4131",
+    "files": 22,
+    "bytes": 398344,
+    "synced": "2026-11-12T07:50:20.697Z",
+    "partial": true
+  },
+  "vox-explainer-skill": {
+    "commit": "7003225dc3ed1dee9e2ef8b91b05b82c04691aa9",
+    "files": 6,
+    "bytes": 30714,
+    "synced": "2026-11-12T07:50:20.697Z",
+    "partial": true
+  },
+  "claude-drawing-skill": {
+    "commit": "6af36dc717b63d6ddafb54d2eaa120cacd99ab4d",
+    "files": 7,
+    "bytes": 225655,
+    "synced": "2026-11-12T07:50:20.697Z",
+    "partial": true
+  },
+  "earshot": {
+    "commit": "4ac3d2ac2b151e1c23376f9ce7f3047a17050013",
+    "files": 12,
+    "bytes": 185967,
+    "synced": "2026-11-12T10:20:48.929Z",
+    "partial": true
+  }
+}

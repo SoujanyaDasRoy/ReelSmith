@@ -1,0 +1,92 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tatkal - Caption News</title>
+<style>
+@font-face{font-family:CN;font-weight:500;src:url(node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2)}
+@font-face{font-family:CN;font-weight:700;src:url(node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2)}
+@font-face{font-family:CN;font-weight:800;src:url(node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2)}
+@font-face{font-family:CN;font-weight:900;src:url(node_modules/@fontsource/inter/files/inter-latin-900-normal.woff2)}
+@font-face{font-family:CM;font-weight:500;src:url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2)}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0c0c0a;font-family:CN,sans-serif;color:#F7F5EF}
+.scene{position:absolute;inset:0;display:none;overflow:hidden}
+.bg{position:absolute;inset:-40px}
+.grad{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.55) 0,transparent 260px,transparent 560px,rgba(0,0,0,.84) 1250px,rgba(0,0,0,.92) 100%)}
+.bug{position:absolute;left:60px;top:196px;display:flex;align-items:center;height:48px}
+.bug b{background:#FFC21A;color:#0E0E0C;font-weight:900;font-size:28px;letter-spacing:.04em;padding:0 16px;height:48px;line-height:48px}
+.bug span{background:rgba(14,14,12,.78);font-family:CM;font-size:17px;letter-spacing:.14em;padding:0 14px;height:48px;line-height:48px;text-transform:uppercase}
+.src{position:absolute;left:60px;top:254px;display:flex;height:36px;font-size:17px;font-weight:700;letter-spacing:.1em}
+.src i{font-style:normal;background:#fff;color:#0E0E0C;padding:0 12px;line-height:36px}.src u{text-decoration:none;background:rgba(14,14,12,.85);padding:0 14px;line-height:36px;font-family:CM;font-weight:500}
+.rows{position:absolute;left:60px;width:960px;top:340px;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.line{display:inline-block;font-weight:800;font-size:50px;line-height:1.1;letter-spacing:-.01em;padding:4px 14px 4px 0;text-shadow:0 4px 18px rgba(0,0,0,.65)}
+.line.hl{background:#FFC21A;color:#0E0E0C;padding:4px 16px;text-shadow:none}.line.dim{opacity:.5;font-weight:700}.line.acc{color:#FFC21A}.line.strike{text-decoration:line-through}
+.mono{font-family:CM;font-weight:500;font-size:26px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+.giant{font-weight:900;font-size:176px;letter-spacing:-.045em;line-height:.9;text-shadow:0 8px 30px rgba(0,0,0,.6)}
+.mt{width:960px}.mt .bar{height:30px;background:rgba(255,255,255,.18);margin-top:8px}.mt .bar i{display:block;height:100%;background:#F7F5EF}.mt.alertbar .bar i{background:#FFC21A}
+#cap{position:absolute;left:60px;top:1296px;width:960px}
+#cap .big{font-weight:900;font-size:90px;line-height:1.03;letter-spacing:-.025em;text-shadow:0 6px 22px rgba(0,0,0,.7)}
+#cap .ch{display:inline-block;margin-right:20px;transform-origin:left bottom}
+#cap .kw{position:relative;color:#0E0E0C;padding:0 10px}#cap .kw:before{content:"";position:absolute;inset:4px 0 0 0;background:#FFC21A;z-index:-1;transform-origin:left;transform:scaleX(var(--w,1))}
+#cap .sm{font-weight:500;font-size:32px;color:#F7F5EF;opacity:.9;margin-top:10px}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:9}
+</style></head><body>
+<div id="stage"></div><div id="cap"></div><div id="flash"></div>
+<script src="styles_data.js"></script>
+<script>
+const T=window.T,stage=document.getElementById('stage'),capEl=document.getElementById('cap'),flash=document.getElementById('flash');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const SRC={hook:'IRCTC · TATKAL WINDOW',question:'INTERVIEW BOARD',naive:'DB METRICS · PRIMARY',race:'BOOKING LOG · SEAT 42',wait:'QUEUE SERVICE',lock:'REDIS · seat:12951:42',shard:'SHARD MAP · HASH(TRAIN,DATE)',pay:'PAYMENT LEDGER · TK-48213',outro:'PNR 4521098873'};
+const TINT=['#14110a','#0e1219','#190e0e','#0e1712','#14100f','#0d1417','#17120d','#101018','#0d0f0e'];
+const built={};
+function mk(cls,html,css){const e=document.createElement('div');if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(css)e.style.cssText=css;return e;}
+function build(sc,idx){
+ const s=SD[sc.id],root=mk('scene');
+ root.appendChild(mk('bg','',`background:radial-gradient(900px 700px at 70% 30%,rgba(255,255,255,.07),transparent 60%),linear-gradient(160deg,${TINT[idx%9]},#050505)`));
+ root.appendChild(mk('grad'));
+ root.appendChild(mk('bug',`<b>TATKAL DESK</b><span>${esc(s.head[1])}</span>`));
+ const src=mk('src',`<i>SOURCE</i><u>${esc(SRC[sc.id]||'')}</u>`);root.appendChild(src);
+ const rows=mk('rows');root.appendChild(rows);const els=[];let ec=null,ecEl=null;
+ s.items.forEach(it=>{if(it.k==='endcard'){ec=it;return;}const e=mk('');rows.appendChild(e);els.push({it,e});});
+ if(ec){ecEl=mk('',`<div class="giant" style="font-size:190px">${esc(ec.lines[0])}</div><div class="line hl" style="margin-top:20px">${esc(ec.lines[1])}</div><div class="mono" style="margin-top:20px">${esc(ec.lines[2])}</div>`,'position:absolute;left:60px;top:420px;display:none');root.appendChild(ecEl);}
+ stage.appendChild(root);return {root,src,rows,els,ec,ecEl,bg:root.querySelector('.bg')};
+}
+function update(b,sc,s,t){
+ const c=sc.cues,ls=t-sc.start;
+ b.bg.style.transform=`scale(${1+.05*P(ls,0,sc.dur)}) translateX(${-12*P(ls,0,sc.dur)}px)`;
+ b.src.style.transform=`translateX(${-(1-EZ.out(P(ls,.4,.6)))*120}%)`;b.src.style.opacity=P(ls,.4,.45);
+ const endOn=b.ec&&t>=AT(b.ec.at,c);
+ if(b.ecEl){b.ecEl.style.display=endOn?'block':'none';b.ecEl.style.transform=`translateX(${(1-EZ.out(P(t,AT(b.ec.at,c),AT(b.ec.at,c)+.18)))*110}%)`;}
+ b.rows.style.display=endOn?'none':'flex';
+ let hlIdx=-1;b.els.forEach(({it},i)=>{const x=RESOLVE(it,t,c);if(x.vis&&x.tone==='alert')hlIdx=i;});
+ b.els.forEach(({it,e},i)=>{
+  const x=RESOLVE(it,t,c);e.style.display=x.vis?'block':'none';if(!x.vis)return;
+  const p=EZ.out(P(t,x.ta,x.ta+.18));e.style.transform=`translateX(${-(1-p)*60}px)`;e.style.opacity=P(t,x.ta,x.ta+.06);
+  if(it.k==='val'){const sweep=EZ.io(P(t,x.ta,x.ta+.35));e.innerHTML=`<div class="mono">${esc(it.label)}</div><div class="giant" style="position:relative">${esc(x.text)}</div><div style="height:12px;width:${sweep*620}px;background:#FFC21A;margin-top:8px"></div>`;}
+  else if(it.k==='meter'){e.innerHTML=`<div class="mt ${x.tone==='alert'?'alertbar':''}"><div style="display:flex;justify-content:space-between"><span class="mono">${esc(it.label)}</span><span class="line" style="padding:0;font-size:44px">${esc(x.text)}</span></div><div class="bar"><i style="width:${clamp(x.ratio)*100}%"></i></div></div>`;}
+  else if(it.k==='cmd'){const n=Math.max(0,Math.floor((t-x.ta)/.038));e.innerHTML=`<div class="line acc" style="font-family:CM;font-weight:500;font-size:38px">${esc(it.text.slice(0,n))}</div>`;}
+  else{const cls='line'+(x.tone==='alert'?' hl':'')+(x.tone==='dim'?' dim':'')+(x.tone==='accent'?' acc':'')+(x.flag==='strike'?' strike':'');e.innerHTML=x.text?`<span class="${cls}">${esc(x.text)}</span>`:'';}
+ });
+}
+// big caption: 2-3 chunks, each slams (scale 1.3 -> 1, back ease), keyword on a yellow block
+function setCap(cap,t,sc){
+ if(!cap){capEl.innerHTML='';capEl.dataset.k='';return;}
+ const key=cap.text+cap.t0;
+ if(capEl.dataset.k!==key){capEl.dataset.k=key;
+  const m=cap.text.match(/\*([^*]+)\*/);const kw=m?m[1]:null;const plain=cap.text.replace(/\*/g,'');
+  const words=cap.text.split(/\s+/);const per=Math.max(1,Math.ceil(words.length/(words.length>5?3:(words.length>2?2:1))));
+  const chunks=[];for(let i=0;i<words.length;i+=per)chunks.push(words.slice(i,i+per).join(' '));
+  capEl.innerHTML='<div class="big">'+chunks.map(ch=>{const h=esc(ch).replace(/\*([^*]+)\*/g,'<span class="kw">$1</span>').replace(/\*/g,'');return `<span class="ch">${h}</span>`;}).join('')+'</div><div class="sm"></div>';
+  capEl.querySelector('.sm').textContent=SD[sc.id].head.join(' ').replace(/,\s/g,', ');}
+ capEl.querySelectorAll('.ch').forEach((ch,i)=>{const p=P(t,cap.t0+i*.12,cap.t0+i*.12+.13);const s=1.3-.3*BACK(p,1.6);ch.style.transform=`scale(${p>0?s:1.3})`;ch.style.opacity=P(t,cap.t0+i*.12,cap.t0+i*.12+.04);const kw=ch.querySelector('.kw');if(kw)kw.style.setProperty('--w',EZ.out(P(t,cap.t0+i*.12+.12,cap.t0+i*.12+.24)));});
+ capEl.querySelector('.sm').style.opacity=P(t,cap.t0+.1,cap.t0+.28);
+}
+window.renderAt=function(t){
+ const idx=T.scenes.indexOf(SCENE_AT(t,T.scenes)),sc=T.scenes[idx],s=SD[sc.id];
+ for(const id in built)built[id].root.style.display='none';
+ const b=built[sc.id];b.root.style.display='block';update(b,sc,s,t);
+ setCap(CAP(t,T.scenes),t,sc);
+ // 2-frame white flash on the turns
+ let f=0;for(const [scid,cue] of [['naive','crash'],['race','dup'],['outro','kismat']]){const s2=T.scenes.find(x=>x.id===scid);if(s2){const d=t-s2.cues[cue];if(d>=0&&d<2/30)f=1;}}
+ flash.style.opacity=f?.9:0;
+};
+window.ready=Promise.all(['500 40px CN','700 40px CN','800 40px CN','900 40px CN','500 40px CM'].map(f=>document.fonts.load(f,'A').catch(()=>[]))).then(()=>{T.scenes.forEach((sc,i)=>{built[sc.id]=build(sc,i);});});
+</script></body></html>
