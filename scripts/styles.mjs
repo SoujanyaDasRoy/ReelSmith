@@ -53,13 +53,16 @@ if (cmd === 'menu') {
 } else if (cmd === 'recommend') {
   // keyword rules, not intelligence: scores situations by topic words, returns best READY pick + one alternative from the runner-up (or a related) situation.
   // The agent still decides; this makes the table testable. node styles.mjs recommend "how UPI avoids double payment" [--json]
-  const topic = args.filter(a => !a.startsWith('--')).join(' ').toLowerCase(), words = new Set(topic.split(/[^a-z0-9]+/).filter(Boolean));
-  const scored = sit.map((s, i) => ({ i, score: (s.keywords || '').split(/\s+/).filter(k => words.has(k)).length })).filter(x => x.score > 0).sort((a, b) => b.score - a.score || a.i - b.i);
+  const stem = w => w.length > 3 ? w.replace(/(es|s)$/, '') : w, topic = args.filter(a => !a.startsWith('--')).join(' ').toLowerCase(), words = new Set(topic.split(/[^a-z0-9]+/).filter(Boolean).map(stem));
+  const scored = sit.map((s, i) => ({ i, score: new Set((s.keywords || '').split(/\s+/).filter(Boolean).map(stem)).size && [...new Set((s.keywords || '').split(/\s+/).filter(Boolean).map(stem))].filter(k => words.has(k)).length })).filter(x => x.score > 0).sort((a, b) => b.score - a.score || b.i - a.i); // ties: the more specific (later) situation beats the broad tech bucket
   const firstReady = (si, skip) => sit[si].picks.find(p => isReady(p[0]) && p[0] !== skip);
-  const top = scored[0] ? scored[0].i : 0, second = scored[1] ? scored[1].i : (sit[top].also || [])[0];
-  const best = firstReady(top), alt = (second !== undefined && firstReady(second, best[0])) || sit[top].picks.find(p => isReady(p[0]) && p[0] !== best[0]);
-  const res = { situation: sit[top].situation, pick: best[0], tone: best[2], alternative: alt && alt[0], alt_tone: alt && alt[2], alt_situation: second !== undefined ? sit[second].situation : null, ask_tone: !!(alt && alt[2] !== best[2]), matched: !!scored[0] };
-  console.log(args.includes('--json') ? JSON.stringify(res) : `${res.matched ? '' : '(no keyword match, default situation) '}${res.situation}\n  suggest: ${res.pick} (${res.tone})\n  alternative: ${res.alternative} (${res.alt_tone}) from ${res.alt_situation}\n  ask about tone: ${res.ask_tone ? 'yes, the two differ in mood' : 'no'}`);
+  let res;
+  if (!scored.length) res = { matched: false, pick: null, alternative: null, note: 'no keyword match: choose from references/style-menu.md by judgement (closest situation, READY styles first). Safe neutral default if unsure: ui-cards/clean-ui.' };
+  else {
+    const top = scored[0].i, second = scored[1] ? scored[1].i : (sit[top].also || [])[0], best = firstReady(top), alt = (second !== undefined && firstReady(second, best[0])) || sit[top].picks.find(p => isReady(p[0]) && p[0] !== best[0]);
+    res = { matched: true, situation: sit[top].situation, pick: best[0], tone: best[2], alternative: alt && alt[0], alt_tone: alt && alt[2], alt_situation: second !== undefined ? sit[second].situation : null, ask_tone: !!(alt && alt[2] !== best[2]), confidence: scored[0].score >= 2 && (!scored[1] || scored[0].score > scored[1].score) ? 'good' : 'weak: confirm with the user' };
+  }
+  console.log(args.includes('--json') ? JSON.stringify(res) : !res.matched ? res.note : `${res.situation} (${res.confidence})\n  suggest: ${res.pick} (${res.tone})\n  alternative: ${res.alternative} (${res.alt_tone}) from ${res.alt_situation}\n  ask about tone: ${res.ask_tone ? 'yes, the two differ in mood' : 'no'}`);
 } else if (cmd === 'preview') {
   // one still of the user's real script in each style, side by side. Run inside a project (script.json, build/timings.json, styles_data.js via build_sd.mjs).
   //   node styles.mjs preview own/system-diagram lemo/spy-titles [--t 3]      output: build/preview.jpg
